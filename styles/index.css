@@ -1,6 +1,9 @@
 *{
     margin: 0;
+
     padding: 0;
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+    font-family: 'Montserrat', sans-serif;
 }
 
 body{
@@ -8,7 +11,7 @@ body{
 }
 
 .header{
-    background-color: #1976D2;
+    background-color: #3212FD;
     height: 10vh;
     width: 100%;
 }
@@ -42,20 +45,68 @@ body{
     border-bottom: 2px solid #0D47A1;
 }
 
-.wallpaper img{
-    width: 100%;
-    height: 90vh;
+.wallpaper{
+    background-image: url('../img/wallpaper_4.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    overflow: hidden;
 }
 
+@keyframes meio{
+    to{top: 30%;}
+    from{top: 0;}
+}
+
+
+
+
+/* The animation code */
+@keyframes example {
+   to{left: 55%; color: white; text-shadow: -17px 9px 0px #2002DA;}
+   from{left:-50%;} 
+  }
+  
+  /* The element to apply the animation to */
+  .text{
+      position: relative;
+      top: 30%;
+    animation-name: example;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+  }
+
+.text h1{
+    font-size: 13rem;
+}
+
+.text h3{
+    letter-spacing: 3px;
+    font-size: 3rem;
+    position: relative;
+    right: 4rem;
+    bottom: 1rem;
+}
+
+
+
+
+
 .sig{
-    background-color: #0D47A1;
+    background-color: #3212FD;
+    color: white;
 }
 
 .sig .container{
     width: 90%;
-    height: 70vh;
+    height: 100vh;
     margin: auto;
-    background-color: #1D0DA1;
+}
+
+.sig section{
+    padding: 2rem;
+    font-size: 2rem;
 }
 
 .articles{
