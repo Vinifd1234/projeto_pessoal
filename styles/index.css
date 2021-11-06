@@ -1,12 +1,7 @@
 *{
     margin: 0;
-
     padding: 0;
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
-    font-family: 'Montserrat', sans-serif;
-}
-
-body{
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins:wght@300;500;600&display=swap');
 
 }
 
@@ -15,6 +10,7 @@ body{
     background-color: #0D0159;
     height: 10vh;
     width: 100%;
+    font-family: 'Poppins', sans-serif;
 }
 
 .header .container{
@@ -53,6 +49,7 @@ body{
     background-position: center;
     height: 100vh;
     overflow: hidden;
+    font-family: 'Poppins', sans-serif;
 }
 
 @keyframes meio{
@@ -70,21 +67,24 @@ body{
   .text{
       position: relative;
       top: 30%;
+      left: 55%;
+      color: white; 
+      text-shadow: -17px 9px 0px #2002DA;
     animation-name: example;
     animation-duration: 1.5s;
-    animation-fill-mode: forwards;
   }
 
 .text h1{
-    font-size: 13rem;
+    font-size: 13vw;
 }
 
 .text h3{
     letter-spacing: 3px;
-    font-size: 3rem;
+    font-size: 3vw;
     position: relative;
     right: 4rem;
     bottom: 1rem;
+    text-shadow: none;
 }
 
 
@@ -94,6 +94,8 @@ body{
 .sig{
     background-color: #1802A6;
     color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
 }
 
 .sig .container{
@@ -111,6 +113,7 @@ body{
     width: 100%;
     height: 100vh;
     background-color: #5A45DF;
+    font-family: 'Poppins', sans-serif;
 }
 
 .articles .container{
@@ -133,6 +136,10 @@ body{
 }
 
 .articles .post{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    cursor: pointer;
     background-color: #0D91A1;
     text-align: center;
     flex-basis: 40%;
@@ -166,9 +173,10 @@ body{
 
 
 .footer{  
-    height: 70vh;
+    height: 35vh;
     background-color: #0D0159;
     color: white;
+    font-family: 'Poppins', sans-serif;
 }
 
 .footer .container{
