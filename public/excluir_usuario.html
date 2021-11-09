@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form_cadastro" method="post" onsubmit="return fnRequisicao()">
+        <input name="id" type="text" placeholder="id do usuário">
+        <button>Excluir usuário</button>
+    </form>
+</body>
+</html>
+<script>
+    function fnRequisicao(){
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+
+        fetch("/usuarios/excluir", {
+                method: "POST",
+                body: formulario
+            }).then(function (resposta) {
+                
+
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    console.log(resposta);
+                    
+                } else {
+                    throw ("Houve um erro ao tentar excluir o usuário!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+            return false;
+    }
+</script>

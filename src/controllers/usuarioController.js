@@ -7,6 +7,19 @@ function testar(req, res) {
     res.json("ESTAMOS FUNCIONANDO!");
 }
 
+function excluir(req, res){
+    var id = req.body.id;
+    
+    console.log("Entramos na controller de exclusão :D");
+    usuarioModel.excluir(id).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(function(erro){
+        console.log(erro);
+    })
+}
+
 function listar(req, res) {
     usuarioModel.listar()
         .then(function (resultado) {
@@ -99,5 +112,6 @@ module.exports = {
     entrar,
     cadastrar,
     listar,
-    testar
+    testar,
+    excluir
 }
