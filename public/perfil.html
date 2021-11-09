@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .boxes{
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 80vh;
+            background-color: aqua;
+        }
+
+        .box{
+            flex-basis: 300px;
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bem vindo, usuário!!</h1>
+    <div id="boxes" class="boxes">
+    </div>
+</body>
+</html>
+<script>
+
+
+    fetch("/usuarios/listar", {
+    method: "GET",
+    mode: "cors"
+    })
+    .then(function(resposta){
+        resposta.json().then(function(dados){
+            dados.forEach(element => {
+                boxes.innerHTML += ` <div class="box">
+                    <p>Id do usuário: ${element.id}</p>
+                    <p>Nome do usuário: ${element.nome}</p>
+                    <p>Sobrenome do usuário: ${element.sobrenome}</p>
+                    <p>Email do usuário: ${element.email}</p>
+                    <p>Telefone do usuário: ${element.telefone}</p>
+                    </div>`;
+            });
+        })
+    })
+    .catch()
+
+</script>

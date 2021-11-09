@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="styles/cadastro.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>S.I.G</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Artigos</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="wallpaper">
+        <div class="cadastro">
+            <div class="container">
+                <div class="one">
+                    <p>Cadastro</p>
+                </div>
+                <div class="two">
+                    <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
+                        <input name="nome" type="text" placeholder="Nome">
+                        <input name="sobrenome" type="text" placeholder="Sobrenome">
+                        <input name="email" type="text" placeholder="email">
+                        <input name="senha" type="password" placeholder="senha">
+                        <input name="confirmacao_senha" type="password" placeholder=" digite a senha novamente">
+                        <input name="telefone" id="input_telefone" type="text" placeholder="telefone: (ddd) 96635-4166" maxlength="10" onkeyup="fnTelefone()">
+                        </div>
+                        <button>Fazer cadastro</button>
+                    </form>
+                </div>
+                <div class="three">
+                    <p>Já possui uma conta?<a href="#">Fazer login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+
+
+    // Máscara de validação do telefone
+    function fnTelefone(){
+       
+        var telefone = input_telefone.value;
+
+        if(telefone.length == 5){
+            input_telefone.value += '-';
+        }
+
+        if(telefone.length == 6 && telefone[5] != '-'){
+            input_telefone[6] = input_telefone[5];
+            input_telefone[5] = '-';
+        }
+    }
+
+    function limparFormulario() {
+        document.getElementById("form_cadastro").reset();
+    }
+
+
+
+    function cadastrar() {
+
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+
+        var nome = formulario.get("nome");
+        var sobrenome = formulario.get("sobrenome");
+        var email = formulario.get("email");
+        var senha = formulario.get("senha");
+        var confirmacaoSenha = formulario.get("confirmacao_senha");
+        var telefone = formulario.get("telefone");
+
+        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
+        //Validações caso o campo estja vazio!
+        if (nome == "") {
+            alert('Preencha o campo nome');
+        } else if (sobrenome == "") {
+            alert("Preencha o campo sobrenome");
+        } else if (email == "") {
+            alert("Preencha o campo email");
+        } else if (senha == "") {
+            alert("Preencha o campo senha")
+        } else if (confirmacaoSenha == "") {
+            alert("Preencha o campo confirmação senha");
+        } else if (telefone == "") {
+            alert("Preencha o campo de telefone");
+            //Validações caso o campo email esteja no formato incorreto.
+        } else if (email.indexOf('@') == -1 && email.indexOf('.') == -1) {
+            alert('Email no formato incorreto.');
+        } else {
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                body: formulario
+            }).then(function (resposta) {
+
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    window.alert("Cadastro realizado com sucesso!");
+                    window.location = "login.html";
+                    limparFormulario();
+                } else {
+                    throw ("Houve um erro ao tentar realizar o cadastro!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+            return false;
+        }
+
+    }
+</script>>
