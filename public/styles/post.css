@@ -1,0 +1,159 @@
+*{
+    margin: 0;
+    padding: 0;
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins:wght@300;500;600&display=swap');
+
+}
+
+.header{
+    color: white;
+    background-color: #0D0159;
+    height: 10vh;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.header .container{
+    width: 90%;
+    height: inherit;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header h1:hover{
+    border-bottom: 2px solid #0D47A1;
+}
+
+.header ul{
+    display: flex;
+    justify-content: space-evenly;
+    width: 30%;
+    list-style: none;
+}
+
+.header a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.header a:hover{
+    border-bottom: 2px solid #0D47A1;
+}
+
+.conteudo{
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.conteudo .container{
+    width: 77%;
+    margin: auto;
+    border: 1px solid gray;
+    color: gray;
+}
+
+.wallpaper{
+    background-image: url('../img/wallpaper_1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+ 
+}
+
+.wallpaper .text{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+}
+
+.titulo{
+    color: black;
+    font-weight: bolder;
+    font-size: 3vw;
+}
+
+.paragrafo{
+    font-size: 1.2vw;
+}
+
+.conteudo section{
+    padding: 3vw;
+}
+
+.sobre{
+    display: flex;
+    justify-content: center;
+}
+
+.autor{
+    width: 50%;
+    display: flex;
+}
+
+.autor img{
+    width: 8vw;
+    border-radius: 50%;
+}
+
+.text{
+    display: block;
+}
+
+.footer{  
+    height: 35vh;
+    background-color: #0D0159;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.footer .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    height: inherit;
+    margin: auto;   
+}
+
+.footer .cards{
+    display: flex;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 2rem;
+    
+}
+
+.footer .card{
+    flex-basis: 25%;
+    border-radius: 20%;
+    background-color: #8511D0;
+    text-align: center;
+    background-color: #041370;
+}
+
+.card ul{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+.footer .rights{
+    flex-basis: 0;
+    flex-grow: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
