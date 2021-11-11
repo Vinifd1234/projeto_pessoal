@@ -16,7 +16,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#">Artigos</a></li>
-                <li><a href="login.html">Login</a></li>
+                <li><a id="nav_login" href="login.html">Login</a></li>
             </ul>
         </div>
     </div>
@@ -84,5 +84,14 @@
         </div>
     </div>
 </body>
-
 </html>
+<script>
+    var myStorage = window.localStorage;
+    var logado = myStorage.getItem('logado');
+    if(logado){
+        nav_login.innerHTML = "estou logado!!";
+    }else{
+        nav_login.innerHTML = "Login";
+
+    }
+</script>

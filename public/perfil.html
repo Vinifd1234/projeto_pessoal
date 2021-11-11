@@ -1,56 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-
-        .boxes{
-            display: flex;
-            flex-wrap: wrap;
-            width: 100%;
-            height: 80vh;
-            background-color: aqua;
-        }
-
-        .box{
-            flex-basis: 300px;
-            flex-grow: 1;
-        }
-    </style>
+    <title>Perfil</title>
+    <link rel="stylesheet" href="styles/perfil.css">
 </head>
+
 <body>
-    <h1>Bem vindo, usuário!!</h1>
-    <div id="boxes" class="boxes">
+    <div class="header">
+        <div class="container">
+            <h1>S.I.G</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Artigos</a></li>
+                <li><a id="nav_login" href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info">
+        <div class="container">
+            <h1>Bem vindo ao seu perfil, <span id="nome_usuario"></span></h1>
+            <h2>Esses são seus dados cadastrados:</h2>
+            <div id="dados_usuario"></div>
+            <button>Atualizar dados</button>
+            
+        </div>
     </div>
 </body>
+
 </html>
 <script>
+    var myStorage = window.localStorage;
+    var id_usuario = Number(myStorage.getItem('id'));
+    const data = {id_usuario: id_usuario};
 
-
-    fetch("/usuarios/listar", {
-    method: "GET",
-    mode: "cors"
-    })
-    .then(function(resposta){
+    fetch("/usuarios/listar1usuario", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    }).
+    then(function(resposta){
         resposta.json().then(function(dados){
-            dados.forEach(element => {
-                boxes.innerHTML += ` <div class="box">
-                    <p>Id do usuário: ${element.id}</p>
-                    <p>Nome do usuário: ${element.nome}</p>
-                    <p>Sobrenome do usuário: ${element.sobrenome}</p>
-                    <p>Email do usuário: ${element.email}</p>
-                    <p>Telefone do usuário: ${element.telefone}</p>
-                    </div>`;
-            });
+            nome_usuario.innerHTML = (dados[0].nome);
+            dados_usuario.innerHTML = `<p>Nome completo: ${dados[0].nome} ${dados[0].sobrenome}</p>
+            <p>Email: ${dados[0].email}</p>
+            <p>Telefone: ${dados[0].telefone}`;
         })
     })
     .catch()
-
 </script>

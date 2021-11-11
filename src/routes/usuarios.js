@@ -23,4 +23,8 @@ router.post("/excluir", function(req, res) {
     usuarioController.excluir(req, res);
 });
 
+router.post("/listar1usuario", function(req, res) {
+    usuarioController.listar1usuario(req, res);
+});
+
 module.exports = router;

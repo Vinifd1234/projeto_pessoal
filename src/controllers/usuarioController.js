@@ -37,6 +37,20 @@ function listar(req, res) {
         );
 }
 
+function listar1usuario(req, res){
+    var id = req.body.id_usuario;
+    usuarioModel.listar1usuario(id).
+    then(function (resultado){
+            res.status(200).json(resultado);
+    })
+    .catch(function(erro){
+        console.log(erro);
+        console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+    })
+
+}
+
 function entrar(req, res) {
     var email = req.body.email;
     var senha = req.body.senha;
@@ -112,6 +126,7 @@ module.exports = {
     entrar,
     cadastrar,
     listar,
+    listar1usuario,
     testar,
     excluir
 }

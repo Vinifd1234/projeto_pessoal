@@ -43,6 +43,7 @@
 </body>
 </html>
 <script>
+     
     function limparFormulario() {
         document.getElementById("form_login").reset();
     }
@@ -75,8 +76,11 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
-
                     window.location = "perfil.html";
+                    var myStorage = window.localStorage;
+                    myStorage.setItem('logado', true);
+                    myStorage.setItem('id', json.id);
+                    
                 });
 
             } else {
