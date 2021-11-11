@@ -54,26 +54,15 @@
     color: gray;
 }
 
-.wallpaper{
-    background-image: url('../img/wallpaper_1.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 50vh;
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
- 
-}
-
-.wallpaper .text{
+.conteudo .img{
+    max-width: 100%;
     width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-
 }
+
+.conteudo .img img{
+    max-width: 100%;
+}
+
 
 .titulo{
     color: black;
@@ -86,7 +75,7 @@
 }
 
 .conteudo section{
-    padding: 3vw;
+    padding: 3rem;
 }
 
 .sobre{
@@ -95,14 +84,11 @@
 }
 
 .autor{
-    width: 50%;
     display: flex;
 }
 
-.imagem_autor{
+.autor img{
     width: 8rem;
-    border-radius: 50%;
-    background-image: url('../img/minha_foto.jpg');
 }
 
 .text{
