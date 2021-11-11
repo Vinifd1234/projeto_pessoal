@@ -78,11 +78,11 @@
 .titulo{
     color: black;
     font-weight: bolder;
-    font-size: 3vw;
+    font-size: 3rem;
 }
 
 .paragrafo{
-    font-size: 1.2vw;
+    font-size: 1.2rem;
 }
 
 .conteudo section{
@@ -99,9 +99,10 @@
     display: flex;
 }
 
-.autor img{
-    width: 8vw;
+.imagem_autor{
+    width: 8rem;
     border-radius: 50%;
+    background-image: url('../img/minha_foto.jpg');
 }
 
 .text{
