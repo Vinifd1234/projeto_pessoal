@@ -17,29 +17,38 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#">Artigos</a></li>
                 <li><a id="nav_login" href="login.html">Login</a></li>
+                <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
+                
             </ul>
         </div>
     </div>
 
     <div class="wallpaper">
         <div class="text">
-        <h1>S.I.G</h1>
-        <h3>Self Improvement General</h3>
-    </div>
+            <h1>S.I.G</h1>
+            <h3>Self Improvement General</h3>
+        </div>
     </div>
 
     <div class="sig">
         <div class="container">
-        <section>
-            <h2>O que é <strong>Desenvolvimento pessoal</strong>?</h2>
-            <p>Desenvolvimento pessoal são atividades, rotinas, processos realizados com o intuito de explorar e maximizar as habilidades, competências, aptidões do praticante o máximo possível com o objetivo de alcançar seus objetivos, realizar seus sonhos, se desafiar ou até mesmo por se sentir bem com isso.<hr> <br>
-                Iniciada nos primórdios da civilização, a jornada do desenvolvimento pessoal pode ser dividida em 4 grandes nichos:<br>Desenvolvimento físico. <br>Desenvolvimento Intelectual. <br>Desenvolvimento Mental e <br>Desenvolvimento espiritual.<br>
-               E o quê exatamente significam estátuas gregas, homens musculosos? Você deve mesmo acordar às 5 da manhã todos os dias?<br>
-               Todos esses paradigmas e supostas falácias serão debatidos aqui nesse WebSite, então, faça seu <span>Cadastro</span> se possível e,<br>
+            <section>
+                <h2>O que é <strong>Desenvolvimento pessoal</strong>?</h2>
+                <p>Desenvolvimento pessoal são atividades, rotinas, processos realizados com o intuito de explorar e
+                    maximizar as habilidades, competências, aptidões do praticante o máximo possível com o objetivo de
+                    alcançar seus objetivos, realizar seus sonhos, se desafiar ou até mesmo por se sentir bem com isso.
+                    <hr> <br>
+                    Iniciada nos primórdios da civilização, a jornada do desenvolvimento pessoal pode ser dividida em 4
+                    grandes nichos:<br>Desenvolvimento físico. <br>Desenvolvimento Intelectual. <br>Desenvolvimento
+                    Mental e <br>Desenvolvimento espiritual.<br>
+                    E o quê exatamente significam estátuas gregas, homens musculosos? Você deve mesmo acordar às 5 da
+                    manhã todos os dias?<br>
+                    Todos esses paradigmas e supostas falácias serão debatidos aqui nesse WebSite, então, faça seu
+                    <span>Cadastro</span> se possível e,<br>
                 <h1>Vamos nessa, marujo.</h1>
-            </p>
-        </section>
-    </div>
+                </p>
+            </section>
+        </div>
     </div>
 
     <div class="articles">
@@ -72,7 +81,7 @@
 
             </div>
 
-        
+
         </div>
     </div>
 
@@ -84,14 +93,46 @@
         </div>
     </div>
 </body>
+
 </html>
 <script>
+    // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
     var myStorage = window.localStorage;
+    // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
     var logado = myStorage.getItem('logado');
-    if(logado){
-        nav_login.innerHTML = "estou logado!!";
-    }else{
+    
+
+
+    // Caso o usuário esteja logado, ou seja, variavel logado = true, fazer uma requisição para pegar o nome do usuário
+    if (logado == "true") {
+        //Habilita a função de deslogar, caso o usuário esteja logado.
+        li_sair.style.display = "block";
+        var id_usuario = Number(myStorage.getItem('id'));
+        const data = { id_usuario: id_usuario };
+        fetch("/usuarios/listar1usuario", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }).
+            then(function (resposta) {
+                // Com a reposta, redirecionar o botão 'login' para a tela de perfil e mudando o nome para o noem do usuário logado
+                resposta.json().then(function (dados) {
+                    nav_login.href = "perfil.html"
+                    nav_login.innerHTML = dados[0].nome;
+                })
+            })
+            .catch()
+    } else{
         nav_login.innerHTML = "Login";
+        nav_login.href = "login.html"
+        li_sair.style.display = "none";
 
     }
+
+    function fnDeslogar() {
+            myStorage.setItem("logado", false);
+            window.location = "index.html";
+        }
 </script>

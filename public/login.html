@@ -43,6 +43,14 @@
 </body>
 </html>
 <script>
+
+    var myStorage = window.localStorage;
+    // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
+    var logado = myStorage.getItem('logado');
+
+    if(logado == "true"){
+        window.location = "index.html";
+    }else{
      
     function limparFormulario() {
         document.getElementById("form_login").reset();
@@ -98,4 +106,6 @@
 
         return false;
     }
+}
+
 </script>

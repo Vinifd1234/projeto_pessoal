@@ -17,6 +17,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#">Artigos</a></li>
                 <li><a id="nav_login" href="login.html">Login</a></li>
+                <li><a onclick="fnDeslogar()">Sair</a></li>
             </ul>
         </div>
     </div>
@@ -27,7 +28,7 @@
             <h2>Esses são seus dados cadastrados:</h2>
             <div id="dados_usuario"></div>
             <button>Atualizar dados</button>
-            
+
         </div>
     </div>
 </body>
@@ -36,22 +37,38 @@
 <script>
     var myStorage = window.localStorage;
     var id_usuario = Number(myStorage.getItem('id'));
-    const data = {id_usuario: id_usuario};
 
-    fetch("/usuarios/listar1usuario", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    }).
-    then(function(resposta){
-        resposta.json().then(function(dados){
-            nome_usuario.innerHTML = (dados[0].nome);
-            dados_usuario.innerHTML = `<p>Nome completo: ${dados[0].nome} ${dados[0].sobrenome}</p>
-            <p>Email: ${dados[0].email}</p>
-            <p>Telefone: ${dados[0].telefone}`;
-        })
-    })
-    .catch()
+    // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
+    var logado = myStorage.getItem('logado');
+    if (logado == "true") {
+        const data = { id_usuario: id_usuario };
+
+        fetch("/usuarios/listar1usuario", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }).
+            then(function (resposta) {
+                resposta.json().then(function (dados) {
+                    nav_login.innerHTML = dados[0].nome;
+                    nav_login.href = "perfil.html"
+                    nome_usuario.innerHTML = (dados[0].nome);
+                    dados_usuario.innerHTML = `<p>Nome completo: ${dados[0].nome} ${dados[0].sobrenome}</p>
+        <p>Email: ${dados[0].email}</p>
+        <p>Telefone: ${dados[0].telefone}`;
+                })
+            })
+            .catch()
+
+        function fnDeslogar() {
+            myStorage.setItem("logado", false);
+            window.location = "index.html";
+        }
+    } else {
+        window.location = "index.html";
+    }
+
+
 </script>
