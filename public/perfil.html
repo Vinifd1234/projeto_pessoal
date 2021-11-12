@@ -29,11 +29,12 @@
             <div id="dados_usuario"></div>
             <button onclick="mostrarFormulario()">Atualizar dados</button>
             <form id="form_cadastro" method="post" onsubmit="return atualizar()">
-                <input name="id"  type="text"  id="input_id">
+                <input name="id" type="text" id="input_id">
                 <input name="nome" type="text" placeholder="Nome" id="input_nome">
                 <input name="sobrenome" type="text" placeholder="Sobrenome" id="input_sobrenome">
                 <input name="email" type="text" placeholder="email" id="input_email">
-                <input name="telefone" id="input_telefone" type="text" placeholder="telefone: (ddd) 96635-4166" maxlength="10" onkeyup="fnTelefone()">
+                <input name="telefone" id="input_telefone" type="text" placeholder="telefone: (ddd) 96635-4166"
+                    maxlength="10" onkeyup="fnTelefone()">
                 <button>Atualizar dados</button>
             </form>
 
@@ -43,32 +44,32 @@
 
 </html>
 <script>
-    
-     form_cadastro.style.display = "none";
-     input_id.style.display = "none";
 
-     function mostrarFormulario(){
-        form_cadastro.style.display = "block";
-     }
-
-
+    // Cria uma variavel para manipular o armazenamento local
     var myStorage = window.localStorage;
+    // Atribui à uma variavel o ID do usuário armazenado no armazenamentl local
     var id_usuario = Number(myStorage.getItem('id'));
+
+
 
     // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
     var logado = myStorage.getItem('logado');
     if (logado == "true") {
+        // Atribuindo à uma constante um objeto, composto pelo id do usuário
         const data = { id_usuario: id_usuario };
 
         fetch("/usuarios/listar1usuario", {
             method: "POST",
             headers: {
+                // Informando que o tipo de corpo que será enviado será JSON
                 'Content-Type': 'application/json',
             },
+            // Convertendo o objeto criado acima para JSON, para enviar no corpo da requisição
             body: JSON.stringify(data),
         }).
             then(function (resposta) {
                 resposta.json().then(function (dados) {
+                    // Com a resposta da requisição atualizar os dados no front-end com os dados do usuário
                     nav_login.innerHTML = dados[0].nome;
                     nav_login.href = "perfil.html"
                     nome_usuario.innerHTML = (dados[0].nome);
@@ -76,11 +77,11 @@
         <p>Email: ${dados[0].email}</p>
         <p>Telefone: ${dados[0].telefone}`;
 
-            input_id.value = dados[0].id;
-            input_nome.value = dados[0].nome;
-            input_sobrenome.value = dados[0].sobrenome;
-            input_email.value = dados[0].email;
-            input_telefone.value = dados[0].telefone;
+                    input_id.value = dados[0].id;
+                    input_nome.value = dados[0].nome;
+                    input_sobrenome.value = dados[0].sobrenome;
+                    input_email.value = dados[0].email;
+                    input_telefone.value = dados[0].telefone;
                 })
             })
             .catch()
@@ -90,37 +91,48 @@
             window.location = "index.html";
         }
 
-        function atualizar(){
-        
-        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
-        console.log(formulario);
+        function atualizar() {
+
+            var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
 
 
-    fetch("/usuarios/atualizar", {
-            method: "POST",
-            body: formulario
-        }).then(function (resposta) {
-            console.log(resposta);
 
-            console.log("resposta: ", resposta);
-            if (resposta.ok) {
-                window.alert("dados atualizados com realizado com sucesso!");
-                window.location = "perfil.html";
-            } else {
-                throw ("Houve um erro ao tentar atualizar os dados!");
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
+            // Fazendo a requisição de atualização dos dados
+            fetch("/usuarios/atualizar", {
+                method: "POST",
+                body: formulario
+            }).then(function (resposta) {
+                console.log(resposta);
 
-        return false;
-    
-    }
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    window.alert("dados atualizados com realizado com sucesso!");
+                    window.location = "perfil.html";
+                } else {
+                    throw ("Houve um erro ao tentar atualizar os dados!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
 
-        
+            return false;
+
+        }
+
+
     } else {
         window.location = "index.html";
     }
-    
+
+    // Esconde o formulário de atualização dos dados
+    form_cadastro.style.display = "none";
+    // Esconde o campo ID do usuário, para que assim o usuário não possa manipular
+    input_id.style.display = "none";
+
+    function mostrarFormulario() {
+        form_cadastro.style.display = "block";
+    }
+
+
 
 </script>

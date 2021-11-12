@@ -43,15 +43,15 @@
 </body>
 </html>
 <script>
-
+ // Cria uma variavel para manipular o armazenamento local
     var myStorage = window.localStorage;
     // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
     var logado = myStorage.getItem('logado');
 
+    // Caso o usuário esteja logado, logo não pode fazer login denovo, sendo assim, redireciona ele para a tela index.html
     if(logado == "true"){
         window.location = "index.html";
     }else{
-     
     function limparFormulario() {
         document.getElementById("form_login").reset();
     }
@@ -80,12 +80,9 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
+                    // Caso o usuário tenha realizado o login com sucesso, redireciona ele para a tela de perfil
                     window.location = "perfil.html";
-                    var myStorage = window.localStorage;
+                    // Armazenando no armazenamento local que o usuário está logado e atribuindo o ID dele
                     myStorage.setItem('logado', true);
                     myStorage.setItem('id', json.id);
                     
