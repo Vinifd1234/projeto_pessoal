@@ -27,4 +27,8 @@ router.post("/listar1usuario", function(req, res) {
     usuarioController.listar1usuario(req, res);
 });
 
+router.post("/atualizar", function(req, res) {
+    usuarioController.atualizar(req, res);
+});
+
 module.exports = router;

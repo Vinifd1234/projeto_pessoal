@@ -122,9 +122,47 @@ function cadastrar(req, res) {
     }
 }
 
+function atualizar(req, res){
+    var id = req.body.id;
+    var nome = req.body.nome;
+    var sobrenome = req.body.sobrenome;
+    var email = req.body.email;
+    var telefone = req.body.telefone;
+
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (sobrenome == undefined) {
+        res.status(400).send("Seu sobrenome está undefined!");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    }else if (telefone == undefined) {
+        res.status(400).send("Seu telefone está undefined!");
+    }else if (id == undefined) {
+        res.status(400).send("Seu id está undefined!");
+    }else {
+        usuarioModel.atualizar(id, nome, sobrenome, email, telefone)
+        .then(
+            function(resultado){
+                res.json(resultado);
+                console.log(resultado);
+            }
+        )
+        .catch(
+            function(erro){
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar a atualização! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            })
+     }
+}
+
 module.exports = {
     entrar,
     cadastrar,
+    atualizar,
     listar,
     listar1usuario,
     testar,

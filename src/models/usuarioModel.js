@@ -36,6 +36,15 @@ function cadastrar(nome, sobrenome , email, senha, telefone) {
     return database.executar(instrucao);
 }
 
+function atualizar(id, nome, sobrenome, email, telefone){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizar():", id,nome, sobrenome, email, telefone);
+    var instrucao = `
+        UPDATE usuario SET nome = '${nome}', sobrenome = '${sobrenome}', email = '${email}', telefone = '${telefone}' where id = ${id};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function excluir(id){
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n");
     var instrucao = `
@@ -48,6 +57,7 @@ function excluir(id){
 module.exports = {
     entrar,
     cadastrar,
+    atualizar,
     listar,
     listar1usuario,
     excluir

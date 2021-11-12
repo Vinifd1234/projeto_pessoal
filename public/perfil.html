@@ -27,7 +27,15 @@
             <h1>Bem vindo ao seu perfil, <span id="nome_usuario"></span></h1>
             <h2>Esses são seus dados cadastrados:</h2>
             <div id="dados_usuario"></div>
-            <button>Atualizar dados</button>
+            <button onclick="mostrarFormulario()">Atualizar dados</button>
+            <form id="form_cadastro" method="post" onsubmit="return atualizar()">
+                <input name="id"  type="text"  id="input_id">
+                <input name="nome" type="text" placeholder="Nome" id="input_nome">
+                <input name="sobrenome" type="text" placeholder="Sobrenome" id="input_sobrenome">
+                <input name="email" type="text" placeholder="email" id="input_email">
+                <input name="telefone" id="input_telefone" type="text" placeholder="telefone: (ddd) 96635-4166" maxlength="10" onkeyup="fnTelefone()">
+                <button>Atualizar dados</button>
+            </form>
 
         </div>
     </div>
@@ -35,6 +43,15 @@
 
 </html>
 <script>
+    
+     form_cadastro.style.display = "none";
+     input_id.style.display = "none";
+
+     function mostrarFormulario(){
+        form_cadastro.style.display = "block";
+     }
+
+
     var myStorage = window.localStorage;
     var id_usuario = Number(myStorage.getItem('id'));
 
@@ -58,6 +75,12 @@
                     dados_usuario.innerHTML = `<p>Nome completo: ${dados[0].nome} ${dados[0].sobrenome}</p>
         <p>Email: ${dados[0].email}</p>
         <p>Telefone: ${dados[0].telefone}`;
+
+            input_id.value = dados[0].id;
+            input_nome.value = dados[0].nome;
+            input_sobrenome.value = dados[0].sobrenome;
+            input_email.value = dados[0].email;
+            input_telefone.value = dados[0].telefone;
                 })
             })
             .catch()
@@ -66,9 +89,38 @@
             myStorage.setItem("logado", false);
             window.location = "index.html";
         }
+
+        function atualizar(){
+        
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+        console.log(formulario);
+
+
+    fetch("/usuarios/atualizar", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+            console.log(resposta);
+
+            console.log("resposta: ", resposta);
+            if (resposta.ok) {
+                window.alert("dados atualizados com realizado com sucesso!");
+                window.location = "perfil.html";
+            } else {
+                throw ("Houve um erro ao tentar atualizar os dados!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    
+    }
+
+        
     } else {
         window.location = "index.html";
     }
-
+    
 
 </script>
