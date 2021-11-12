@@ -51,6 +51,35 @@ function listar1usuario(req, res){
 
 }
 
+function verificar_email(req, res){
+    console.log("Estou na controller!")
+    var email = req.body.email;
+
+    if(email == undefined){
+        res.status(400).send("Seu email está undefined!");
+    }else{
+        usuarioModel.verificar_email(email)
+        .then(
+            function (resultado){
+                if(resultado.length == 1){
+                    res.status(200).json(resultado);
+                    console.log('Usuário encontrado!!')
+                }else{
+                    res.status(200).json(resultado);
+                    console.log('Usuário não encontrado!!')
+                }
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        )
+    }
+}
+
 function entrar(req, res) {
     var email = req.body.email;
     var senha = req.body.senha;
@@ -162,6 +191,7 @@ function atualizar(req, res){
 module.exports = {
     entrar,
     cadastrar,
+    verificar_email,
     atualizar,
     listar,
     listar1usuario,

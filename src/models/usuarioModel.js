@@ -54,9 +54,19 @@ function excluir(id){
     return database.executar(instrucao);
 }
 
+function verificar_email(email){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n");
+    var instrucao = `
+    SELECT * FROM usuario WHERE email = '${email}';
+    `;
+    console.log("Executando instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     cadastrar,
+    verificar_email,
     atualizar,
     listar,
     listar1usuario,

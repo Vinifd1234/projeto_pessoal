@@ -31,4 +31,8 @@ router.post("/atualizar", function(req, res) {
     usuarioController.atualizar(req, res);
 });
 
+router.post("/verificar_email", function(req, res) {
+    usuarioController.verificar_email(req, res);
+});
+
 module.exports = router;
