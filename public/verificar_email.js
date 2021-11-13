@@ -1,21 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <input type="text" id="input_email">
-    <button onclick="fnVerificarEmail()">Verificar se email existe</button>
-    <p id="haemail"></p>
-</body>
-</html>
-<script>
+    var email_existente = false;
     function fnVerificarEmail(){
         var emailVar = input_email.value;
-
         fetch("/usuarios/verificar_email", {
             method: "POST",
             headers:{
@@ -30,10 +15,9 @@
                 console.log("Resultado:" + resultado.json()
                 .then(function(dados){
                 if(dados.length == 0){
-                    haemail.innerHTML = "Email não encontrado";
+                    email_existente = false;
                 }else{
-                    haemail.innerHTML = "Email encontrado";
-
+                    email_existente = true;
                 }
                 }));
             }
@@ -44,4 +28,3 @@
             }
         )
     }
-</script>

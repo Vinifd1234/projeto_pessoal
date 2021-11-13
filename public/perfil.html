@@ -43,6 +43,7 @@
 </body>
 
 </html>
+<script src="verificar_email.js"></script>
 <script>
 
     // Cria uma variavel para manipular o armazenamento local
@@ -92,18 +93,12 @@
         }
 
         function atualizar() {
-
             var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
-
-
-
             // Fazendo a requisição de atualização dos dados
             fetch("/usuarios/atualizar", {
                 method: "POST",
                 body: formulario
             }).then(function (resposta) {
-                console.log(resposta);
-
                 console.log("resposta: ", resposta);
                 if (resposta.ok) {
                     window.alert("dados atualizados com realizado com sucesso!");
@@ -133,6 +128,7 @@
         form_cadastro.style.display = "block";
     }
 
+   
 
 
 </script>

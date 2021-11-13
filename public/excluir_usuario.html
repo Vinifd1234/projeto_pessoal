@@ -14,26 +14,5 @@
 </body>
 </html>
 <script>
-    function fnRequisicao(){
-        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
-
-        fetch("/usuarios/excluir", {
-                method: "POST",
-                body: formulario
-            }).then(function (resposta) {
-                
-
-                console.log("resposta: ", resposta);
-                if (resposta.ok) {
-                    console.log(resposta);
-                    
-                } else {
-                    throw ("Houve um erro ao tentar excluir o usuário!");
-                }
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-
-            return false;
-    }
+    
 </script>

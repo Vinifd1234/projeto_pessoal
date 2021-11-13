@@ -8,8 +8,7 @@ function testar(req, res) {
 }
 
 function excluir(req, res){
-    var id = req.body.id;
-    
+    var id = req.body.id_usuario;
     console.log("Entramos na controller de exclusão :D");
     usuarioModel.excluir(id).then(
         function (resultado) {
@@ -62,8 +61,7 @@ function verificar_email(req, res){
         .then(
             function (resultado){
                 if(resultado.length == 1){
-                    res.status(200).json(resultado);
-                    console.log('Usuário encontrado!!')
+                    res.status(200).send(resultado);
                 }else{
                     res.status(200).json(resultado);
                     console.log('Usuário não encontrado!!')
