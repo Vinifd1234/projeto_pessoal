@@ -44,9 +44,26 @@
 
 .info{
     width: 100%;
+    font-family: 'Poppins', sans-serif;
 }
 
 .info .container{
     width: 80%;
+    height: 90vh;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.box{
+    font-size: 1rem;
+    width: 100%;
+}
+
+.box button{
+    background-color: #0D0159;
+    color: white;
+    cursor: pointer;
 }

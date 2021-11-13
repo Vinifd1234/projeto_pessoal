@@ -25,27 +25,22 @@
 
     <div class="wallpaper">
         <div class="cadastro">
-            <div class="container">
-                <div class="one">
-                    <p>Cadastro</p>
-                </div>
-                <div class="two">
-                    <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
-                        <input name="nome" type="text" placeholder="Nome">
-                        <input name="sobrenome" type="text" placeholder="Sobrenome">
-                        <input name="email" type="text" placeholder="email">
-                        <input name="senha" type="password" placeholder="senha">
-                        <input name="confirmacao_senha" type="password" placeholder=" digite a senha novamente">
-                        <input name="telefone" id="input_telefone" type="text" placeholder="telefone: (ddd) 96635-4166" maxlength="10" onkeyup="fnTelefone()">
-                        </div>
-                        <button>Fazer cadastro</button>
-                    </form>
-                </div>
-                <div class="three">
-                    <p>Já possui uma conta?<a href="#">Fazer login</a></p>
+            <div class="form">
+                <div class="cadastro-form">
+                    <span class="material-icons">Cadastro</span>
+                    <input id="input_nome" type="text" placeholder="nome">
+                    <input id="input_sobrenome" type="text" placeholder="sobrenome">
+                    <input id="input_email" type="text" placeholder="email">
+                    <input id="input_senha" type="password" placeholder="senha">
+                    <input id="input_confirmar_senha" type="password" placeholder="confirmar senha">
+                    <input id="input_telefone" type="text" placeholder="telefone">
+                    <button onclick="cadastrar()">Cadastrar</button>
+                    <p id="erro_p"></p>
+                    <p>Já possui conta?<a href="login.html">Logar</a></p>
                 </div>
             </div>
-        </div>
+        </div>        
+    </div>
     </div>
 </body>
 
@@ -54,15 +49,15 @@
 
 
     // Máscara de validação do telefone
-    function fnTelefone(){
-       
+    function fnTelefone() {
+
         var telefone = input_telefone.value;
 
-        if(telefone.length == 5){
+        if (telefone.length == 5) {
             input_telefone.value += '-';
         }
 
-        if(telefone.length == 6 && telefone[5] != '-'){
+        if (telefone.length == 6 && telefone[5] != '-') {
             input_telefone[6] = input_telefone[5];
             input_telefone[5] = '-';
         }
@@ -77,6 +72,7 @@
     function cadastrar() {
 
         var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+        
 
         var nome = formulario.get("nome");
         var sobrenome = formulario.get("sobrenome");

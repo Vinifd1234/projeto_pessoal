@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="styles/login.css">
 </head>
+
 <body>
     <div class="header">
         <div class="container">
@@ -19,89 +21,83 @@
         </div>
     </div>
 
-    
+
 
     <div class="wallpaper">
         <div class="login">
-            <div class="container">
-                <div class="one">
-        <p>Login</p>
-    </div>
-    <div class="two">
-        <form id="form_login" method="post" onsubmit="return entrar()">
-            <input name="email" type="text" placeholder="email">
-            <input name="senha" type="password" placeholder="senha">
-            <button>Fazer login</button>
-        </form>
-    </div>
-    <div class="three">
-        <p>Não possui conta?<a href="cadastro.html">Criar agora</a></p>
-    </div>
-        </div>
-    </div>
+            <div class="form">
+              <div class="login-form">
+                <span class="material-icons">Login</span>
+                <input id="input_email" type="text" placeholder="email">
+                <input id="input_senha" type="password" placeholder="senha">
+                <button onclick="entrar()">Fazer login</button>
+                <p id="erro_p"></p>
+                <p>Não possui conta?<a href="cadastro.html">Criar agora</a></p>
+              </div>  
+            </div>
+          </div>
     </div>
 </body>
+
 </html>
 <script>
- // Cria uma variavel para manipular o armazenamento local
-    var myStorage = window.localStorage;
-    // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
-    var logado = myStorage.getItem('logado');
-
+    // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
+var myStorage = window.localStorage;
+// Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
+var logado = myStorage.getItem('logado');
     // Caso o usuário esteja logado, logo não pode fazer login denovo, sendo assim, redireciona ele para a tela index.html
-    if(logado == "true"){
+    if (logado == "true") {
         window.location = "index.html";
-    }else{
-    function limparFormulario() {
-        document.getElementById("form_login").reset();
-    }
+    } else {
+        function entrar() {
 
-    function entrar() {
-
-        var formulario = new URLSearchParams(new FormData(document.getElementById("form_login")));
-
-        var email = formulario.get("email");
-        var senha = formulario.get("senha");
-
-        console.log("FORM LOGIN: ", email);
-        console.log("FORM SENHA: ", senha);
-
-        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
-       
-        fetch("/usuarios/autenticar", {
-            method: "POST",
-            body: formulario
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    // Caso o usuário tenha realizado o login com sucesso, redireciona ele para a tela de perfil
-                    window.location = "perfil.html";
-                    // Armazenando no armazenamento local que o usuário está logado e atribuindo o ID dele
-                    myStorage.setItem('logado', true);
-                    myStorage.setItem('id', json.id);
-                });
-
-            } else {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
+            const data = {
+                email: input_email.value,
+                senha: input_senha.value
             }
 
-        }).catch(function (erro) {
-            console.log(erro);
-        })
 
-        return false;
+            fetch("/usuarios/autenticar", {
+                method: "POST",
+                headers: {
+                    // Informando que o tipo de corpo que será enviado será JSON
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+                        // Caso o usuário tenha realizado o login com sucesso, redireciona ele para a tela de perfil
+                        window.location = "perfil.html";
+                        // Armazenando no armazenamento local que o usuário está logado e atribuindo o ID dele
+                        myStorage.setItem('logado', true);
+                        myStorage.setItem('id', json.id);
+                    })
+
+                    .catch()
+
+                } else {
+
+                    console.log("Houve um erro ao tentar realizar o login!");
+
+                    resposta.text().then(texto => {
+                        erro_p.innerHTML = texto;
+                    });
+                }
+
+            }).catch(function (erro) {
+                console.log(erro);
+            })
+
+          
+        }
     }
-}
 
 </script>

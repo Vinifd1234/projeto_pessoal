@@ -15,6 +15,7 @@
     <input name="sobrenome" type="text" placeholder="Sobrenome" id="input_sobrenome">
     <input name="telefone" id="input_telefone" type="text" placeholder="telefone: (ddd) 96635-4166" maxlength="10"
         onkeyup="fnTelefone()">
+    <button onclick="fnAtualizar()">Atualizar dadods</button>
     <button onclick="fnExcluir()">Excluir usuário</button>
 </body>
 
@@ -68,7 +69,7 @@
             console.log(`#ERRO: ${resposta}`);
         });
 
-        return false;
+
 
     }
 </script>

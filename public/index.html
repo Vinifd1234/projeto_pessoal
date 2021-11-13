@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <!-- Elemento HTML para a barra de navegação-->
     <div class="header">
         <div class="container">
             <h1>S.I.G</h1>
@@ -23,13 +24,16 @@
         </div>
     </div>
 
+    <!-- Elemento HTML para o wallpaper da página-->
     <div class="wallpaper">
+            <!-- Textos referentes ao wallpaper-->
         <div class="text">
             <h1>S.I.G</h1>
             <h3>Self Improvement General</h3>
         </div>
     </div>
 
+    <!-- Seção da página dedicada ao texto sobre o desenvolvimento pessoal--> 
     <div class="sig">
         <div class="container">
             <section>
@@ -51,6 +55,7 @@
         </div>
     </div>
 
+    <!-- Seção dedicada aos posts do site-->
     <div class="articles">
         <div class="container">
             <h1 style="text-align: center;">Confira alguns posts</h1>
@@ -101,8 +106,7 @@
     // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
     var logado = myStorage.getItem('logado');
     
-
-
+    
     // Caso o usuário esteja logado, ou seja, variavel logado = true, fazer uma requisição para pegar o nome do usuário
     if (logado == "true") {
         //Habilita a função de deslogar, caso o usuário esteja logado.

@@ -16,28 +16,34 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#">Artigos</a></li>
-                <li><a id="nav_login" href="login.html">Login</a></li>
-                <li><a onclick="fnDeslogar()">Sair</a></li>
+                <li><a id="nav_login" href="login.html"></a></li>
+                <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
             </ul>
         </div>
     </div>
 
     <div class="info">
         <div class="container">
+            <div class="box">
             <h1>Bem vindo ao seu perfil, <span id="nome_usuario"></span></h1>
-            <h2>Esses são seus dados cadastrados:</h2>
+            <h2>Esses são seus dados:</h2>
+            </div>
+            <div class="box">
             <div id="dados_usuario"></div>
+            </div>
+
+            <div class="box">
             <button onclick="mostrarFormulario()">Atualizar dados</button>
-            <form id="form_cadastro" method="post" onsubmit="return atualizar()">
+            <div id="formulario">
                 <input name="id" type="text" id="input_id">
                 <input name="nome" type="text" placeholder="Nome" id="input_nome">
                 <input name="sobrenome" type="text" placeholder="Sobrenome" id="input_sobrenome">
-                <input name="email" type="text" placeholder="email" id="input_email">
-                <input name="telefone" id="input_telefone" type="text" placeholder="telefone: (ddd) 96635-4166"
+                <input name="email" type="text" style="display: none;" placeholder="email" id="input_email">
+                <input name="telefone" id="input_telefone"  type="text" placeholder="telefone: (ddd) 96635-4166"
                     maxlength="10" onkeyup="fnTelefone()">
-                <button>Atualizar dados</button>
-            </form>
-
+                <button onclick="atualizar()">Atualizar dados</button>
+            </div>
+        </div>
         </div>
     </div>
 </body>
@@ -46,58 +52,68 @@
 <script src="verificar_email.js"></script>
 <script>
 
-    // Cria uma variavel para manipular o armazenamento local
+
+
+    // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
     var myStorage = window.localStorage;
-    // Atribui à uma variavel o ID do usuário armazenado no armazenamentl local
-    var id_usuario = Number(myStorage.getItem('id'));
 
-
-
-    // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
+    var id_usuario = myStorage.getItem('id');
     var logado = myStorage.getItem('logado');
-    if (logado == "true") {
-        // Atribuindo à uma constante um objeto, composto pelo id do usuário
-        const data = { id_usuario: id_usuario };
 
+
+
+    if (logado == "false") {
+        window.location = "index.html";
+    } else {
+
+
+
+
+        // Requisitando as informações do usuário e colocando nas inputs
+        const data = { id_usuario: id_usuario };
         fetch("/usuarios/listar1usuario", {
             method: "POST",
             headers: {
-                // Informando que o tipo de corpo que será enviado será JSON
                 'Content-Type': 'application/json',
             },
-            // Convertendo o objeto criado acima para JSON, para enviar no corpo da requisição
             body: JSON.stringify(data),
         }).
             then(function (resposta) {
+                // Com a reposta, redirecionar o botão 'login' para a tela de perfil e mudando o nome para o noem do usuário logado
                 resposta.json().then(function (dados) {
-                    // Com a resposta da requisição atualizar os dados no front-end com os dados do usuário
-                    nav_login.innerHTML = dados[0].nome;
-                    nav_login.href = "perfil.html"
-                    nome_usuario.innerHTML = (dados[0].nome);
-                    dados_usuario.innerHTML = `<p>Nome completo: ${dados[0].nome} ${dados[0].sobrenome}</p>
-        <p>Email: ${dados[0].email}</p>
-        <p>Telefone: ${dados[0].telefone}`;
 
+                    dados_usuario.innerHTML = `<p>Nome do usuário: ${dados[0].nome} ${dados[0].sobrenome}</p>
+                <p>Seu email: ${dados[0].email}</p>
+                <p>Seu telefone: ${dados[0].telefone}</p>
+                `;
                     input_id.value = dados[0].id;
                     input_nome.value = dados[0].nome;
                     input_sobrenome.value = dados[0].sobrenome;
                     input_email.value = dados[0].email;
                     input_telefone.value = dados[0].telefone;
+
+                    nav_login.innerHTML = dados[0].nome;
+                    nome_usuario.innerHTML = dados[0].nome;
                 })
             })
             .catch()
 
-        function fnDeslogar() {
-            myStorage.setItem("logado", false);
-            window.location = "index.html";
-        }
-
         function atualizar() {
-            var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+            const data_atualizar = {
+                id: Number(input_id.value),
+                nome: input_nome.value,
+                sobrenome: input_sobrenome.value,
+                email: input_email.value,
+                telefone: input_telefone.value
+            };
             // Fazendo a requisição de atualização dos dados
             fetch("/usuarios/atualizar", {
                 method: "POST",
-                body: formulario
+                headers: {
+                    // Informando que o tipo de corpo que será enviado será JSON
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data_atualizar)
             }).then(function (resposta) {
                 console.log("resposta: ", resposta);
                 if (resposta.ok) {
@@ -110,25 +126,25 @@
                 console.log(`#ERRO: ${resposta}`);
             });
 
-            return false;
-
         }
 
 
-    } else {
-        window.location = "index.html";
+        // Esconde o formulário de atualização dos dados
+        formulario.style.display = "none";
+        // Esconde o campo ID do usuário, para que assim o usuário não possa manipular
+        input_id.style.display = "none";
+
+        function mostrarFormulario() {
+            formulario.style.display = "block";
+        }
+
+
+        nav_login.href = "perfil.html";
+
+        function fnDeslogar() {
+            myStorage.setItem("logado", false);
+            window.location = "index.html";
+        }
     }
-
-    // Esconde o formulário de atualização dos dados
-    form_cadastro.style.display = "none";
-    // Esconde o campo ID do usuário, para que assim o usuário não possa manipular
-    input_id.style.display = "none";
-
-    function mostrarFormulario() {
-        form_cadastro.style.display = "block";
-    }
-
-   
-
 
 </script>
