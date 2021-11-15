@@ -39,7 +39,7 @@
                     <p>Já possui conta?<a href="login.html">Logar</a></p>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
     </div>
 </body>
@@ -71,15 +71,15 @@
 
     function cadastrar() {
 
-        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
-        
 
-        var nome = formulario.get("nome");
-        var sobrenome = formulario.get("sobrenome");
-        var email = formulario.get("email");
-        var senha = formulario.get("senha");
-        var confirmacaoSenha = formulario.get("confirmacao_senha");
-        var telefone = formulario.get("telefone");
+
+        var nome = input_nome.value;
+        var sobrenome = input_sobrenome.value;
+        var email = input_email.value;
+        var senha = input_senha.value;
+        var confirmacaoSenha = input_confirmar_senha.value;
+        var telefone = input_telefone.value;
+
 
         // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
         //Validações caso o campo estja vazio!
@@ -99,9 +99,21 @@
         } else if (email.indexOf('@') == -1 && email.indexOf('.') == -1) {
             alert('Email no formato incorreto.');
         } else {
+            const dados = {
+                nome: nome,
+                sobrenome: sobrenome,
+                email: email,
+                senha: senha,
+                telefone: telefone
+            }
+
             fetch("/usuarios/cadastrar", {
                 method: "POST",
-                body: formulario
+                headers:{
+                    // Informando que o tipo de corpo que será enviado será JSON
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dados)
             }).then(function (resposta) {
 
                 console.log("resposta: ", resposta);

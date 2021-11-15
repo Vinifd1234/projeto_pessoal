@@ -13,8 +13,7 @@
     <h1 id="email_usuario"></h1>
     <input name="nome" type="text" placeholder="Nome" id="input_nome">
     <input name="sobrenome" type="text" placeholder="Sobrenome" id="input_sobrenome">
-    <input name="telefone" id="input_telefone" type="text" placeholder="telefone: (ddd) 96635-4166" maxlength="10"
-        onkeyup="fnTelefone()">
+    <input name="telefone" id="input_telefone" type="text" placeholder="telefone: (ddd) 96635-4166" maxlength="10">
     <button onclick="fnAtualizar()">Atualizar dadods</button>
     <button onclick="fnExcluir()">Excluir usuário</button>
 </body>
@@ -47,8 +46,6 @@
         .catch()
 
     function fnExcluir() {
-
-
         fetch("/usuarios/excluir", {
             method: "POST",
             headers: {
@@ -68,8 +65,34 @@
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
+    }
 
-
-
+    function fnAtualizar(){
+        const data_atualizar = {
+                id: Number(id_usuario.innerHTML[id_usuario.innerHTML.length -1]),
+                nome: input_nome.value,
+                sobrenome: input_sobrenome.value,
+                email: email_usuario.innerHTML,
+                telefone: input_telefone.value
+            };
+            // Fazendo a requisição de atualização dos dados
+            fetch("/usuarios/atualizar", {
+                method: "POST",
+                headers: {
+                    // Informando que o tipo de corpo que será enviado será JSON
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data_atualizar)
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    window.alert("dados atualizados com realizado com sucesso!");
+                    window.location = "admin.html";
+                } else {
+                    throw ("Houve um erro ao tentar atualizar os dados!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 </script>

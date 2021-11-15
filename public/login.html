@@ -26,25 +26,25 @@
     <div class="wallpaper">
         <div class="login">
             <div class="form">
-              <div class="login-form">
-                <span class="material-icons">Login</span>
-                <input id="input_email" type="text" placeholder="email">
-                <input id="input_senha" type="password" placeholder="senha">
-                <button onclick="entrar()">Fazer login</button>
-                <p id="erro_p"></p>
-                <p>Não possui conta?<a href="cadastro.html">Criar agora</a></p>
-              </div>  
+                <div class="login-form">
+                    <span class="material-icons">Login</span>
+                    <input id="input_email" type="text" placeholder="email">
+                    <input id="input_senha" type="password" placeholder="senha">
+                    <button onclick="entrar()">Fazer login</button>
+                    <p id="erro_p"></p>
+                    <p>Não possui conta?<a href="cadastro.html">Criar agora</a></p>
+                </div>
             </div>
-          </div>
+        </div>
     </div>
 </body>
 
 </html>
 <script>
     // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
-var myStorage = window.localStorage;
-// Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
-var logado = myStorage.getItem('logado');
+    var myStorage = window.localStorage;
+    // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
+    var logado = myStorage.getItem('logado');
     // Caso o usuário esteja logado, logo não pode fazer login denovo, sendo assim, redireciona ele para a tela index.html
     if (logado == "true") {
         window.location = "index.html";
@@ -69,19 +69,25 @@ var logado = myStorage.getItem('logado');
 
                 if (resposta.ok) {
                     console.log(resposta);
-
-
                     resposta.json().then(json => {
                         console.log(json);
                         console.log(JSON.stringify(json));
-                        // Caso o usuário tenha realizado o login com sucesso, redireciona ele para a tela de perfil
-                        window.location = "perfil.html";
-                        // Armazenando no armazenamento local que o usuário está logado e atribuindo o ID dele
-                        myStorage.setItem('logado', true);
-                        myStorage.setItem('id', json.id);
+
+                        //Verifica se o usuário que está logando tem poder administrativo
+                        if (json.nivel_usuario == 2) {
+                            window.location = "admin.html";
+                        } else {
+                            // Caso o usuário tenha realizado o login com sucesso, redireciona ele para a tela de perfil
+                            window.location = "perfil.html";
+                            // Armazenando no armazenamento local que o usuário está logado e atribuindo o ID dele
+                            myStorage.setItem('logado', true);
+                            myStorage.setItem('id', json.id);
+                        }
+
+
                     })
 
-                    .catch()
+                        .catch()
 
                 } else {
 
@@ -96,7 +102,7 @@ var logado = myStorage.getItem('logado');
                 console.log(erro);
             })
 
-          
+
         }
     }
 

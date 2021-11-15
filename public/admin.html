@@ -16,7 +16,6 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#">Artigos</a></li>
-                <li><a id="nav_login" href="login.html"></a></li>
                 <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
             </ul>
         </div>
@@ -24,27 +23,28 @@
 
     <div class="content">
         <div id="container" class="container">
-            
+
         </div>
     </div>
 </body>
+
 </html>
 <script>
     var myStorage = localStorage;
-    
 
-    function fnModificarDados(id){
+
+    function fnModificarDados(id) {
         myStorage.setItem('id_modificacao', id);
         window.location = "modificar.html";
     }
 
-    
 
-    fetch("/usuarios/listar",{
+
+    fetch("/usuarios/listar", {
         method: "GET",
         mode: "cors"
-    }).then(function(resposta){
-        resposta.json().then(function(resultado){
+    }).then(function (resposta) {
+        resposta.json().then(function (resultado) {
             resultado.forEach(element => {
                 container.innerHTML += `<div class="usuario">
                     <p>Nome completo do usuário: ${element.nome} ${element.sobrenome}</p>
@@ -53,8 +53,10 @@
                         <button onclick="fnModificarDados(${element.id})">Modificar dados</button>
                     </div>`
             });
+
         })
+            .catch( )
     })
-    .catch()
+        .catch()
 
 </script>
