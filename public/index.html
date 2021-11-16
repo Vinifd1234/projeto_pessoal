@@ -102,16 +102,16 @@
 </html>
 <script>
     // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
-    var myStorage = window.localStorage;
+    var Armazenamento_local = localStorage;
     // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
-    var logado = myStorage.getItem('logado');
+    var logado = Armazenamento_local.getItem('logado');
     
     
     // Caso o usuário esteja logado, ou seja, variavel logado = true, fazer uma requisição para pegar o nome do usuário
     if (logado == "true") {
         //Habilita a função de deslogar, caso o usuário esteja logado.
         li_sair.style.display = "block";
-        var id_usuario = Number(myStorage.getItem('id'));
+        var id_usuario = Number(Armazenamento_local.getItem('id'));
         const data = { id_usuario: id_usuario };
         fetch("/usuarios/listar1usuario", {
             method: "POST",
@@ -137,6 +137,7 @@
 
     function fnDeslogar() {
             myStorage.setItem("logado", false);
+            Armazenamento_local.setItem("id", null);
             window.location = "index.html";
         }
 </script>

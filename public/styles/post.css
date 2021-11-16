@@ -78,6 +78,14 @@
     padding: 3rem;
 }
 
+.conteudo .comentarios{
+    background-color: #8511D0;
+}
+
+.conteudo .comentar{
+    background-color: darkmagenta;
+}
+
 .sobre{
     display: flex;
     justify-content: center;

@@ -42,11 +42,13 @@
 </html>
 <script>
     // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
-    var myStorage = window.localStorage;
+    var Armazenamento_local = localStorage;
     // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
-    var logado = myStorage.getItem('logado');
+    var logado = Armazenamento_local.getItem('logado');
     // Caso o usuário esteja logado, logo não pode fazer login denovo, sendo assim, redireciona ele para a tela index.html
     if (logado == "true") {
+        alert('Você já está logado. Deslogue-se para poder efetuar o login!');
+
         window.location = "index.html";
     } else {
         function entrar() {
@@ -76,12 +78,14 @@
                         //Verifica se o usuário que está logando tem poder administrativo
                         if (json.nivel_usuario == 2) {
                             window.location = "admin.html";
+                            Armazenamento_local.setItem('logado', true);
+                            Armazenamento_local.setItem('id', json.id);
                         } else {
                             // Caso o usuário tenha realizado o login com sucesso, redireciona ele para a tela de perfil
                             window.location = "perfil.html";
                             // Armazenando no armazenamento local que o usuário está logado e atribuindo o ID dele
-                            myStorage.setItem('logado', true);
-                            myStorage.setItem('id', json.id);
+                            Armazenamento_local.setItem('logado', true);
+                            Armazenamento_local.setItem('id', json.id);
                         }
 
 

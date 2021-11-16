@@ -35,4 +35,9 @@ router.post("/verificar_email", function(req, res) {
     usuarioController.verificar_email(req, res);
 });
 
+
+router.post("/postar_comentario", function(req, res){
+    usuarioController.postar_comentario(req, res);
+})
+
 module.exports = router;

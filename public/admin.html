@@ -16,6 +16,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#">Artigos</a></li>
+                <li><a href="admin.html">Admin</a></li>
                 <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
             </ul>
         </div>
@@ -23,22 +24,47 @@
 
     <div class="content">
         <div id="container" class="container">
-
+            
         </div>
     </div>
 </body>
 
 </html>
 <script>
-    var myStorage = localStorage;
+    var Armazenamento_local = localStorage;
 
 
     function fnModificarDados(id) {
-        myStorage.setItem('id_modificacao', id);
+        Armazenamento_local.setItem('id_modificacao', id);
         window.location = "modificar.html";
     }
 
 
+    function fnUltimoAcesso(id, element) {
+        console.log(element);
+        /*Faz a requisição do último login do usuário*/
+        const teste = {
+            id: id
+        }
+        fetch("/usuarios/listar_ultimo_acesso", {
+            method: "POST",
+            headers: {
+                // Informando que o tipo de corpo que será enviado será JSON
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(teste)
+        }).then(function (resposta) {
+            resposta.json().then(function (resultado) {
+              
+               
+                
+             
+               
+            })
+                .catch()
+        })
+            .catch()
+    }
 
     fetch("/usuarios/listar", {
         method: "GET",
@@ -50,13 +76,27 @@
                     <p>Nome completo do usuário: ${element.nome} ${element.sobrenome}</p>
                     <p>Email do usuário: ${element.email}</p>
                     <p>Senha do usuário: ${element.senha}</p>
+                    <p id="paragrafoAcesso"></p>
                         <button onclick="fnModificarDados(${element.id})">Modificar dados</button>
                     </div>`
+                   
             });
 
         })
-            .catch( )
+            .catch()
     })
         .catch()
+
+       
+
+        function fnDeslogar(){
+            Armazenamento_local.setItem("logado", false);
+            Armazenamento_local.setItem("id", null);
+            Armazenamento_local.setItem("id_modificacao", null);
+            window.location = "index.html";
+        }
+    
+
+
 
 </script>

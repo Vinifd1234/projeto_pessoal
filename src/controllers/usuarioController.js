@@ -186,6 +186,53 @@ function atualizar(req, res){
      }
 }
 
+function listar_ultimo_acesso(req, res){
+    var id = req.body.id;
+
+    if(id == undefined){
+        res.status(400).send("Seu id está undefined!");
+    }else{
+        usuarioModel.listar_ultimo_acesso(id)
+        .then(function(resposta){
+            res.send(resposta)
+        })
+
+        .catch()
+    }
+}
+
+function postar_comentario(req, res){
+    var id_postador = req.body.id_postador;
+    var corpo_comentario = req.body.corpo_comentario;
+    var id_post = req.body.id_post;
+
+    if(id_postador == undefined){
+        res.status(400).send("o ID do postador está undefined!");
+    }else if(corpo_comentario == undefined){
+        res.status(400).send("O corpo do comentário está undefined!");
+    }else if(id_post == undefined){
+        res.status(400).send("o ID do post está undefined!");
+    }else{
+        usuarioModel.postar_comentario(id_postador, corpo_comentario, id_post)
+        .then(function(resposta){
+            resposta.json(resultado);
+            console.log(resultado);
+        })
+        .catch(
+            function(erro){
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o comentário! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        )
+        
+    }
+
+}
+
 module.exports = {
     entrar,
     cadastrar,
@@ -194,5 +241,6 @@ module.exports = {
     listar,
     listar1usuario,
     testar,
-    excluir
+    excluir,
+    postar_comentario
 }

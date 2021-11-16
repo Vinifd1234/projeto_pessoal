@@ -35,9 +35,10 @@
     }).
         then(function (resposta) {
             resposta.json().then(function (dados) {
+                console.log('estou aqui!!')
                 // Com a resposta da requisição atualizar os dados no front-end com os dados do usuário
                 id_usuario.innerHTML = `ID do usuário: ${dados[0].id}`;
-                email_usuario.innerHTML = `Email do usuário: ${dados[0].email}`;
+                email_usuario.innerHTML = `${dados[0].email}`;
                 input_nome.value = dados[0].nome;
                 input_sobrenome.value = dados[0].sobrenome;
                 input_telefone.value = dados[0].telefone;

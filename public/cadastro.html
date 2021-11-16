@@ -47,89 +47,100 @@
 </html>
 <script>
 
+    // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
+    var Armazenamento_local = localStorage;
+    // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
+    var logado = Armazenamento_local.getItem('logado');
 
-    // Máscara de validação do telefone
-    function fnTelefone() {
-
-        var telefone = input_telefone.value;
-
-        if (telefone.length == 5) {
-            input_telefone.value += '-';
-        }
-
-        if (telefone.length == 6 && telefone[5] != '-') {
-            input_telefone[6] = input_telefone[5];
-            input_telefone[5] = '-';
-        }
-    }
-
-    function limparFormulario() {
-        document.getElementById("form_cadastro").reset();
-    }
+    if (logado == "true") {
+        alert('Você já está logado. Deslogue-se para poder efetuar cadastro!');
+        window.location = "index.html";
+    } else {
 
 
+        // Máscara de validação do telefone
+        function fnTelefone() {
 
-    function cadastrar() {
+            var telefone = input_telefone.value;
 
-
-
-        var nome = input_nome.value;
-        var sobrenome = input_sobrenome.value;
-        var email = input_email.value;
-        var senha = input_senha.value;
-        var confirmacaoSenha = input_confirmar_senha.value;
-        var telefone = input_telefone.value;
-
-
-        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
-        //Validações caso o campo estja vazio!
-        if (nome == "") {
-            alert('Preencha o campo nome');
-        } else if (sobrenome == "") {
-            alert("Preencha o campo sobrenome");
-        } else if (email == "") {
-            alert("Preencha o campo email");
-        } else if (senha == "") {
-            alert("Preencha o campo senha")
-        } else if (confirmacaoSenha == "") {
-            alert("Preencha o campo confirmação senha");
-        } else if (telefone == "") {
-            alert("Preencha o campo de telefone");
-            //Validações caso o campo email esteja no formato incorreto.
-        } else if (email.indexOf('@') == -1 && email.indexOf('.') == -1) {
-            alert('Email no formato incorreto.');
-        } else {
-            const dados = {
-                nome: nome,
-                sobrenome: sobrenome,
-                email: email,
-                senha: senha,
-                telefone: telefone
+            if (telefone.length == 5) {
+                input_telefone.value += '-';
             }
 
-            fetch("/usuarios/cadastrar", {
-                method: "POST",
-                headers:{
-                    // Informando que o tipo de corpo que será enviado será JSON
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(dados)
-            }).then(function (resposta) {
-
-                console.log("resposta: ", resposta);
-                if (resposta.ok) {
-                    window.alert("Cadastro realizado com sucesso!");
-                    window.location = "login.html";
-                    limparFormulario();
-                } else {
-                    throw ("Houve um erro ao tentar realizar o cadastro!");
-                }
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-
-            return false;
+            if (telefone.length == 6 && telefone[5] != '-') {
+                input_telefone[6] = input_telefone[5];
+                input_telefone[5] = '-';
+            }
         }
 
+        function limparFormulario() {
+            document.getElementById("form_cadastro").reset();
+        }
+
+
+
+        function cadastrar() {
+
+
+
+            var nome = input_nome.value;
+            var sobrenome = input_sobrenome.value;
+            var email = input_email.value;
+            var senha = input_senha.value;
+            var confirmacaoSenha = input_confirmar_senha.value;
+            var telefone = input_telefone.value;
+
+
+            // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
+            //Validações caso o campo estja vazio!
+            if (nome == "") {
+                alert('Preencha o campo nome');
+            } else if (sobrenome == "") {
+                alert("Preencha o campo sobrenome");
+            } else if (email == "") {
+                alert("Preencha o campo email");
+            } else if (senha == "") {
+                alert("Preencha o campo senha")
+            } else if (confirmacaoSenha == "") {
+                alert("Preencha o campo confirmação senha");
+            } else if (telefone == "") {
+                alert("Preencha o campo de telefone");
+                //Validações caso o campo email esteja no formato incorreto.
+            } else if (email.indexOf('@') == -1 && email.indexOf('.') == -1) {
+                alert('Email no formato incorreto.');
+            } else {
+                const dados = {
+                    nome: nome,
+                    sobrenome: sobrenome,
+                    email: email,
+                    senha: senha,
+                    telefone: telefone
+                }
+
+                fetch("/usuarios/cadastrar", {
+                    method: "POST",
+                    headers: {
+                        // Informando que o tipo de corpo que será enviado será JSON
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dados)
+                }).then(function (resposta) {
+
+                    console.log("resposta: ", resposta);
+                    if (resposta.ok) {
+                        window.alert("Cadastro realizado com sucesso!");
+                        window.location = "login.html";
+                        limparFormulario();
+                    } else {
+                        throw ("Houve um erro ao tentar realizar o cadastro!");
+                    }
+                }).catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+
+                return false;
+            }
+
+        }
     }
 </script>>
