@@ -21,7 +21,7 @@ var sqlServerConfig = {
 var mySqlConfigFaculdade = {
     host: "localhost",
     user: "admin",
-    database: "teste",
+    database: "projeto_pessoal",
     password: "D1g1t@lschool",
 };
 
@@ -29,7 +29,7 @@ var mySqlConfigFaculdade = {
 var mySqlConfigCasa = {
     host: "localhost",
     user: "root",
-    database: "teste",
+    database: "projeto_pessoal",
     password: "Avaememo123_",
 };
 

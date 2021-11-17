@@ -76,16 +76,16 @@
                         console.log(JSON.stringify(json));
 
                         //Verifica se o usuário que está logando tem poder administrativo
-                        if (json.nivel_usuario == 2) {
+                        if (json.nivelUsuario == 2) {
                             window.location = "admin.html";
                             Armazenamento_local.setItem('logado', true);
-                            Armazenamento_local.setItem('id', json.id);
+                            Armazenamento_local.setItem('id', json.idUsuario);
                         } else {
                             // Caso o usuário tenha realizado o login com sucesso, redireciona ele para a tela de perfil
                             window.location = "perfil.html";
                             // Armazenando no armazenamento local que o usuário está logado e atribuindo o ID dele
                             Armazenamento_local.setItem('logado', true);
-                            Armazenamento_local.setItem('id', json.id);
+                            Armazenamento_local.setItem('id', json.idUsuario);
                         }
 
 

@@ -55,11 +55,6 @@
             body: JSON.stringify(teste)
         }).then(function (resposta) {
             resposta.json().then(function (resultado) {
-              
-               
-                
-             
-               
             })
                 .catch()
         })
@@ -73,11 +68,11 @@
         resposta.json().then(function (resultado) {
             resultado.forEach(element => {
                 container.innerHTML += `<div class="usuario">
-                    <p>Nome completo do usuário: ${element.nome} ${element.sobrenome}</p>
-                    <p>Email do usuário: ${element.email}</p>
-                    <p>Senha do usuário: ${element.senha}</p>
+                    <p>Nome completo do usuário: ${element.nomeUsuario} ${element.sobrenomeUsuario}</p>
+                    <p>Email do usuário: ${element.emailUsuario}</p>
+                    <p>Senha do usuário: ${element.senhaUsuario}</p>
                     <p id="paragrafoAcesso"></p>
-                        <button onclick="fnModificarDados(${element.id})">Modificar dados</button>
+                        <button onclick="fnModificarDados(${element.idUsuario})">Modificar dados</button>
                     </div>`
                    
             });

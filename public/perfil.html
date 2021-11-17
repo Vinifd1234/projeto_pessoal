@@ -55,20 +55,16 @@
 
 
     // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
-    var myStorage = window.localStorage;
+    var Armazenamento_local= window.localStorage;
 
-    var id_usuario = myStorage.getItem('id');
-    var logado = myStorage.getItem('logado');
+    var id_usuario = Armazenamento_local.getItem('id');
+    var logado = Armazenamento_local.getItem('logado');
 
 
 
     if (logado == "false") {
         window.location = "index.html";
     } else {
-
-
-
-
         // Requisitando as informações do usuário e colocando nas inputs
         const data = { id_usuario: id_usuario };
         fetch("/usuarios/listar1usuario", {
@@ -82,18 +78,18 @@
                 // Com a reposta, redirecionar o botão 'login' para a tela de perfil e mudando o nome para o noem do usuário logado
                 resposta.json().then(function (dados) {
 
-                    dados_usuario.innerHTML = `<p>Nome do usuário: ${dados[0].nome} ${dados[0].sobrenome}</p>
-                <p>Seu email: ${dados[0].email}</p>
-                <p>Seu telefone: ${dados[0].telefone}</p>
+                    dados_usuario.innerHTML = `<p>Nome do usuário: ${dados[0].nomeUsuario} ${dados[0].sobrenomeUsuario}</p>
+                <p>Seu email: ${dados[0].emailUsuario}</p>
+                <p>Seu telefone: ${dados[0].telefoneUsuario}</p>
                 `;
-                    input_id.value = dados[0].id;
-                    input_nome.value = dados[0].nome;
-                    input_sobrenome.value = dados[0].sobrenome;
-                    input_email.value = dados[0].email;
-                    input_telefone.value = dados[0].telefone;
+                    input_id.value = dados[0].idUsuario;
+                    input_nome.value = dados[0].nomeUsuario;
+                    input_sobrenome.value = dados[0].sobrenomeUsuario;
+                    input_email.value = dados[0].emailUsuario;
+                    input_telefone.value = dados[0].telefoneUsuario;
 
-                    nav_login.innerHTML = dados[0].nome;
-                    nome_usuario.innerHTML = dados[0].nome;
+                    nav_login.innerHTML = dados[0].nomeUsuario;
+                    nome_usuario.innerHTML = dados[0].nomeUsuario;
                 })
             })
             .catch()
@@ -142,7 +138,7 @@
         nav_login.href = "perfil.html";
 
         function fnDeslogar() {
-            myStorage.setItem("logado", false);
+            Armazenamento_local.setItem("logado", false);
             window.location = "index.html";
         }
     }

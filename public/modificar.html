@@ -20,7 +20,7 @@
 
 </html>
 <script>
-    var myStorage = localStorage;
+    var Armazenamento_local = localStorage;
 
     const data = { id_usuario: Number(myStorage.getItem('id_modificacao')) };
 
@@ -37,11 +37,11 @@
             resposta.json().then(function (dados) {
                 console.log('estou aqui!!')
                 // Com a resposta da requisição atualizar os dados no front-end com os dados do usuário
-                id_usuario.innerHTML = `ID do usuário: ${dados[0].id}`;
-                email_usuario.innerHTML = `${dados[0].email}`;
-                input_nome.value = dados[0].nome;
-                input_sobrenome.value = dados[0].sobrenome;
-                input_telefone.value = dados[0].telefone;
+                id_usuario.innerHTML = `ID do usuário: ${dados[0].idUsuario}`;
+                email_usuario.innerHTML = `${dados[0].emailUsuario}`;
+                input_nome.value = dados[0].nomeUsuario;
+                input_sobrenome.value = dados[0].sobrenomeUsuario;
+                input_telefone.value = dados[0].telefoneUsuario;
             })
         })
         .catch()
@@ -57,7 +57,7 @@
         }).then(function (resposta) {
             console.log("resposta: ", resposta);
             if (resposta.ok) {
-                myStorage.setItem('id_modificacao', null);
+                Armazenamento_local.setItem('id_modificacao', null);
                 window.location = "admin.html";
 
             } else {
