@@ -11,7 +11,8 @@ idUsuario int primary key auto_increment,
 nomeUsuario varchar(45) not null,
 sobrenomeUsuario varchar(45),
 emailUsuario varchar(45) not null,
-constraint chk_email check (emailUsuario like '@' and emailUsuario like '.'),
+senhaUsuario varchar(45) not null,
+constraint chk_email check (emailUsuario like '%@%' and emailUsuario like '%.%'),
 telefoneUsuario varchar(45),
 nivelUsuario int default 1
 );
