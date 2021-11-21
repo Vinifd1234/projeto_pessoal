@@ -15,7 +15,7 @@
             <h1>S.I.G</h1>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#">Artigos</a></li>
+                <li><a href="../post.html">Artigos</a></li>
                 <li><a id="nav_login" href="login.html"></a></li>
                 <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
             </ul>
@@ -155,6 +155,35 @@
 
 
     }
+        fetch("/usuarios/listar_comentarios", {
+            method: "POST",
+            headers: {
+                // Informando que o tipo de corpo que será enviado será JSON
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                id_post: 1
+            })
+        })
+        .then(
+            function(resposta){
+                console.log(resposta);
+                resposta.json()
+                .then(function(dados){
+                    console.log(dados);
+                    for (let i = 0; i < dados.length; i++) {
+                        comentarios.innerHTML += `
+                        <p>${dados[i].nomeUsuario} comentou: ${dados[i].corpoComentario}</p>
+                        
+                        `;
+                    }
+                })
+            }
+        )
+        .catch(function(erro){
+            console.log(erro)
+        })
+    
 
 
 </script>

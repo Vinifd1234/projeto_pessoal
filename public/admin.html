@@ -11,18 +11,8 @@
 </head>
 
 <body>
-    <div class="header">
+    <div id="criar_usuario" class="criar_usuario">
         <div class="container">
-            <h1>S.I.G</h1>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="post.html">Artigos</a></li>
-                <li><a href="admin.html">Admin</a></li>
-                <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
-            </ul>
-        </div>
-    </div>
-<div id="criar_usuario" class="criar_usuario">
 		<p>Nome do novo usuário</p>
             <input id="input_nome" type="text" placeholder="nome">
 			<p>Sobrenome do novo usuário</p>
@@ -40,6 +30,19 @@
 			<button onclick="fnEsconderFormulario()">Cancelar</button>
 			</div>
         </div>
+        </div>
+    <div class="header">
+        <div class="container">
+            <h1>S.I.G</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="post.html">Artigos</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
+            </ul>
+        </div>
+    </div>
+
     <div class="content">
         <p>Usuários cadastrados: <span id="span_qtd_usuarios"></span></p>
         <div id="container" class="container">
@@ -48,11 +51,13 @@
 		
 		<button onclick="fnMostrarFormulario()">Cadastrar novo usuário</button>
 		
-		<div class="div_graficos">
-		<h1>Gráficos</h1>
 		<div class="graficos">
+		<div class="grafico">
 		<canvas id="chartUsuariosInativosxAtivos"></canvas>
 		</div>
+        <div class="grafico">
+        <canvas id="chartPostagensxComentarios"></canvas>
+        </div>
 		</div>
         
     </div>

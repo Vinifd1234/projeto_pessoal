@@ -11,9 +11,7 @@ router.get("/listar", function (req, res) {
     usuarioController.listar(req, res);
 });
 
-router.get("/listar_usuarios_inativos_e_ativos", function(req, res){
-    usuarioController.listar_usuarios_inativos_e_ativos(req, res);
-});
+
 
 
 
@@ -46,7 +44,9 @@ router.post("/verificar_email", function(req, res) {
 });
 
 
-
+router.post("/listar_comentarios", function(req, res){
+    usuarioController.listar_comentarios(req, res);
+});
 
 router.post("/postar_comentario", function(req, res){
     usuarioController.postar_comentario(req, res);

@@ -10,19 +10,13 @@ function listar() {
     return database.executar(instrucao);
 }
 
-function listar_usuarios_inativos_e_ativos() {
-    var instrucao = `
-    select count(idUsuario) as 'Inativos' from Usuario where nivelUsuario = 3
-    union all
-    select count(idUsuario) as 'Ativos' from Usuario where nivelUsuario = 1;
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
-}
+
 
 function listar_postagens() {
     var instrucao = `
-    SELECT * FROM postagem join usuario on fkUsuario = idUsuario;
+    SELECT * FROM postagem 
+    join Usuario on fkUsuario = idUsuario
+    join Categoria on fkCategoria = idCategoria;
     `;
     return database.executar(instrucao);
 }
@@ -90,15 +84,26 @@ function postar_comentario(id_postador, corpo_comentario, id_post) {
     return database.executar(instrucao);
 }
 
+function listar_comentarios(id_post) {
+    var instrucao = `
+    select Usuario.nomeUsuario, Postagem.tituloPostagem, comentario.corpoComentario from comentario
+join Usuario on fkUsuario = idUsuario 
+join Postagem on fkPostagem = idPostagem
+where idPostagem = ${id_post};
+    `;
+    console.log("Executando instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     cadastrar,
     verificar_email,
     atualizar,
     listar,
-    listar_usuarios_inativos_e_ativos,
     listar_postagens,
     listar1usuario,
+    listar_comentarios,
     excluir,
     postar_comentario
 };

@@ -36,21 +36,7 @@ function listar(req, res) {
         );
 }
 
-function listar_usuarios_inativos_e_ativos(req, res){
-    usuarioModel.listar_usuarios_inativos_e_ativos()
-    .then(function(resultado){
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    })
-    .catch(function(erro){
-        console.log(erro);
-        console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    })
-}
+
 
 function listar_postagens(req, res){
     usuarioModel.listar_postagens()
@@ -234,6 +220,35 @@ function listar_ultimo_acesso(req, res){
     }
 }
 
+function listar_comentarios(req, res){
+    var id_post = req.body.id_post;
+
+    if(id_post == undefined){
+        res.status(400).send("o ID do post está undefined!!");
+    }else{
+        console.log("Estou aqui!!");
+        
+        usuarioModel.listar_comentarios(id_post)
+        .then(
+            function(resultado){
+                res.json(resultado);
+            }
+
+        )
+        .catch(
+            function(erro){
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao trazer os comentários Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        )
+        }
+}
+
+
 function postar_comentario(req, res){
     var id_postador = req.body.id_postador;
     var corpo_comentario = req.body.corpo_comentario;
@@ -272,9 +287,9 @@ module.exports = {
     verificar_email,
     atualizar,
     listar,
-    listar_usuarios_inativos_e_ativos,
     listar_postagens,
     listar1usuario,
+    listar_comentarios,
     testar,
     excluir,
     postar_comentario

@@ -65,14 +65,14 @@
                 `);
                 lista_de_postagens.innerHTML += `
                 <li>
-                <img src = "img/noimage.jpg">
+                <img src = "img/posts/${element.nomeCategoria}/${element.diretorioImagem}.jpg">
                 <div class="text">
                         <p id="titulo">${element.tituloPostagem}</p>
                         <p id="Autor">Postado por: ${element.nomeUsuario}</p>
                         <p id="Data">Publicado em: ${element.dtCriacaoPostagem.substring(8, 10)}/${element.dtCriacaoPostagem.substring(5, 7)}/${element.dtCriacaoPostagem.substring(0, 4)} às ${element.dtCriacaoPostagem.substring(11, 13)}:${element.dtCriacaoPostagem.substring(14, 16)}  </p>
                         <p id="Descricao">${element.corpoPostagem}</p>
                         <div>
-                            <button>Ler artigo</button>
+                            <a href="posts/post${element.idPostagem}.html">Ler artigo</a>
                         </div>
                     </div>
                 </li>
