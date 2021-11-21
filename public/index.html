@@ -16,7 +16,7 @@
             <h1>S.I.G</h1>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#">Artigos</a></li>
+                <li><a href="post.html">Artigos</a></li>
                 <li><a id="nav_login" href="login.html"></a></li>
                 <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
                 
@@ -26,34 +26,9 @@
 
     <!-- Elemento HTML para o wallpaper da página-->
     <div class="wallpaper">
-            <!-- Textos referentes ao wallpaper-->
-        <div class="text">
-            <h1>S.I.G</h1>
-            <h3>Self Improvement General</h3>
-        </div>
+            <img src="img/background_1.jpg">
     </div>
 
-    <!-- Seção da página dedicada ao texto sobre o desenvolvimento pessoal--> 
-    <div class="sig">
-        <div class="container">
-            <section>
-                <h2>O que é <strong>Desenvolvimento pessoal</strong>?</h2>
-                <p>Desenvolvimento pessoal são atividades, rotinas, processos realizados com o intuito de explorar e
-                    maximizar as habilidades, competências, aptidões do praticante o máximo possível com o objetivo de
-                    alcançar seus objetivos, realizar seus sonhos, se desafiar ou até mesmo por se sentir bem com isso.
-                    <hr> <br>
-                    Iniciada nos primórdios da civilização, a jornada do desenvolvimento pessoal pode ser dividida em 4
-                    grandes nichos:<br>Desenvolvimento físico. <br>Desenvolvimento Intelectual. <br>Desenvolvimento
-                    Mental e <br>Desenvolvimento espiritual.<br>
-                    E o quê exatamente significam estátuas gregas, homens musculosos? Você deve mesmo acordar às 5 da
-                    manhã todos os dias?<br>
-                    Todos esses paradigmas e supostas falácias serão debatidos aqui nesse WebSite, então, faça seu
-                    <span>Cadastro</span> se possível e,<br>
-                <h1>Vamos nessa, marujo.</h1>
-                </p>
-            </section>
-        </div>
-    </div>
 
     <!-- Seção dedicada aos posts do site-->
     <div class="articles">
@@ -76,12 +51,10 @@
 
                 <div class="post three">
                     <h1>Título do post</h1>
-                    <h3>Descrição do post:</h3>
                 </div>
 
                 <div class="post four">
                     <h1>Título do post</h1>
-                    <h3>Descrição do post:</h3>
                 </div>
 
             </div>
@@ -136,8 +109,7 @@
     }
 
     function fnDeslogar() {
-            Armazenamento_local.setItem("logado", false);
-            Armazenamento_local.setItem("id", null);
+            Armazenamento_local.clear();
             window.location = "index.html";
         }
 </script>

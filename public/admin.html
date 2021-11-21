@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/admin.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Administrador</title>
 </head>
 
@@ -15,50 +16,62 @@
             <h1>S.I.G</h1>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#">Artigos</a></li>
+                <li><a href="post.html">Artigos</a></li>
                 <li><a href="admin.html">Admin</a></li>
                 <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
             </ul>
         </div>
     </div>
-
-    <div class="content">
-        <div id="container" class="container">
-            
+<div id="criar_usuario" class="criar_usuario">
+		<p>Nome do novo usuário</p>
+            <input id="input_nome" type="text" placeholder="nome">
+			<p>Sobrenome do novo usuário</p>
+                    <input id="input_sobrenome" type="text" placeholder="sobrenome">
+					<p>Email do novo usuário</p>
+                    <input id="input_email" type="text" placeholder="email">
+					<p>Senha do novo usuário</p>
+                    <input id="input_senha" type="password" placeholder="senha">
+					<p>Confirme a senha do novo usuário</p>
+                    <input id="input_confirmar_senha" type="password" placeholder="confirmar senha">
+					<p>Telefone do novo usuário</p>
+                    <input id="input_telefone" type="text" placeholder="telefone">
+					<div class="buttons">
+            <button onclick="fnCriarNovoUsuario()">Criar novo usuário</button>
+			<button onclick="fnEsconderFormulario()">Cancelar</button>
+			</div>
         </div>
+    <div class="content">
+        <p>Usuários cadastrados: <span id="span_qtd_usuarios"></span></p>
+        <div id="container" class="container">
+
+        </div>
+		
+		<button onclick="fnMostrarFormulario()">Cadastrar novo usuário</button>
+		
+		<div class="div_graficos">
+		<h1>Gráficos</h1>
+		<div class="graficos">
+		<canvas id="chartUsuariosInativosxAtivos"></canvas>
+		</div>
+		</div>
+        
     </div>
 </body>
 
 </html>
+<script src="js/chart.js"> </script>
 <script>
+	
+
+    // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
     var Armazenamento_local = localStorage;
+    // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
+    var admin = Armazenamento_local.getItem('admin');
 
-
+    if(admin == "true"){
     function fnModificarDados(id) {
         Armazenamento_local.setItem('id_modificacao', id);
         window.location = "modificar.html";
-    }
-
-
-    function fnUltimoAcesso(id, element) {
-        console.log(element);
-        /*Faz a requisição do último login do usuário*/
-        const teste = {
-            id: id
-        }
-        fetch("/usuarios/listar_ultimo_acesso", {
-            method: "POST",
-            headers: {
-                // Informando que o tipo de corpo que será enviado será JSON
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(teste)
-        }).then(function (resposta) {
-            resposta.json().then(function (resultado) {
-            })
-                .catch()
-        })
-            .catch()
     }
 
     fetch("/usuarios/listar", {
@@ -66,6 +79,7 @@
         mode: "cors"
     }).then(function (resposta) {
         resposta.json().then(function (resultado) {
+            console.log(resultado);
             resultado.forEach(element => {
                 container.innerHTML += `<div class="usuario">
                     <p>Nome completo do usuário: ${element.nomeUsuario} ${element.sobrenomeUsuario}</p>
@@ -74,7 +88,7 @@
                     <p id="paragrafoAcesso"></p>
                         <button onclick="fnModificarDados(${element.idUsuario})">Modificar dados</button>
                     </div>`
-                   
+
             });
 
         })
@@ -82,16 +96,56 @@
     })
         .catch()
 
-       
 
-        function fnDeslogar(){
-            Armazenamento_local.setItem("logado", false);
-            Armazenamento_local.setItem("id", null);
-            Armazenamento_local.setItem("id_modificacao", null);
+
+    function fnDeslogar() {
+        Armazenamento_local.clear();
             window.location = "index.html";
-        }
-    
+    }
 
+    function fnCriarNovoUsuario() {
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                        // Informando que o tipo de corpo que será enviado será JSON
+                        'Content-Type': 'application/json'
+                    },
+            body:JSON.stringify({
+                nome: input_nome.value,
+                sobrenome: input_sobrenome.value,
+                email: input_email.value,
+                senha: input_senha.value,
+                telefone: input_telefone.value
+            })
+        }).then(function(resposta){
+            console.log("resposta: ", resposta);
+                    if (resposta.ok) {
+                        window.alert("Cadastro realizado com sucesso!");
+                        window.location = "admin.html";
+                    } else {
+                        throw ("Houve um erro ao tentar realizar o cadastro!");
+                    }
+        })
+        .catch()
+    }
+
+
+ // Cadastro de novos usuários
+ 
+ criar_usuario.style.display = "none";
+ 
+ function fnMostrarFormulario(){
+	criar_usuario.style.display = "block";
+ }
+ 
+ function fnEsconderFormulario(){
+ criar_usuario.style.display = "none";
+ }
+}
+else{
+    window.location = "perfil.html";
+}
 
 
 </script>
+

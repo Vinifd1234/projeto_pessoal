@@ -15,7 +15,7 @@
             <h1>S.I.G</h1>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#">Artigos</a></li>
+                <li><a href="post.html">Artigos</a></li>
                 <li><a href="#">Login</a></li>
             </ul>
         </div>
@@ -75,17 +75,24 @@
                         console.log(json);
                         console.log(JSON.stringify(json));
 
+                        if(json.nivelUsuario == 3){
+                            alert("Sua conta foi desabilitada ou excluída. Se cadastre novamente.");
+                        }else
+
                         //Verifica se o usuário que está logando tem poder administrativo
                         if (json.nivelUsuario == 2) {
-                            window.location = "admin.html";
                             Armazenamento_local.setItem('logado', true);
                             Armazenamento_local.setItem('id', json.idUsuario);
+                            window.location = "admin.html";
+                            
                         } else {
                             // Caso o usuário tenha realizado o login com sucesso, redireciona ele para a tela de perfil
-                            window.location = "perfil.html";
-                            // Armazenando no armazenamento local que o usuário está logado e atribuindo o ID dele
-                            Armazenamento_local.setItem('logado', true);
+                             // Armazenando no armazenamento local que o usuário está logado e atribuindo o ID dele
+                             Armazenamento_local.setItem('logado', true);
                             Armazenamento_local.setItem('id', json.idUsuario);
+                            window.location = "perfil.html";
+                           
+
                         }
 
 
@@ -108,6 +115,10 @@
 
 
         }
+
+        
     }
+
+    
 
 </script>

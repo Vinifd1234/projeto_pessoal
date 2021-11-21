@@ -15,7 +15,7 @@
             <h1>S.I.G</h1>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#">Artigos</a></li>
+                <li><a href="post.html">Artigos</a></li>
                 <li><a id="nav_login" href="login.html"></a></li>
                 <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
             </ul>
@@ -78,6 +78,11 @@
                 // Com a reposta, redirecionar o botão 'login' para a tela de perfil e mudando o nome para o noem do usuário logado
                 resposta.json().then(function (dados) {
 
+                    if(dados[0].nivelUsuario == 2){
+                        window.location = "admin.html";
+                        Armazenamento_local.setItem("admin", true);
+                    }else{
+                        Armazenamento_local.setItem("admin", false);
                     dados_usuario.innerHTML = `<p>Nome do usuário: ${dados[0].nomeUsuario} ${dados[0].sobrenomeUsuario}</p>
                 <p>Seu email: ${dados[0].emailUsuario}</p>
                 <p>Seu telefone: ${dados[0].telefoneUsuario}</p>
@@ -90,7 +95,8 @@
 
                     nav_login.innerHTML = dados[0].nomeUsuario;
                     nome_usuario.innerHTML = dados[0].nomeUsuario;
-                })
+                }
+            })
             })
             .catch()
 
@@ -138,7 +144,7 @@
         nav_login.href = "perfil.html";
 
         function fnDeslogar() {
-            Armazenamento_local.setItem("logado", false);
+            Armazenamento_local.clear();
             window.location = "index.html";
         }
     }

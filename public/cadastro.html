@@ -15,7 +15,7 @@
             <h1>S.I.G</h1>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#">Artigos</a></li>
+                <li><a href="post.html">Artigos</a></li>
                 <li><a href="#">Login</a></li>
             </ul>
         </div>
@@ -47,6 +47,7 @@
 </html>
 <script>
 
+var email_existente = true;
     // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
     var Armazenamento_local = localStorage;
     // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
@@ -56,7 +57,7 @@
         alert('Você já está logado. Deslogue-se para poder efetuar cadastro!');
         window.location = "index.html";
     } else {
-
+        
 
         // Máscara de validação do telefone
         function fnTelefone() {
@@ -109,6 +110,22 @@
             } else if (email.indexOf('@') == -1 && email.indexOf('.') == -1) {
                 alert('Email no formato incorreto.');
             } else {
+                
+        var emailVar = input_email.value;
+        fetch("/usuarios/verificar_email", {
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: emailVar
+            })
+        })
+        .then(
+            function(resultado){
+                console.log("Resultado:" + resultado.json()
+                .then(function(dados){
+                if(dados.length == 0){
                 const dados = {
                     nome: nome,
                     sobrenome: sobrenome,
@@ -137,10 +154,28 @@
                 }).catch(function (resposta) {
                     console.log(`#ERRO: ${resposta}`);
                 });
-
-                return false;
+                    
+                }else{
+                    alert("Email já cadastrado.");
+                }
+                }));
             }
+        )
+        .catch(
+            function(erro){
+                console.log("ERRO: ",erro);
+            }
+        )
+    
+
+
+            
+            }
+
+            
 
         }
     }
+
+    
 </script>>

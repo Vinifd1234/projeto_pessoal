@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/artigos.css">
+    <title>Artigos</title>
+</head>
+<body>
+    <!-- Elemento HTML para a barra de navegação-->
+    <header class="header">
+        <navbar class="container">
+            <h1>S.I.G</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Artigos</a></li>
+                <li><a id="nav_login" href="login.html"></a></li>
+                <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
+            </ul>
+        </navbar>
+    </header>
+    <main>
+        <article>
+            <p class="textos">S.I.G</p>
+            <p class="textos">Lista de postagens</p>
+            <ul id="lista_de_postagens">
+                <!--
+                <li>
+                    <img src="img/noimage.jpg">
+                    <div class="text">
+                        <p id="titulo">Título</p>
+                        <p id="Autor">Escrito por</p>
+                        <p id="Data">Data de publicação</p>
+                        <p id="Descricao">Descrição</p>
+                        <div>
+                            <button>Ler artigo</button>
+                        </div>
+                    </div>
+                </li>
+-->
+                
+            </ul>
+        </article>
+    </main>
+</body>
+</html>
+<script>
+    fetch("/usuarios/listar_postagens",{
+        method: "GET",
+        mode: "cors"
+    })
+    .then(function(resposta){
+        resposta.json().then(function(resultado){
+            resultado.forEach(element => {
+                console.log(`
+                ano: ${element.dtCriacaoPostagem.substring(0, 4)}<br>
+                mes: ${element.dtCriacaoPostagem.substring(5, 7)}<br>
+                dia: ${element.dtCriacaoPostagem.substring(8, 10)}<br>
+                hora: ${element.dtCriacaoPostagem.substring(11, 13)}<br>
+                minuto: ${element.dtCriacaoPostagem.substring(14, 16)}<br>
+                segundo: ${element.dtCriacaoPostagem.substring(17, 19)}<br>
+
+                
+                `);
+                lista_de_postagens.innerHTML += `
+                <li>
+                <img src = "img/noimage.jpg">
+                <div class="text">
+                        <p id="titulo">${element.tituloPostagem}</p>
+                        <p id="Autor">Postado por: ${element.nomeUsuario}</p>
+                        <p id="Data">Publicado em: ${element.dtCriacaoPostagem.substring(8, 10)}/${element.dtCriacaoPostagem.substring(5, 7)}/${element.dtCriacaoPostagem.substring(0, 4)} às ${element.dtCriacaoPostagem.substring(11, 13)}:${element.dtCriacaoPostagem.substring(14, 16)}  </p>
+                        <p id="Descricao">${element.corpoPostagem}</p>
+                        <div>
+                            <button>Ler artigo</button>
+                        </div>
+                    </div>
+                </li>
+                `
+            });
+        })
+    })
+    .catch(function(erro){
+        console.log(`Erro: ${erro}`);
+    })
+    .catch(function(erro){
+        console.log(`Erro: ${erro}`);
+    })
+
+    // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
+    var Armazenamento_local = localStorage;
+    // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
+    var logado = Armazenamento_local.getItem('logado');
+
+    // Caso o usuário esteja logado, ou seja, variavel logado = true, fazer uma requisição para pegar o nome do usuário
+    if (logado == "true") {
+        //Habilita a função de deslogar, caso o usuário esteja logado.
+        li_sair.style.display = "block";
+        var id_usuario = Number(Armazenamento_local.getItem('id'));
+        const data = { id_usuario: id_usuario };
+        fetch("/usuarios/listar1usuario", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }).
+            then(function (resposta) {
+                // Com a reposta, redirecionar o botão 'login' para a tela de perfil e mudando o nome para o noem do usuário logado
+                resposta.json().then(function (dados) {
+                    nav_login.href = "perfil.html"
+                    nav_login.innerHTML = dados[0].nomeUsuario;
+                })
+            })
+            .catch()
+    } else{
+        nav_login.innerHTML = "Login";
+        nav_login.href = "login.html"
+        li_sair.style.display = "none";
+
+    }
+
+    function fnDeslogar() {
+        Armazenamento_local.clear();
+            window.location = "index.html";
+        }
+</script>

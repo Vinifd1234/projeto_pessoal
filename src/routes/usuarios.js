@@ -11,6 +11,16 @@ router.get("/listar", function (req, res) {
     usuarioController.listar(req, res);
 });
 
+router.get("/listar_usuarios_inativos_e_ativos", function(req, res){
+    usuarioController.listar_usuarios_inativos_e_ativos(req, res);
+});
+
+
+
+router.get("/listar_postagens", function(req, res){
+    usuarioController.listar_postagens(req, res);
+});
+
 router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
@@ -34,6 +44,8 @@ router.post("/atualizar", function(req, res) {
 router.post("/verificar_email", function(req, res) {
     usuarioController.verificar_email(req, res);
 });
+
+
 
 
 router.post("/postar_comentario", function(req, res){

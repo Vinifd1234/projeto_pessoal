@@ -7,7 +7,7 @@
 
 .header{
     color: white;
-    background-color: #0D0159;
+    background-color: #9cc1f8;
     height: 10vh;
     width: 100%;
     font-family: 'Poppins', sans-serif;
@@ -29,13 +29,14 @@
 .header ul{
     display: flex;
     justify-content: space-evenly;
-    width: 30%;
+    width: 45%;
     list-style: none;
 }
 
 .header a{
     text-decoration: none;
     color: inherit;
+    cursor: pointer;
 }
 
 .header a:hover{
@@ -43,76 +44,19 @@
 }
 
 .wallpaper{
-    background-image: url('../img/wallpaper_4.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
+    width: 100%;
 }
 
-@keyframes meio{
-    to{top: 30%;}
-    from{top: 0;}
-}
+.wallpaper img{
+    width: 100%;
 
-/* The animation code */
-@keyframes example {
-   to{left: 55%; color: white; text-shadow: -17px 9px 0px #2002DA;}
-   from{left:-50%;} 
-  }
-  
-  /* The element to apply the animation to */
-  .text{
-      position: relative;
-      top: 30%;
-      left: 55%;
-      color: white; 
-      text-shadow: -17px 9px 0px #2002DA;
-    animation-name: example;
-    animation-duration: 1.5s;
-  }
-
-.text h1{
-    font-size: 13vw;
-}
-
-.text h3{
-    letter-spacing: 3px;
-    font-size: 3vw;
-    position: relative;
-    right: 4rem;
-    bottom: 1rem;
-    text-shadow: none;
-}
-
-
-
-
-
-.sig{
-    background-color: #1802A6;
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 300;
-}
-
-.sig .container{
-    width: 90%;
-    margin: auto;
-}
-
-.sig section{
-    padding: 2rem;
-    font-size: 2rem;
 }
 
 .articles{
     color: white;
     width: 100%;
     height: 100vh;
-    background-color: #5A45DF;
+    background-color: #82C1E0;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -174,7 +118,8 @@
 
 .footer{  
     height: 35vh;
-    background-color: #0D0159;
+    
+    background-color: #828FE0;
     color: white;
     font-family: 'Poppins', sans-serif;
 }

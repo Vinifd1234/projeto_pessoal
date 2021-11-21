@@ -36,6 +36,39 @@ function listar(req, res) {
         );
 }
 
+function listar_usuarios_inativos_e_ativos(req, res){
+    usuarioModel.listar_usuarios_inativos_e_ativos()
+    .then(function(resultado){
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    })
+    .catch(function(erro){
+        console.log(erro);
+        console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+function listar_postagens(req, res){
+    usuarioModel.listar_postagens()
+    .then(function(resultado){
+        if(resultado.length > 0){
+            res.status(200).json(resultado);
+        }else{
+            res.status(204).send("Nenhuma postagem encontrada encontrado!")
+        }
+    })
+    .catch(function(erro){
+        console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+    })
+
+    
+}
+
 function listar1usuario(req, res){
     var id = req.body.id_usuario;
     usuarioModel.listar1usuario(id).
@@ -239,6 +272,8 @@ module.exports = {
     verificar_email,
     atualizar,
     listar,
+    listar_usuarios_inativos_e_ativos,
+    listar_postagens,
     listar1usuario,
     testar,
     excluir,
