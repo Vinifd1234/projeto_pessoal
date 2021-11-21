@@ -80,3 +80,52 @@ article .text{
     flex-direction: column;
     justify-content: space-evenly;
 }
+
+section{
+}
+
+section .container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+section .post{
+   width: 100%;
+   height: 90vh;
+   display: flex;
+   flex-direction: column;
+}
+
+.post img{
+   max-width: 100%;
+   width: 100%;
+}
+
+#genero{
+font-weight: bold;
+color: #9cc1f8;
+}
+
+#data{
+    font-weight: bold;
+}
+
+#titulo{
+    font-size: 2rem;
+}
+
+#subtitulo{
+    font-size: 1.3rem;
+}
+
+.imagem{
+    width: 100%;
+}
+
+.imagem img{
+    max-width: 66%;
+    width: 100%;
+}
+
+
+

@@ -24,23 +24,14 @@
         <article>
             <p class="textos">S.I.G</p>
             <p class="textos">Lista de postagens</p>
-            <ul id="lista_de_postagens">
-                <!--
-                <li>
-                    <img src="img/noimage.jpg">
-                    <div class="text">
-                        <p id="titulo">Título</p>
-                        <p id="Autor">Escrito por</p>
-                        <p id="Data">Data de publicação</p>
-                        <p id="Descricao">Descrição</p>
-                        <div>
-                            <button>Ler artigo</button>
-                        </div>
-                    </div>
-                </li>
--->
+            <section>
+                <div id="container" class="container">
                 
+            </div>
+            </section>
+            <ul id="lista_de_postagens">  
             </ul>
+       
         </article>
     </main>
 </body>
@@ -63,6 +54,21 @@
 
                 
                 `);
+
+                container.innerHTML += `
+                <div class="post">
+                    <div class="imagem">
+                    <img src="img/posts/${element.nomeCategoria}/${element.diretorioImagem}.jpg">
+                    </div>
+                    <div class="texto">
+                    <p><span id="genero">${element.nomeCategoria}</span> <span id="data">${element.dtCriacaoPostagem.substring(8, 10)}/${element.dtCriacaoPostagem.substring(5, 7)}/${element.dtCriacaoPostagem.substring(0, 4)} às ${element.dtCriacaoPostagem.substring(11, 13)}:${element.dtCriacaoPostagem.substring(14, 16)}</span></p>
+                    <p id="titulo">${element.tituloPostagem}</p>
+                    <p id="subtitulo">${element.corpoPostagem}</p>
+                    <a href="posts/post${element.idPostagem}.html">Ler artigo</a>
+                    </div>
+                    </div>
+                `;
+                /*
                 lista_de_postagens.innerHTML += `
                 <li>
                 <img src = "img/posts/${element.nomeCategoria}/${element.diretorioImagem}.jpg">
@@ -76,7 +82,7 @@
                         </div>
                     </div>
                 </li>
-                `
+                `*/
             });
         })
     })

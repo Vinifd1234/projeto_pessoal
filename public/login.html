@@ -27,11 +27,10 @@
         <div class="login">
             <div class="form">
                 <div class="login-form">
-                    <span class="material-icons">Login</span>
+                    <span>Login</span>
                     <input id="input_email" type="text" placeholder="email">
                     <input id="input_senha" type="password" placeholder="senha">
                     <button onclick="entrar()">Fazer login</button>
-                    <p id="erro_p"></p>
                     <p>Não possui conta?<a href="cadastro.html">Criar agora</a></p>
                 </div>
             </div>
@@ -48,11 +47,13 @@
     // Caso o usuário esteja logado, logo não pode fazer login denovo, sendo assim, redireciona ele para a tela index.html
     if (logado == "true") {
         alert('Você já está logado. Deslogue-se para poder efetuar o login!');
-
         window.location = "index.html";
     } else {
         function entrar() {
 
+            if(input_email.value == "" || input_senha.value == ""){
+               alert("Preencha todos os campos!");
+            }else{
             const data = {
                 email: input_email.value,
                 senha: input_senha.value
@@ -105,14 +106,14 @@
                     console.log("Houve um erro ao tentar realizar o login!");
 
                     resposta.text().then(texto => {
-                        erro_p.innerHTML = texto;
+                       alert(texto);
                     });
                 }
 
             }).catch(function (erro) {
                 console.log(erro);
             })
-
+        }
 
         }
 

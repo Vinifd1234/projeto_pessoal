@@ -10,41 +10,42 @@ body{
 }
 
 .header{
-    color: white;
-    background-color: #0D0159;
-    height: 10vh;
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
+  color: white;
+  background-color: #9cc1f8;
+  height: 10vh;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
 }
 
 .header .container{
-    width: 90%;
-    height: inherit;
-    margin: auto;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  width: 90%;
+  height: inherit;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .header h1:hover{
-    border-bottom: 2px solid #0D47A1;
+ 
 }
 
 .header ul{
-    display: flex;
-    justify-content: space-evenly;
-    width: 30%;
-    list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  width: 45%;
+  list-style: none;
+  font-weight: bold;
 }
 
 .header a{
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .header a:hover{
-    border-bottom: 2px solid #0D47A1;
+  color: #0D47A1;
 }
 
 .wallpaper{
@@ -58,7 +59,7 @@ body{
 }
 
 .cadastro {
-    width: 360px;
+    width: 10rem;
     padding: 8% 0 0;
     margin: auto;
     font-family: 'Comfortaa', cursive;
@@ -113,7 +114,7 @@ body{
   }
   
   .form span {
-    font-size: 75px;
+    font-size: 3rem;
     color: #4b6cb7;
   }
 
