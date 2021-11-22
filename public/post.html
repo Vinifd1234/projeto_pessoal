@@ -56,7 +56,7 @@
                 `);
 
                 container.innerHTML += `
-                <div class="post">
+                <div class="post" onclick="window.location = 'posts/post${element.idPostagem}.html'">
                     <div class="imagem">
                     <img src="img/posts/${element.nomeCategoria}/${element.diretorioImagem}.jpg">
                     </div>
@@ -127,7 +127,8 @@
     }
 
     function fnDeslogar() {
-        Armazenamento_local.clear();
+        Armazenamento_local.setItem('logado', false);
+        Armazenamento_local.setItem('id', null);
             window.location = "index.html";
         }
 </script>

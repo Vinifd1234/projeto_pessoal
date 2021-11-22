@@ -144,7 +144,8 @@
         nav_login.href = "perfil.html";
 
         function fnDeslogar() {
-            Armazenamento_local.clear();
+            Armazenamento_local.setItem('logado', false);
+            Armazenamento_local.setItem('id', null);
             window.location = "index.html";
         }
     }

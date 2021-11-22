@@ -7,7 +7,7 @@
 
 .header{
     color: white;
-    background-color: #0D0159;
+    background-color: #9cc1f8;
     height: 10vh;
     width: 100%;
     font-family: 'Poppins', sans-serif;
@@ -22,20 +22,16 @@
     align-items: center;
 }
 
-.header .container{
-    cursor: pointer;
-}
-
 .header h1:hover{
-    border-bottom: 2px solid #0D47A1;
-    cursor: pointer;
+   
 }
 
 .header ul{
     display: flex;
     justify-content: space-evenly;
-    width: 30%;
+    width: 45%;
     list-style: none;
+    font-weight: bold;
 }
 
 .header a{
@@ -45,7 +41,7 @@
 }
 
 .header a:hover{
-    border-bottom: 2px solid #0D47A1;
+    color: #0D47A1;
 }
 
 .conteudo{
@@ -85,11 +81,42 @@
 }
 
 .conteudo .comentarios{
-    background-color: #8511D0;
+    padding: 2rem;
+    border: 1px solid gray;
+
+}
+
+.conteudo .comentarios p{
+    margin-bottom: 2rem;
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+.conteudo .comentarios h4{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#usuario{
+    font-weight: bold;
 }
 
 .conteudo .comentar{
-    background-color: darkmagenta;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    
+}
+
+.comentar textarea{
+    resize: none;
+}
+
+.comentar button{
+    font-size: 1.5rem;
+    width: 16%;
+    height: 5rem;
+    margin: auto;
 }
 
 .sobre{
@@ -110,8 +137,8 @@
 }
 
 .footer{  
-    height: 35vh;
-    background-color: #0D0159;
+    height: 15vh;
+    background-color: #9cc1f8;
     color: white;
     font-family: 'Poppins', sans-serif;
 }

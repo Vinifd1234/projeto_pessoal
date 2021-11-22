@@ -62,11 +62,14 @@
 
             </section>
             <div class="comentarios" id="comentarios">
+                <div class="titulo">
+                    <h4>Comentários da postagem</h4>
+                </div>
 
             </div>
 
             <section id="comentar" class="comentar">
-                <textarea id="textoarea">
+                <textarea placeholder="Faça seu comentário..." id="textoarea" rows="4" cols="50">
                     </textarea>
                 <button onclick="fnComentar()">Comentar</button>
             </section>
@@ -85,6 +88,8 @@
 
 </html>
 <script>
+
+    textoarea.innerHTML = "";
     // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
     var Armazenamento_local = localStorage;
     // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
@@ -114,6 +119,10 @@
             })
             .catch()
     } else {
+        li_sair.style.display = "none";
+        nav_login.style.display = "block";
+        nav_login.href = "../login.html"
+        nav_login.innerHTML = "Login"
 
     }
 
@@ -142,11 +151,8 @@
             },
             body: JSON.stringify(dados)
         }).then(function (resposta) {
-            resposta.json().then(function (resultado) {
-              console.log(resultado);
-               
-            })
-                .catch()
+            window.location = "post1.html";
+                
         })
             .catch()
 
@@ -173,7 +179,7 @@
                     console.log(dados);
                     for (let i = 0; i < dados.length; i++) {
                         comentarios.innerHTML += `
-                        <p>${dados[i].nomeUsuario} comentou: ${dados[i].corpoComentario}</p>
+                        <p><span id="usuario">${dados[i].nomeUsuario}</span> comentou: ${dados[i].corpoComentario}</p>
                         
                         `;
                     }
