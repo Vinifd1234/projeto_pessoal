@@ -3,21 +3,10 @@ var database = require("../database/config")
 function listar() {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucao = `
-        SELECT * FROM usuario where nivelUsuario != 2 and nivelUsuario != 3;
+        SELECT * FROM Usuario where nivelUsuario != 2 and nivelUsuario != 3;
         `
 
     console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
-}
-
-
-
-function listar_postagens() {
-    var instrucao = `
-    SELECT * FROM postagem 
-    join Usuario on fkUsuario = idUsuario
-    join Categoria on fkCategoria = idCategoria;
-    `;
     return database.executar(instrucao);
 }
 
@@ -60,7 +49,7 @@ function atualizar(id, nome, sobrenome, email, telefone) {
 function excluir(id) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n");
     var instrucao = `
-    UPDATE usuario set nivelUsuario = 3 WHERE idUsuario = ${id};
+    UPDATE Usuario set nivelUsuario = 3 WHERE idUsuario = ${id};
     `;
     console.log("Executando instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -76,24 +65,9 @@ function verificar_email(email) {
 }
 
 
-function postar_comentario(id_postador, corpo_comentario, id_post) {
-    var instrucao = `
-    insert into Comentario (corpoComentario, fkUsuario, fkPostagem) values ('${corpo_comentario}', '${id_postador}', '${id_post}');
-    `;
-    console.log("Executando instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
-}
 
-function listar_comentarios(id_post) {
-    var instrucao = `
-    select Usuario.nomeUsuario, Postagem.tituloPostagem, comentario.corpoComentario from comentario
-join Usuario on fkUsuario = idUsuario 
-join Postagem on fkPostagem = idPostagem
-where idPostagem = ${id_post};
-    `;
-    console.log("Executando instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
-}
+
+
 
 module.exports = {
     entrar,
@@ -101,9 +75,6 @@ module.exports = {
     verificar_email,
     atualizar,
     listar,
-    listar_postagens,
     listar1usuario,
-    listar_comentarios,
-    excluir,
-    postar_comentario
+    excluir
 };

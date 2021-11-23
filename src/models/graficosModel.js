@@ -12,7 +12,7 @@ function listar_usuarios_inativos_e_ativos() {
 
 function listar_PostagensxComentarios() {
     var instrucao = `
-    select tituloPostagem as 'postagem', count(idComentario) as 'comentario' from comentario join postagem on fkPostagem = idPostagem group by tituloPostagem;
+    select tituloPostagem as 'postagem', count(idComentario) as 'comentario' from Comentario join Postagem on fkPostagem = idPostagem group by tituloPostagem;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

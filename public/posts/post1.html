@@ -117,7 +117,9 @@
                     nav_login.innerHTML = dados[0].nomeUsuario;
                 })
             })
-            .catch()
+            .catch(function(erro){
+                console.log(erro);
+            })
     } else {
         li_sair.style.display = "none";
         nav_login.style.display = "block";
@@ -143,7 +145,7 @@
             corpo_comentario: text.trim(),
             id_post: 1
         }
-        fetch("/usuarios/postar_comentario", {
+        fetch("/postagens/postar_comentario", {
             method: "POST",
             headers: {
                 // Informando que o tipo de corpo que será enviado será JSON
@@ -154,14 +156,16 @@
             window.location = "post1.html";
                 
         })
-            .catch()
+            .catch(function(erro){
+                console.log(erro);
+            })
 
         
 
 
 
     }
-        fetch("/usuarios/listar_comentarios", {
+        fetch("/postagens/listar_comentarios", {
             method: "POST",
             headers: {
                 // Informando que o tipo de corpo que será enviado será JSON
@@ -177,6 +181,7 @@
                 resposta.json()
                 .then(function(dados){
                     console.log(dados);
+                    
                     for (let i = 0; i < dados.length; i++) {
                         comentarios.innerHTML += `
                         <p><span id="usuario">${dados[i].nomeUsuario}</span> comentou: ${dados[i].corpoComentario}</p>

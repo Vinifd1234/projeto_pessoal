@@ -32,7 +32,9 @@ corpoPostagem text not null,
 fkUsuario int,
 constraint fk_usuario_postagem foreign key (fkUsuario) references Usuario (idUsuario),
 fkCategoria int,
-constraint fk_categoria_postagem foreign key (fkCategoria) references Categoria (idCategoria)
+constraint fk_categoria_postagem foreign key (fkCategoria) references Categoria (idCategoria),
+diretorioImagem int,
+dtCriacaoPostagem datetime default now()
 );
 
 -- Criação da tabela comentario
@@ -45,3 +47,15 @@ fkPostagem int,
 constraint fk_postagem_comentario foreign key (fkPostagem) references Postagem (idPostagem),
 primary key (idComentario, fkUsuario, fkPostagem)
 );
+
+
+-- Insert na tabela categoria
+-- IMPORTANTE: Não mude o nome dos inserts. Eles são importantes no sistema de imagens das postagens.
+insert into Categoria (nomeCategoria) values 
+('Fisico'), ('Mental'), ('Intelectual'), ('Espiritual');
+
+-- Insert na tabela Usuario (adicionando a conta de admin:)
+Insert into Usuario (nomeUsuario, emailUsuario, senhaUsuario, nivelUsuario) values
+('Ademiro', 'admin@email.com', 'admin', 2);
+
+

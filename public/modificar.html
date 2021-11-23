@@ -61,7 +61,7 @@
                 // Informando que o tipo de corpo que será enviado será JSON
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(dados)
         }).then(function (resposta) {
             console.log("resposta: ", resposta);
             // Caso a requisição seja um sucesso, zerar a váriavel de modificação e redirecionar o administrador de volta á tela de admin

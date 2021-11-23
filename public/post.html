@@ -37,12 +37,13 @@
 </body>
 </html>
 <script>
-    fetch("/usuarios/listar_postagens",{
+    fetch("/postagens/listar_postagens",{
         method: "GET",
         mode: "cors"
     })
     .then(function(resposta){
         resposta.json().then(function(resultado){
+            console.log(resultado);
             resultado.forEach(element => {
                 console.log(`
                 ano: ${element.dtCriacaoPostagem.substring(0, 4)}<br>
@@ -50,9 +51,7 @@
                 dia: ${element.dtCriacaoPostagem.substring(8, 10)}<br>
                 hora: ${element.dtCriacaoPostagem.substring(11, 13)}<br>
                 minuto: ${element.dtCriacaoPostagem.substring(14, 16)}<br>
-                segundo: ${element.dtCriacaoPostagem.substring(17, 19)}<br>
-
-                
+                segundo: ${element.dtCriacaoPostagem.substring(17, 19)}<br> 
                 `);
 
                 container.innerHTML += `

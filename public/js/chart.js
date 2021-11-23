@@ -40,7 +40,10 @@ fetch("/graficos/listar_PostagensxComentarios", {
                var myChartBar = new Chart(document.getElementById("chartPostagensxComentarios"), config_2);
 
             }
-        );
+        )
+        .catch(function(erro){
+            console.log(`Deu bomba no JSON: ${erro}`);
+        });
     }
 )
 .catch(function(erro){
@@ -115,6 +118,4 @@ var config_2 = {
         maintainAspectRatio: false
     }
 }
-
-
 
