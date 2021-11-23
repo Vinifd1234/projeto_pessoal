@@ -17,16 +17,16 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="post.html">Artigos</a></li>
-                <li><a id="nav_login" href="login.html"></a></li>
+                <li><a id="a_login" href="login.html"></a></li>
                 <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
-                
+
             </ul>
         </div>
     </div>
 
     <!-- Elemento HTML para o wallpaper da página-->
     <div class="wallpaper">
-          
+
     </div>
 
 
@@ -74,43 +74,64 @@
 
 </html>
 <script>
+    /* Código revisado e comentado em 22/11/21 por: Vinicius Oliveira*/
+
+
+
     // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
     var Armazenamento_local = localStorage;
     // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
-    var logado = Armazenamento_local.getItem('logado');
-    
-    
-    // Caso o usuário esteja logado, ou seja, variavel logado = true, fazer uma requisição para pegar o nome do usuário
+    var logado = Armazenamento_local.getItem("logado");
+    var admin = Armazenamento_local.getItem("admin");
+    // Por mais que seja definido como "true", a variavel armazenada no armazenamento local é convertida pra string, sendo assim, é necessário fazer a conversão para valor booleano
     if (logado == "true") {
-        //Habilita a função de deslogar, caso o usuário esteja logado.
+        logado = true;
+    } else {
+        logado = false;
+    }
+
+
+    // Caso o usuário esteja logado, ou seja, variavel logado = true, fazer uma requisição para pegar o nome do usuário
+    if (logado) {
+        //Faz aparecer a <li> escrita sair, com a função de deslogar o usuário, caso o usuário esteja logado.
         li_sair.style.display = "block";
-        var id_usuario = Number(Armazenamento_local.getItem('id'));
-        const data = { id_usuario: id_usuario };
+        // Puxa do armazenamento local o ID do usuário que está logado, para assim fazer a requisição posteriormente
+        var id_usuario = Number(Armazenamento_local.getItem("id"));
+        // Criação do objeto que será enviado como corpo da requisição
+        const dados = { id_usuario: id_usuario };
+        // Requisição na rota "listar1usuario", método POST, informando que o corpo será enviado no formado JSON, e logo após transformando o objeto suposto em JSON
         fetch("/usuarios/listar1usuario", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(data),
-        }).
-            then(function (resposta) {
-                // Com a reposta, redirecionar o botão 'login' para a tela de perfil e mudando o nome para o noem do usuário logado
-                resposta.json().then(function (dados) {
-                    nav_login.href = "perfil.html"
-                    nav_login.innerHTML = dados[0].nomeUsuario;
-                })
+            body: JSON.stringify(dados),
+            // Caso a requisição dê certo .then()
+        }).then(function (resposta) {
+            // Com a reposta, redirecionar o botão 'login' para a tela de perfil e mudando o nome para o noem do usuário logado
+            resposta.json().then(function (dados) {
+                nav_login.href = "perfil.html"
+                nav_login.innerHTML = dados[0].nomeUsuario;
             })
-            .catch()
-    } else{
-        nav_login.innerHTML = "Login";
-        nav_login.href = "login.html"
+        })
+            //  Caso a requisição dê errado, exibir no console o erro 
+            .catch(function (erro) {
+                console.log(erro);
+            })
+        /* Esse else faz parte do if(logado), isso significa que se logado = false, o usuário não está logado
+        então, mostrar o <a> de login para ele e não exibir o de deslogar*/
+    } else {
+        a_login.innerHTML = "Login";
+        a_login.href = "login.html"
         li_sair.style.display = "none";
 
     }
 
+    // A função deslogar define a chave "logado" como falsa e deixa o id do usuário como nulo. Logo após redireciona o usuário para a tela inicial do site.
     function fnDeslogar() {
-        Armazenamento_local.setItem('logado', false);
-        Armazenamento_local.setItem('id', null);
-            window.location = "index.html";
-        }
+        Armazenamento_local.setItem("logado", false);
+        Armazenamento_local.setItem("id", null);
+        Armazenamento_local.setItem("admin", false);
+        window.location = "index.html";
+    }
 </script>

@@ -20,10 +20,14 @@
 
 </html>
 <script>
+    /* Código revisado e comentado em 22/11/21 por: Vinicius Oliveira*/
+
+
     var Armazenamento_local = localStorage;
+    // Criando o objeto para posterior requisição capturando o id que veio do usuário à ser modificado
+    const dados = { id_usuario: Number(Armazenamento_local.getItem("id_modificacao")) };
 
-    const data = { id_usuario: Number(Armazenamento_local.getItem('id_modificacao')) };
-
+    // Com o ID do usuário em mãos, é feita a requisição para puxar seus dados
     fetch("/usuarios/listar1usuario", {
         method: "POST",
         headers: {
@@ -31,7 +35,7 @@
             'Content-Type': 'application/json',
         },
         // Convertendo o objeto criado acima para JSON, para enviar no corpo da requisição
-        body: JSON.stringify(data)
+        body: JSON.stringify(dados)
     }).
         then(function (resposta) {
             resposta.json().then(function (dados) {
@@ -44,22 +48,26 @@
                 input_telefone.value = dados[0].telefoneUsuario;
             })
         })
-        .catch()
+        .catch(function (erro) {
+            console.log(erro);
+        })
+
+    // A requisição de exclusão se baseia em atualizar o nível do usuário para 3, que na regra de negócio significa "excluído" ou "desativado"
 
     function fnExcluir() {
         fetch("/usuarios/excluir", {
             method: "POST",
             headers: {
                 // Informando que o tipo de corpo que será enviado será JSON
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(data)
         }).then(function (resposta) {
             console.log("resposta: ", resposta);
+            // Caso a requisição seja um sucesso, zerar a váriavel de modificação e redirecionar o administrador de volta á tela de admin
             if (resposta.ok) {
                 Armazenamento_local.setItem('id_modificacao', null);
                 window.location = "admin.html";
-
             } else {
                 throw ("Houve um erro ao tentar excluir o usuário!");
             }
@@ -68,32 +76,33 @@
         });
     }
 
-    function fnAtualizar(){
+    // A função de atualizar é a mesma do perfil.html
+    function fnAtualizar() {
         const data_atualizar = {
-                id: Number(id_usuario.innerHTML[id_usuario.innerHTML.length -1]),
-                nome: input_nome.value,
-                sobrenome: input_sobrenome.value,
-                email: email_usuario.innerHTML,
-                telefone: input_telefone.value
-            };
-            // Fazendo a requisição de atualização dos dados
-            fetch("/usuarios/atualizar", {
-                method: "POST",
-                headers: {
-                    // Informando que o tipo de corpo que será enviado será JSON
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data_atualizar)
-            }).then(function (resposta) {
-                console.log("resposta: ", resposta);
-                if (resposta.ok) {
-                    window.alert("dados atualizados com realizado com sucesso!");
-                    window.location = "admin.html";
-                } else {
-                    throw ("Houve um erro ao tentar atualizar os dados!");
-                }
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
+            id: Number(id_usuario.innerHTML[id_usuario.innerHTML.length - 1]),
+            nome: input_nome.value,
+            sobrenome: input_sobrenome.value,
+            email: email_usuario.innerHTML,
+            telefone: input_telefone.value
+        };
+        // Fazendo a requisição de atualização dos dados
+        fetch("/usuarios/atualizar", {
+            method: "POST",
+            headers: {
+                // Informando que o tipo de corpo que será enviado será JSON
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data_atualizar)
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+            if (resposta.ok) {
+                window.alert("dados atualizados com realizado com sucesso!");
+                window.location = "admin.html";
+            } else {
+                throw ("Houve um erro ao tentar atualizar os dados!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
     }
 </script>

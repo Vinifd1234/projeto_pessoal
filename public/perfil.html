@@ -25,81 +25,97 @@
     <div class="info">
         <div class="container">
             <div class="box">
-            <h1>Bem vindo ao seu perfil, <span id="nome_usuario"></span></h1>
-            <h2>Esses são seus dados:</h2>
+                <h1>Bem vindo ao seu perfil, <span id="nome_usuario"></span></h1>
+                <h2>Esses são seus dados:</h2>
             </div>
             <div class="box">
-            <div id="dados_usuario"></div>
+                <div id="dados_usuario"></div>
             </div>
 
             <div class="box">
-            <button onclick="mostrarFormulario()">Atualizar dados</button>
-            <div id="formulario">
-                <input name="id" type="text" id="input_id">
-                <input name="nome" type="text" placeholder="Nome" id="input_nome">
-                <input name="sobrenome" type="text" placeholder="Sobrenome" id="input_sobrenome">
-                <input name="email" type="text" style="display: none;" placeholder="email" id="input_email">
-                <input name="telefone" id="input_telefone"  type="text" placeholder="telefone: (ddd) 96635-4166"
-                    maxlength="10" onkeyup="fnTelefone()">
-                <button onclick="atualizar()">Atualizar dados</button>
+                <button onclick="mostrarFormulario()">Atualizar dados</button>
+                <div id="formulario">
+                    <input name="id" type="text" id="input_id">
+                    <input name="nome" type="text" placeholder="Nome" id="input_nome">
+                    <input name="sobrenome" type="text" placeholder="Sobrenome" id="input_sobrenome">
+                    <input name="email" type="text" style="display: none;" placeholder="email" id="input_email">
+                    <input name="telefone" id="input_telefone" type="text" placeholder="telefone: (ddd) 96635-4166"
+                        maxlength="10" onkeyup="fnTelefone()">
+                    <button onclick="atualizar()">Atualizar dados</button>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 </body>
 
 </html>
-<script src="verificar_email.js"></script>
 <script>
-
+    /* Código revisado e comentado em 22/11/21 por: Vinicius Oliveira*/
 
 
     // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
-    var Armazenamento_local= window.localStorage;
+    var Armazenamento_local = window.localStorage;
 
-    var id_usuario = Armazenamento_local.getItem('id');
-    var logado = Armazenamento_local.getItem('logado');
+    var id_usuario = Armazenamento_local.getItem("id");
+    var logado = Armazenamento_local.getItem("logado");
+    var admin = Armazenamento_local.getItem("admin");
+
+    // Por mais que seja definido como "true", a variavel armazenada no armazenamento local é convertida pra string, sendo assim, é necessário fazer a conversão para valor booleano
+    if (logado == "true") {
+        logado = true;
+    } else {
+        logado = false;
+    }
+
+    // Por mais que seja definido como "true", a variavel armazenada no armazenamento local é convertida pra string, sendo assim, é necessário fazer a conversão para valor booleano
+    if (admin == "true") {
+        admin = true;
+    } else {
+        admin = false;
+    }
 
 
-
-    if (logado == "false") {
+    // Caso o usuário não esteja logado (logado = false), redirecionar ele até a home
+    if (!logado) {
         window.location = "index.html";
+        // Se não, continuar o fluxo normal da página
+    } else if (admin) {
+        window.location = "admin.html";
     } else {
         // Requisitando as informações do usuário e colocando nas inputs
-        const data = { id_usuario: id_usuario };
+        const dados = { id_usuario: id_usuario };
         fetch("/usuarios/listar1usuario", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(dados),
         }).
             then(function (resposta) {
-                // Com a reposta, redirecionar o botão 'login' para a tela de perfil e mudando o nome para o noem do usuário logado
                 resposta.json().then(function (dados) {
-
-                    if(dados[0].nivelUsuario == 2){
-                        window.location = "admin.html";
-                        Armazenamento_local.setItem("admin", true);
-                    }else{
-                        Armazenamento_local.setItem("admin", false);
+                    // Exibindo os dados para o usuário
                     dados_usuario.innerHTML = `<p>Nome do usuário: ${dados[0].nomeUsuario} ${dados[0].sobrenomeUsuario}</p>
                 <p>Seu email: ${dados[0].emailUsuario}</p>
                 <p>Seu telefone: ${dados[0].telefoneUsuario}</p>
                 `;
+                    nome_usuario.innerHTML = dados[0].nomeUsuario;
+
+                    // Colocando os dados nas inputs caso o usuário queira mudar posteiormente (a principio as inputs são invisiveis)
                     input_id.value = dados[0].idUsuario;
                     input_nome.value = dados[0].nomeUsuario;
                     input_sobrenome.value = dados[0].sobrenomeUsuario;
                     input_email.value = dados[0].emailUsuario;
                     input_telefone.value = dados[0].telefoneUsuario;
 
+                    // Colocando na navbar o nome do usuário
                     nav_login.innerHTML = dados[0].nomeUsuario;
-                    nome_usuario.innerHTML = dados[0].nomeUsuario;
-                }
+                })
             })
+            .catch(function (erro) {
+                console.log(erro);
             })
-            .catch()
 
+        // A função de atualizar os dados é simples. Em resumo, é feito um post no banco, dando o update com os valores que o usuário modificou.
         function atualizar() {
             const data_atualizar = {
                 id: Number(input_id.value),
@@ -118,9 +134,11 @@
                 body: JSON.stringify(data_atualizar)
             }).then(function (resposta) {
                 console.log("resposta: ", resposta);
+                // Caso a resposta da requisição seja "ok", avisar o usuário e assim atualizar a página
                 if (resposta.ok) {
                     window.alert("dados atualizados com realizado com sucesso!");
                     window.location = "perfil.html";
+                    // Caso não, mostrar o erro
                 } else {
                     throw ("Houve um erro ao tentar atualizar os dados!");
                 }
@@ -136,16 +154,18 @@
         // Esconde o campo ID do usuário, para que assim o usuário não possa manipular
         input_id.style.display = "none";
 
+        // Definindo que o nome do usuário na navbar encaminhe o usuário para a tela de perfil
+        nav_login.href = "perfil.html";
+
         function mostrarFormulario() {
             formulario.style.display = "block";
         }
 
-
-        nav_login.href = "perfil.html";
-
+        // A função deslogar define a chave "logado" como falsa e deixa o id do usuário como nulo. Logo após redireciona o usuário para a tela inicial do site.
         function fnDeslogar() {
             Armazenamento_local.setItem('logado', false);
             Armazenamento_local.setItem('id', null);
+            Armazenamento_local.setItem("admin", false);
             window.location = "index.html";
         }
     }
