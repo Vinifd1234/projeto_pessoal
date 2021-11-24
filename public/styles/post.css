@@ -50,13 +50,18 @@
 }
 
 .conteudo .container{
-    width: 77%;
-    margin: auto;
+    width: 60%;
+    margin-left: 7rem;
+    margin-top: 3rem;
     border: 1px solid gray;
     color: gray;
 }
 
 .conteudo .img{
+    background-image: url('../img/posts/Fisico/4.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:70vh;
     max-width: 100%;
     width: 100%;
 }
@@ -92,7 +97,7 @@
     font-size: 1.5rem;
 }
 
-.conteudo .comentarios h4{
+.conteudo .comentarios p{
     text-align: center;
     margin-bottom: 1rem;
 }

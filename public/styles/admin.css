@@ -48,16 +48,28 @@
     height: 90vh;
 }
 
+.center{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.content section{
+    display: block;
+    width: 66%;
+    margin: auto;
+}
+
 .content .container{
     width: 80%;
     padding: 1rem;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .usuario{
-    flex-basis: 47%;
+    flex-basis: 36%;
     flex-grow: 0;
     flex-shrink: 0;
     padding: 1rem;
@@ -104,3 +116,6 @@
     justify-content: space-evenly;
 }
 
+.grafico{
+    width: 300px;
+}

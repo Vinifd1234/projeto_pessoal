@@ -62,9 +62,24 @@ function listar_Usuarios_recorrentes(req, res){
     )
 }
 
+function listar_UsuariosxComentarios(req, res){
+    graficosModel.listar_UsuariosxComentarios()
+    .then(function(resultado){
+        res.status(200).json(resultado)
+    })
+    .catch(
+        function(erro){
+            console.log(erro);
+            console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    )
+}
+
 module.exports = {
    testar,
    listar_usuarios_inativos_e_ativos,
    listar_Usuarios_recorrentes,
-   listar_PostagensxComentarios
+   listar_PostagensxComentarios,
+   listar_UsuariosxComentarios
 }

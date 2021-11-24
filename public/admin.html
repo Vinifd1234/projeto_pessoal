@@ -44,14 +44,18 @@
     </div>
 
     <div class="content">
+        <div class="center">
+        <button id="btnMostrarUsuario" onclick="fnMostrarUsuarios()">Mostrar usuários cadastrados</button>
+        </div>
+        <section id="usuarios">
         <p>Usuários cadastrados: <span id="span_qtd_usuarios"></span></p>
         <div id="container" class="container">
-
         </div>
-
+        <div class="center">
         <button onclick="fnMostrarFormulario()">Cadastrar novo usuário</button>
-
-        <div class="graficos">
+        </div>
+        </section>
+        <div id="graficos" class="graficos">
             <div class="grafico">
                 <canvas id="chartUsuariosInativosxAtivos"></canvas>
             </div>
@@ -60,6 +64,18 @@
             </div>
             <div class="grafico">
                 <canvas id="chartUsuariosRecorrentes"></canvas>
+            </div>
+        </div>
+
+        <div class="graficos">
+            <div class="grafico">
+                <canvas id="chartUsuariosxComentarios"></canvas>
+            </div>
+            <div class="grafico">
+                <canvas id=""></canvas>
+            </div>
+            <div class="grafico">
+                <canvas id=""></canvas>
             </div>
         </div>
 
@@ -96,13 +112,12 @@
             mode: "cors"
         }).then(function (resposta) {
             resposta.json().then(function (resultado) {
-                console.log(resultado);
                 // A partir da resposta dessa requisição, para cada elemento (conta de usuário) que retornar, fazer uma div para ele e completa-lá com suas informações
                 resultado.forEach(element => {
                     container.innerHTML += `<div class="usuario">
                     <p>Nome completo do usuário: ${element.nomeUsuario} ${element.sobrenomeUsuario}</p>
                     <p>Email do usuário: ${element.emailUsuario}</p>
-                    <p>Senha do usuário: ${element.senhaUsuario}</p>
+                    <p>Último acesso: </p>
                     <p id="paragrafoAcesso"></p>
                         <button onclick="fnModificarDados(${element.idUsuario})">Modificar dados</button>
                     </div>`
@@ -210,5 +225,17 @@
         window.location = "perfil.html";
     }
 
+    usuarios.style.display = "none";
+    function fnMostrarUsuarios(){
+        if(usuarios.style.display == "none"){
+            usuarios.style.display = "block";
+            btnMostrarUsuario.innerHTML = "Esconder usuários cadastrados";
+        }else if(usuarios.style.display == "block"){
+            usuarios.style.display = "none";
+            btnMostrarUsuario.innerHTML = "Mostrar usuários cadastrados";
+        }
+    }
+
+    
 
 </script>

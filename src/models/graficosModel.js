@@ -27,8 +27,21 @@ function listar_Usuarios_recorrentes(){
     return database.executar(instrucao);
 }
 
+function listar_UsuariosxComentarios(){
+    var instrucao = `
+    select nomeUsuario as 'nomeUsuario', count(idComentario) as 'qtdComentario' from Comentario 
+join Usuario on fkUsuario = idUsuario 
+where nivelUsuario != 2
+group by nomeUsuario
+LIMIT 3;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar_usuarios_inativos_e_ativos,
     listar_PostagensxComentarios,
-    listar_Usuarios_recorrentes
+    listar_Usuarios_recorrentes,
+    listar_UsuariosxComentarios
 }

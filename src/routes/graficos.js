@@ -19,6 +19,10 @@ router.get("/listar_Usuarios_recorrentes", function(req, res){
     graficosController.listar_Usuarios_recorrentes(req, res);
 });
 
+router.get("/listar_UsuariosxComentarios", function(req, res){
+    graficosController.listar_UsuariosxComentarios(req, res);
+})
+
 
 
 module.exports = router;
