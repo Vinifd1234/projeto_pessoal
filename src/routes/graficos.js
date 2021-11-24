@@ -15,6 +15,10 @@ router.get("/listar_PostagensxComentarios", function(req, res){
     graficosController.listar_PostagensxComentarios(req, res);
 });
 
+router.get("/listar_Usuarios_recorrentes", function(req, res){
+    graficosController.listar_Usuarios_recorrentes(req, res);
+});
+
 
 
 module.exports = router;

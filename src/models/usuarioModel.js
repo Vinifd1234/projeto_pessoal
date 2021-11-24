@@ -64,6 +64,15 @@ function verificar_email(email) {
     return database.executar(instrucao);
 }
 
+function registrar_acesso(id){
+    var instrucao = `
+    insert into Acesso (fkUsuario) values (${id});
+    `;
+    console.log("Executando instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+
+}
+
 
 
 
@@ -76,5 +85,6 @@ module.exports = {
     atualizar,
     listar,
     listar1usuario,
+    registrar_acesso,
     excluir
 };

@@ -71,7 +71,7 @@
             <section id="comentar" class="comentar">
                 <textarea placeholder="Faça seu comentário..." id="textoarea" rows="4" cols="50">
                     </textarea>
-                <button onclick="fnComentar()">Comentar</button>
+                <button id="btnComentar" onclick="fnComentar()">Comentar</button>
             </section>
         </div>
     </div>
@@ -125,6 +125,9 @@
         nav_login.style.display = "block";
         nav_login.href = "../login.html"
         nav_login.innerHTML = "Login"
+        textoarea.innerHTML = "Faça seu login para comentar.";
+        textoarea.disabled = true;
+        btnComentar.style.display = "none";
 
     }
 
@@ -135,6 +138,8 @@
     }
 
     function fnComentar() {
+
+        if(logado){
         var section = document.createElement("section");
         var p = document.createElement("p");
         var text = textoarea.value;
@@ -159,8 +164,9 @@
             .catch(function(erro){
                 console.log(erro);
             })
-
-        
+        }else{
+            alert("Faça seu login para comentar.");
+        }
 
 
 

@@ -58,6 +58,9 @@
             <div class="grafico">
                 <canvas id="chartPostagensxComentarios"></canvas>
             </div>
+            <div class="grafico">
+                <canvas id="chartUsuariosRecorrentes"></canvas>
+            </div>
         </div>
 
     </div>
@@ -127,31 +130,65 @@
 
         // A função de criar novo usuário, basicamente é a mesma da página "cadastro.html"
         function fnCriarNovoUsuario() {
-            fetch("/usuarios/cadastrar", {
+            var email = input_email.value;
+
+            fetch("/usuarios/verificar_email", {
                 method: "POST",
                 headers: {
-                    // Informando que o tipo de corpo que será enviado será JSON
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    nome: input_nome.value,
-                    sobrenome: input_sobrenome.value,
-                    email: input_email.value,
-                    senha: input_senha.value,
-                    telefone: input_telefone.value
+                    email: email
                 })
-            }).then(function (resposta) {
-                console.log("resposta: ", resposta);
-                if (resposta.ok) {
-                    window.alert("Cadastro realizado com sucesso!");
-                    window.location = "admin.html";
-                } else {
-                    throw ("Houve um erro ao tentar realizar o cadastro!");
-                }
             })
+                .then(
+                    function (resultado) {
+                        resultado.json().then(
+                            function (dados) {
+                                if (dados.length == 0) {
+                                    fetch("/usuarios/cadastrar", {
+                                        method: "POST",
+                                        headers: {
+                                            // Informando que o tipo de corpo que será enviado será JSON
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify({
+                                            nome: input_nome.value,
+                                            sobrenome: input_sobrenome.value,
+                                            email: input_email.value,
+                                            senha: input_senha.value,
+                                            telefone: input_telefone.value
+                                        })
+                                    }).then(function (resposta) {
+                                        console.log("resposta: ", resposta);
+                                        if (resposta.ok) {
+                                            window.alert("Cadastro realizado com sucesso!");
+                                            window.location = "admin.html";
+                                        } else {
+                                            throw ("Houve um erro ao tentar realizar o cadastro!");
+                                        }
+                                    })
+                                        .catch(function (erro) {
+                                            console.log(erro);
+                                        })
+                                } else {
+                                    alert("Email já cadastrado.");
+                                }
+                            }
+                        )
+                            .catch(
+                                function (erro) {
+                                    console.log("Deu bomba no JSON")
+                                }
+                            )
+                    }
+                )
                 .catch(function (erro) {
                     console.log(erro);
                 })
+
+
+
         }
 
 

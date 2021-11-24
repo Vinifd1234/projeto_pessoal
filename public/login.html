@@ -21,8 +21,6 @@
         </div>
     </div>
 
-
-
     <div class="wallpaper">
         <div class="login">
             <div class="form">
@@ -113,6 +111,8 @@
                                     Armazenamento_local.setItem("logado", true);
                                     Armazenamento_local.setItem("id", json.idUsuario);
                                     Armazenamento_local.setItem("admin", false);
+                                    // Envia um POST para registrar que esse usuário está acessando o sistema
+                                    fnRegistrar_Acesso(json.idUsuario);
                                     window.location = "perfil.html";
                                 }
                         })
@@ -129,6 +129,26 @@
                 })
             }
 
+        }
+
+        function fnRegistrar_Acesso(id){
+            fetch("/usuarios/registrar_acesso",{
+                method: "POST",
+                headers:{
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: id
+                })
+            })
+            .then(
+                function(resultado){
+                    console.log(resultado.json());
+                }
+            )
+            .catch(function(erro){
+                console.log("Erro");
+            })
         }
 
 

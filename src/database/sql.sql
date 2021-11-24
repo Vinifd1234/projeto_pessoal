@@ -28,7 +28,6 @@ create table Postagem(
 idPostagem int primary key auto_increment,
 tituloPostagem varchar(45) not null,
 subTituloPostagem varchar(45) not null,
-corpoPostagem text not null,
 fkUsuario int,
 constraint fk_usuario_postagem foreign key (fkUsuario) references Usuario (idUsuario),
 fkCategoria int,
@@ -46,6 +45,15 @@ constraint fk_usuario_comentario foreign key (fkUsuario) references Usuario (idU
 fkPostagem int,
 constraint fk_postagem_comentario foreign key (fkPostagem) references Postagem (idPostagem),
 primary key (idComentario, fkUsuario, fkPostagem)
+);
+
+-- Criação da tabela acesso
+create table Acesso(
+idAcesso int auto_increment,
+dataAcesso datetime default now(),
+fkUsuario int,
+primary key (idAcesso, fkUsuario),
+foreign key (fkUsuario) references Usuario (idUsuario)
 );
 
 

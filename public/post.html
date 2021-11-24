@@ -26,6 +26,106 @@
             <p class="textos">Lista de postagens</p>
             <section>
                 <div id="container" class="container">
+
+                <div class="post">
+                    <div class="fundo"></div>
+                    <div class="texto">
+                    <h1>Título da postagem</h1>
+                    <h2>Subtítulo da postagem</h2>
+                    <p>Data da passagem</p>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="fundo"></div>
+                    <div class="texto">
+                    <h1>Título da postagem</h1>
+                    <h2>Subtítulo da postagem</h2>
+                    <p>Data da passagem</p>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="fundo"></div>
+                    <div class="texto">
+                    <h1>Título da postagem</h1>
+                    <h2>Subtítulo da postagem</h2>
+                    <p>Data da passagem</p>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="fundo"></div>
+                    <div class="texto">
+                    <h1>Título da postagem</h1>
+                    <h2>Subtítulo da postagem</h2>
+                    <p>Data da passagem</p>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="fundo"></div>
+                    <div class="texto">
+                    <h1>Título da postagem</h1>
+                    <h2>Subtítulo da postagem</h2>
+                    <p>Data da passagem</p>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="fundo"></div>
+                    <div class="texto">
+                    <h1>Título da postagem</h1>
+                    <h2>Subtítulo da postagem</h2>
+                    <p>Data da passagem</p>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="fundo"></div>
+                    <div class="texto">
+                    <h1>Título da postagem</h1>
+                    <h2>Subtítulo da postagem</h2>
+                    <p>Data da passagem</p>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="fundo"></div>
+                    <div class="texto">
+                    <h1>Título da postagem</h1>
+                    <h2>Subtítulo da postagem</h2>
+                    <p>Data da passagem</p>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="fundo"></div>
+                    <div class="texto">
+                    <h1>Título da postagem</h1>
+                    <h2>Subtítulo da postagem</h2>
+                    <p>Data da passagem</p>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="fundo"></div>
+                    <div class="texto">
+                    <h1>Título da postagem</h1>
+                    <h2>Subtítulo da postagem</h2>
+                    <p>Data da passagem</p>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="fundo"></div>
+                    <div class="texto">
+                    <h1>Título da postagem</h1>
+                    <h2>Subtítulo da postagem</h2>
+                    <p>Data da passagem</p>
+                    </div>
+                </div>
+
                 
             </div>
             </section>
@@ -44,6 +144,7 @@
     .then(function(resposta){
         resposta.json().then(function(resultado){
             console.log(resultado);
+            
             resultado.forEach(element => {
                 console.log(`
                 ano: ${element.dtCriacaoPostagem.substring(0, 4)}<br>
@@ -84,6 +185,13 @@
                 `*/
             });
         })
+        .catch(function(){
+                /*container.innerHTML = `
+                <div class="post">
+                    <h1>Não foram encontradas postagens :( </h1>
+                    </div>
+                `;*/
+        })
     })
     .catch(function(erro){
         console.log(`Erro: ${erro}`);
@@ -117,7 +225,11 @@
                     nav_login.innerHTML = dados[0].nomeUsuario;
                 })
             })
-            .catch()
+            .catch(
+                function(erro){
+                    console.log(erro);
+                }
+            )
     } else{
         nav_login.innerHTML = "Login";
         nav_login.href = "login.html"
