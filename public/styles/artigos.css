@@ -101,7 +101,7 @@ section .post{
 
 .post .fundo{
     height: 50%;
-  background-image: url("../img/minha_foto.jpg");
+  
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
