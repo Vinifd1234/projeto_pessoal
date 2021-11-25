@@ -11,7 +11,9 @@ router.get("/listar", function (req, res) {
     usuarioController.listar(req, res);
 });
 
-
+router.post("/atualizar_ultimo_acesso", function(req, res){
+    usuarioController.atualizar_ultimo_acesso(req, res);
+})
 
 
 

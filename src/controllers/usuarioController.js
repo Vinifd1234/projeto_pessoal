@@ -209,6 +209,29 @@ function registrar_acesso(req, res){
     }
 }
 
+function atualizar_ultimo_acesso(req, res){
+    var id = req.body.id;
+
+    if(id == undefined){
+        res.status(400).send("Seu ID está undefined");
+    }else{
+        usuarioModel.atualizar_ultimo_acesso(id)
+        .then(
+            function(resultado){
+                resultado.json();
+            }
+        )
+        .catch(function(erro){
+            console.log(
+                "\nHouve um erro ao realizar a atualização! Erro: ",
+                erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+        }
+        )
+    }
+}
+
 module.exports = {
     entrar,
     cadastrar,
@@ -218,5 +241,6 @@ module.exports = {
     listar1usuario,
     testar,
     registrar_acesso,
+    atualizar_ultimo_acesso,
     excluir
 }

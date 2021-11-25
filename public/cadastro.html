@@ -87,7 +87,9 @@
             } else if (email.indexOf("@") == -1 && email.indexOf(".") == -1) {
                 alert('Email no formato incorreto.');
                 // Caso o usuário tenha informado todas as informações de modo correto, fazer oa requisição para verificação do email
-            } else {
+            } else if(senha != confirmacaoSenha){
+                alert("As senhas devem ser iguais");
+            }else {
                 // O primeiro a se fazer é capturar o email que o usuário está a cadastrar
                 var email = input_email.value;
                 // Logo após, é enviado um post para o banco, tendo como corpo esse email que o usuário quer cadastrar em um objeto JSON.
@@ -122,7 +124,7 @@
                                                 // Informando que o tipo de corpo que será enviado será JSON
                                                 'Content-Type': 'application/json'
                                             },
-                                            body: JSON.stringify(dados)
+                                         body: JSON.stringify(dados)
                                         }).then(function (resposta) {
 
                                             console.log("resposta: ", resposta);

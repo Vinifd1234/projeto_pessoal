@@ -1,159 +1,170 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="styles/login.css">
-</head>
+    <link rel="stylesheet" href="styles/login.css" />
+  </head>
 
-<body>
+  <body>
     <div class="header">
-        <div class="container">
-            <h1>S.I.G</h1>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="post.html">Artigos</a></li>
-                <li><a href="#">Login</a></li>
-            </ul>
-        </div>
+      <div class="container">
+        <h1>S.I.G</h1>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="post.html">Artigos</a></li>
+          <li><a href="#">Login</a></li>
+        </ul>
+      </div>
     </div>
 
     <div class="wallpaper">
-        <div class="login">
-            <div class="form">
-                <div class="login-form">
-                    <span>Login</span>
-                    <input id="input_email" type="text" placeholder="email">
-                    <input id="input_senha" type="password" placeholder="senha">
-                    <button onclick="fnLogin()">Fazer login</button>
-                    <p>Não possui conta?<a href="cadastro.html">Criar agora</a></p>
-                </div>
-            </div>
+      <div class="login">
+        <div class="form">
+          <div class="login-form">
+            <span>Login</span>
+            <input id="input_email" type="text" placeholder="email" />
+            <input id="input_senha" type="password" placeholder="senha" />
+            <button onclick="fnLogin()">Fazer login</button>
+            <p>Não possui conta?<a href="cadastro.html">Criar agora</a></p>
+          </div>
         </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
 <script>
-    /* Código revisado e comentado em 22/11/21 por: Vinicius Oliveira*/
+  /* Código revisado e comentado em 22/11/21 por: Vinicius Oliveira*/
 
+  // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
+  var Armazenamento_local = localStorage;
+  // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
+  var logado = Armazenamento_local.getItem('logado');
+  // Por mais que seja definido como "true", a variavel armazenada no armazenamento local é convertida pra string, sendo assim, é necessário fazer a conversão para valor booleano
+  if (logado == 'true') {
+    logado = true;
+  } else {
+    logado = false;
+  }
 
-    // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
-    var Armazenamento_local = localStorage;
-    // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
-    var logado = Armazenamento_local.getItem("logado");
-    // Por mais que seja definido como "true", a variavel armazenada no armazenamento local é convertida pra string, sendo assim, é necessário fazer a conversão para valor booleano
-    if (logado == "true") {
-        logado = true;
-    } else {
-        logado = false;
-    }
-
-    // Caso o usuário esteja logado, logo não pode fazer login denovo, sendo assim, redireciona ele para a tela index.html
-    if (logado) {
-        alert("Você já está logado. Deslogue-se para poder efetuar o login!");
-        window.location = "index.html";
-        // Se o usuário não estiver logado (logado = false), são criadas toda as funções da página
-    } else {
-        /* A função entrar() é a função de Login. Em resumo, ela faz um post no banco de dados com o usuário e a senha que o usuário mandar. Caso o banco encontre algum registro com esses mesmos campos, significa que há algum usuário cadastrado com essas credenciais, 
+  // Caso o usuário esteja logado, logo não pode fazer login denovo, sendo assim, redireciona ele para a tela index.html
+  if (logado) {
+    alert('Você já está logado. Deslogue-se para poder efetuar o login!');
+    window.location = 'index.html';
+    // Se o usuário não estiver logado (logado = false), são criadas toda as funções da página
+  } else {
+    /* A função entrar() é a função de Login. Em resumo, ela faz um post no banco de dados com o usuário e a senha que o usuário mandar. Caso o banco encontre algum registro com esses mesmos campos, significa que há algum usuário cadastrado com essas credenciais, 
         sendo assim ele libera o login e, usando o id, puxa as informações para armazenar no armazenamento local da máquina do usuario */
-        function fnLogin() {
-            // O primeiro à se fazer é capturar os dados vindo da input
-            var email = input_email.value;
-            var senha = input_senha.value;
-            // Depois, é verificado se o usuário não deixou nenhum campo vazio. Caso tenha deixado, exibir um alerta pra ele e não fazer a requisição.
-            if (email == "" || senha == "") {
-                alert("Preencha todos os campos!");
-            } else if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
-                alert("Email no formato incorreto!");
+    function fnLogin() {
+      // O primeiro à se fazer é capturar os dados vindo da input
+      var email = input_email.value;
+      var senha = input_senha.value;
+      // Depois, é verificado se o usuário não deixou nenhum campo vazio. Caso tenha deixado, exibir um alerta pra ele e não fazer a requisição.
+      if (email == '' || senha == '') {
+        alert('Preencha todos os campos!');
+      } else if (email.indexOf('@') == -1 || email.indexOf('.') == -1) {
+        alert('Email no formato incorreto!');
+      } else {
+        // Caso todos os dados estejam preenchidos, é criado um objeto que posteriormente será utilizado como corpo da requisição, contendo as credenciais fornecidas pelo usuário para o login
+        const dados = {
+          email: email,
+          senha: senha
+        };
+
+        // A requisição é feita na rota "autenticar", utilizando o método POST, o formato do corpo é JSON, logo após é enviado o objeto "dados", convertido em JSON para a requisição
+        fetch('/usuarios/autenticar', {
+          method: 'POST',
+          headers: {
+            // Informando que o tipo de corpo que será enviado será JSON
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dados)
+          // Caso a requisição dê certo, then()
+        })
+          .then(function (resposta) {
+            console.log('ESTOU NO THEN DO entrar()!');
+            // Caso seja encontrado um usuário com as mesmas credenciais, a resposta está programada para retornar 200, equivalente à mensagem "ok". Ou seja, caso seja encontrado um usuário com as mesmas credenciais que o usuário digitou, entrar na condicional abaixo
+            if (resposta.ok) {
+              console.log(resposta);
+              resposta.json().then(json => {
+                console.log(json);
+                console.log(JSON.stringify(json));
+                // A primeira verificação é se o nível do usuário logado é 3. Segundo a regra estabelecida, o nível 3 em alguma conta, significa que essa conta foi excluída e/ou desativada pelo administrador do site, sendo assim, não é possível efetuar o login utilizando essa conta
+                if (json.nivelUsuario == 3) {
+                  alert(
+                    'Sua conta foi desabilitada ou excluída. Se cadastre novamente ou utilize outra conta.'
+                  );
+                }
+                //Verifica se o usuário que está logando tem poder administrativo, que segundo a regra de negócio, tem nivel 2 de usuário.
+                else if (json.nivelUsuario == 2) {
+                  // Caso seja um administrador logando, é informado ao armazenamento local que logado = true e direciona o administrador até a tela de administração.
+                  Armazenamento_local.setItem('logado', true);
+                  Armazenamento_local.setItem('id', json.idUsuario);
+                  Armazenamento_local.setItem('admin', true);
+                  window.location = 'admin.html';
+                } else {
+                  // Caso o usuário tenha realizado o login com sucesso, redireciona ele para a tela de perfil
+                  // Armazenando no armazenamento local que o usuário está logado e atribuindo o ID dele e por fim redirecionando ele à sua tela de perfil
+                  Armazenamento_local.setItem('logado', true);
+                  Armazenamento_local.setItem('id', json.idUsuario);
+                  Armazenamento_local.setItem('admin', false);
+                  // Envia um POST para registrar que esse usuário está acessando o sistema
+                  fnRegistrar_Acesso(json.idUsuario);
+                  // Envia um POST na tabela do usuário para registrar o último acesso desse usuário
+                  fnAtualizarUltimoAcesso(json.idUsuario);
+                  window.location = 'perfil.html';
+                }
+              });
+              // Caso não exista um usuário com as credenciais que o usuário digitou, exibir um alerta com o erro. (Que na maioria dos casos serão "Login ou senha inválidos")
             } else {
-                // Caso todos os dados estejam preenchidos, é criado um objeto que posteriormente será utilizado como corpo da requisição, contendo as credenciais fornecidas pelo usuário para o login
-                const dados = {
-                    email: email,
-                    senha: senha
-                }
-
-                // A requisição é feita na rota "autenticar", utilizando o método POST, o formato do corpo é JSON, logo após é enviado o objeto "dados", convertido em JSON para a requisição
-                fetch("/usuarios/autenticar", {
-                    method: "POST",
-                    headers: {
-                        // Informando que o tipo de corpo que será enviado será JSON
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(dados)
-                    // Caso a requisição dê certo, then()
-                }).then(function (resposta) {
-                    console.log("ESTOU NO THEN DO entrar()!")
-                    // Caso seja encontrado um usuário com as mesmas credenciais, a resposta está programada para retornar 200, equivalente à mensagem "ok". Ou seja, caso seja encontrado um usuário com as mesmas credenciais que o usuário digitou, entrar na condicional abaixo
-                    if (resposta.ok) {
-                        console.log(resposta);
-                        resposta.json().then(json => {
-                            console.log(json);
-                            console.log(JSON.stringify(json));
-                            // A primeira verificação é se o nível do usuário logado é 3. Segundo a regra estabelecida, o nível 3 em alguma conta, significa que essa conta foi excluída e/ou desativada pelo administrador do site, sendo assim, não é possível efetuar o login utilizando essa conta
-                            if (json.nivelUsuario == 3) {
-                                alert("Sua conta foi desabilitada ou excluída. Se cadastre novamente ou utilize outra conta.");
-                            } else
-                                //Verifica se o usuário que está logando tem poder administrativo, que segundo a regra de negócio, tem nivel 2 de usuário.
-                                if (json.nivelUsuario == 2) {
-                                    // Caso seja um administrador logando, é informado ao armazenamento local que logado = true e direciona o administrador até a tela de administração.
-                                    Armazenamento_local.setItem("logado", true);
-                                    Armazenamento_local.setItem("id", json.idUsuario);
-                                    Armazenamento_local.setItem("admin", true);
-                                    window.location = "admin.html";
-
-                                } else {
-                                    // Caso o usuário tenha realizado o login com sucesso, redireciona ele para a tela de perfil
-                                    // Armazenando no armazenamento local que o usuário está logado e atribuindo o ID dele e por fim redirecionando ele à sua tela de perfil
-                                    Armazenamento_local.setItem("logado", true);
-                                    Armazenamento_local.setItem("id", json.idUsuario);
-                                    Armazenamento_local.setItem("admin", false);
-                                    // Envia um POST para registrar que esse usuário está acessando o sistema
-                                    fnRegistrar_Acesso(json.idUsuario);
-                                    window.location = "perfil.html";
-                                }
-                        })
-                        // Caso não exista um usuário com as credenciais que o usuário digitou, exibir um alerta com o erro. (Que na maioria dos casos serão "Login ou senha inválidos")
-                    } else {
-                        console.log("Houve um erro ao tentar realizar o login!");
-                        resposta.text().then(texto => {
-                            alert(texto);
-                        });
-                    }
-
-                }).catch(function (erro) {
-                    console.log(erro);
-                })
+              console.log('Houve um erro ao tentar realizar o login!');
+              resposta.text().then(texto => {
+                alert(texto);
+              });
             }
-
-        }
-
-        function fnRegistrar_Acesso(id){
-            fetch("/usuarios/registrar_acesso",{
-                method: "POST",
-                headers:{
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    id: id
-                })
-            })
-            .then(
-                function(resultado){
-                    console.log(resultado.json());
-                }
-            )
-            .catch(function(erro){
-                console.log("Erro");
-            })
-        }
-
-
+          })
+          .catch(function (erro) {
+            console.log(erro);
+          });
+      }
     }
 
+    function fnRegistrar_Acesso(id) {
+      fetch('/usuarios/registrar_acesso', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: id
+        })
+      })
+        .then(function (resultado) {
+          console.log(resultado.json());
+        })
+        .catch(function (erro) {
+          console.log('Erro');
+        });
+    }
 
-
+    function fnAtualizarUltimoAcesso(id) {
+      fetch('/usuarios/atualizar_ultimo_acesso', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: id
+        })
+      })
+        .then(function (resultado) {
+          console.log(resultado.json());
+        })
+        .catch(function (erro) {
+          console.log('Erro');
+        });
+    }
+  }
 </script>

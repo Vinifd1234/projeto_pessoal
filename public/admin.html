@@ -1,241 +1,251 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/admin.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/admin.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Administrador</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="criar_usuario" class="criar_usuario">
-        <div class="container">
-            <p>Nome do novo usuário</p>
-            <input id="input_nome" type="text" placeholder="nome">
-            <p>Sobrenome do novo usuário</p>
-            <input id="input_sobrenome" type="text" placeholder="sobrenome">
-            <p>Email do novo usuário</p>
-            <input id="input_email" type="text" placeholder="email">
-            <p>Senha do novo usuário</p>
-            <input id="input_senha" type="password" placeholder="senha">
-            <p>Confirme a senha do novo usuário</p>
-            <input id="input_confirmar_senha" type="password" placeholder="confirmar senha">
-            <p>Telefone do novo usuário</p>
-            <input id="input_telefone" type="text" placeholder="telefone">
-            <div class="buttons">
-                <button onclick="fnCriarNovoUsuario()">Criar novo usuário</button>
-                <button onclick="fnEsconderFormulario()">Cancelar</button>
-            </div>
+      <div class="container">
+        <p>Nome do novo usuário</p>
+        <input id="input_nome" type="text" placeholder="nome" />
+        <p>Sobrenome do novo usuário</p>
+        <input id="input_sobrenome" type="text" placeholder="sobrenome" />
+        <p>Email do novo usuário</p>
+        <input id="input_email" type="text" placeholder="email" />
+        <p>Senha do novo usuário</p>
+        <input id="input_senha" type="password" placeholder="senha" />
+        <p>Confirme a senha do novo usuário</p>
+        <input
+          id="input_confirmar_senha"
+          type="password"
+          placeholder="confirmar senha"
+        />
+        <p>Telefone do novo usuário</p>
+        <input id="input_telefone" type="text" placeholder="telefone" />
+        <div class="buttons">
+          <button onclick="fnCriarNovoUsuario()">Criar novo usuário</button>
+          <button onclick="fnEsconderFormulario()">Cancelar</button>
         </div>
+      </div>
     </div>
     <div class="header">
-        <div class="container">
-            <h1>S.I.G</h1>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="post.html">Artigos</a></li>
-                <li><a href="admin.html">Admin</a></li>
-                <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
-            </ul>
-        </div>
+      <div class="container">
+        <h1>S.I.G</h1>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="post.html">Artigos</a></li>
+          <li><a href="admin.html">Admin</a></li>
+          <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
+        </ul>
+      </div>
     </div>
 
     <div class="content">
-        <div class="center">
-        <button id="btnMostrarUsuario" onclick="fnMostrarUsuarios()">Mostrar usuários cadastrados</button>
-        </div>
-        <section id="usuarios">
+      <div class="center">
+        <button id="btnMostrarUsuario" onclick="fnMostrarUsuarios()">
+          Mostrar usuários cadastrados
+        </button>
+      </div>
+      <section id="usuarios">
         <p>Usuários cadastrados: <span id="span_qtd_usuarios"></span></p>
-        <div id="container" class="container">
-        </div>
+        <div id="container" class="container"></div>
         <div class="center">
-        <button onclick="fnMostrarFormulario()">Cadastrar novo usuário</button>
+          <button onclick="fnMostrarFormulario()">
+            Cadastrar novo usuário
+          </button>
         </div>
-        </section>
-        <div id="graficos" class="graficos">
-            <div class="grafico">
-                <canvas id="chartUsuariosInativosxAtivos"></canvas>
-            </div>
-            <div class="grafico">
-                <canvas id="chartPostagensxComentarios"></canvas>
-            </div>
-            <div class="grafico">
-                <canvas id="chartUsuariosRecorrentes"></canvas>
-            </div>
+      </section>
+      <div id="graficos" class="graficos">
+        <div class="grafico">
+          <canvas id="chartUsuariosInativosxAtivos"></canvas>
         </div>
+        <div class="grafico">
+          <canvas id="chartPostagensxComentarios"></canvas>
+        </div>
+        <div class="grafico">
+          <canvas id="chartUsuariosRecorrentes"></canvas>
+        </div>
+      </div>
 
-        <div class="graficos">
-            <div class="grafico">
-                <canvas id="chartUsuariosxComentarios"></canvas>
-            </div>
-            <div class="grafico">
-                <canvas id=""></canvas>
-            </div>
-            <div class="grafico">
-                <canvas id=""></canvas>
-            </div>
+      <div class="graficos">
+        <div class="grafico">
+          <canvas id="chartUsuariosxComentarios"></canvas>
         </div>
-
+        <div class="grafico">
+          <canvas id=""></canvas>
+        </div>
+        <div class="grafico">
+          <canvas id=""></canvas>
+        </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
-<script src="js/chart.js"> </script>
+<script src="js/chart.js"></script>
 <script>
-    /* Código revisado e comentado em 22/11/21 por: Vinicius Oliveira*/
+  /* Código revisado e comentado em 22/11/21 por: Vinicius Oliveira*/
 
-    // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
-    var Armazenamento_local = localStorage;
-    // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
-    var admin = Armazenamento_local.getItem("admin");
+  // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
+  var Armazenamento_local = localStorage;
+  // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
+  var admin = Armazenamento_local.getItem('admin');
 
-    // Por mais que seja definido como "true", a variavel armazenada no armazenamento local é convertida pra string, sendo assim, é necessário fazer a conversão para valor booleano
-    if (admin == "true") {
-        admin = true;
-    } else {
-        admin = false;
+  // Por mais que seja definido como "true", a variavel armazenada no armazenamento local é convertida pra string, sendo assim, é necessário fazer a conversão para valor booleano
+  if (admin == 'true') {
+    admin = true;
+  } else {
+    admin = false;
+  }
+
+  // Caso o usuário seja admin, transcorrer as funções da página normalmente
+  if (admin) {
+    function fnModificarDados(id) {
+      Armazenamento_local.setItem('id_modificacao', id);
+      window.location = 'modificar.html';
     }
 
-    // Caso o usuário seja admin, transcorrer as funções da página normalmente
-    if (admin) {
-        function fnModificarDados(id) {
-            Armazenamento_local.setItem("id_modificacao", id);
-            window.location = "modificar.html";
-        }
-
-        // A primeira requisição dessa página é listar todos os usuários que não são administradores e que não estão com a conta desativada. 
-        fetch("/usuarios/listar", {
-            method: "GET",
-            mode: "cors"
-        }).then(function (resposta) {
-            resposta.json().then(function (resultado) {
-                // A partir da resposta dessa requisição, para cada elemento (conta de usuário) que retornar, fazer uma div para ele e completa-lá com suas informações
-                resultado.forEach(element => {
-                    container.innerHTML += `<div class="usuario">
-                    <p>Nome completo do usuário: ${element.nomeUsuario} ${element.sobrenomeUsuario}</p>
+    // A primeira requisição dessa página é listar todos os usuários que não são administradores e que não estão com a conta desativada.
+    fetch('/usuarios/listar', {
+      method: 'GET',
+      mode: 'cors'
+    })
+      .then(function (resposta) {
+        resposta
+          .json()
+          .then(function (resultado) {
+            // A partir da resposta dessa requisição, para cada elemento (conta de usuário) que retornar, fazer uma div para ele e completa-lá com suas informações
+            resultado.forEach(element => {
+              console.log(element.ultimoAcessoUsuario);
+              container.innerHTML += `<div class="usuario">
+                    <p>Nome completo do usuário: ${element.nomeUsuario} ${
+                element.sobrenomeUsuario
+              }</p>
                     <p>Email do usuário: ${element.emailUsuario}</p>
-                    <p>Último acesso: </p>
+                    <p>Último acesso: ${element.ultimoAcessoUsuario.substring(
+                      8,
+                      10
+                    )}/${element.ultimoAcessoUsuario.substring(
+                5,
+                7
+              )}/${element.ultimoAcessoUsuario.substring(
+                0,
+                4
+              )} às ${element.ultimoAcessoUsuario.substring(
+                11,
+                13
+              )}:${element.ultimoAcessoUsuario.substring(14, 16)}</p>
                     <p id="paragrafoAcesso"></p>
-                        <button onclick="fnModificarDados(${element.idUsuario})">Modificar dados</button>
-                    </div>`
+                        <button onclick="fnModificarDados(${
+                          element.idUsuario
+                        })">Modificar dados</button>
+                    </div>`;
+            });
+          })
+          .catch(function (erro) {
+            console.log(erro);
+          });
+      })
+      .catch(function (erro) {
+        console.log(erro);
+      });
 
-                });
+    // A função deslogar define a chave "logado" como falsa e deixa o id do usuário como nulo. Logo após redireciona o usuário para a tela inicial do site.
+    function fnDeslogar() {
+      Armazenamento_local.setItem('logado', false);
+      Armazenamento_local.setItem('id', null);
+      Armazenamento_local.setItem('admin', false);
+      window.location = 'index.html';
+    }
 
-            })
-                .catch(function (erro) {
-                    console.log(erro);
-                })
+    // A função de criar novo usuário, basicamente é a mesma da página "cadastro.html"
+    function fnCriarNovoUsuario() {
+      var email = input_email.value;
+
+      fetch('/usuarios/verificar_email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email
         })
-            .catch(function (erro) {
-                console.log(erro);
-            })
-
-
-        // A função deslogar define a chave "logado" como falsa e deixa o id do usuário como nulo. Logo após redireciona o usuário para a tela inicial do site.
-        function fnDeslogar() {
-            Armazenamento_local.setItem("logado", false);
-            Armazenamento_local.setItem("id", null);
-            Armazenamento_local.setItem("admin", false);
-            window.location = "index.html";
-        }
-
-
-        // A função de criar novo usuário, basicamente é a mesma da página "cadastro.html"
-        function fnCriarNovoUsuario() {
-            var email = input_email.value;
-
-            fetch("/usuarios/verificar_email", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: email
+      })
+        .then(function (resultado) {
+          resultado
+            .json()
+            .then(function (dados) {
+              if (dados.length == 0) {
+                fetch('/usuarios/cadastrar', {
+                  method: 'POST',
+                  headers: {
+                    // Informando que o tipo de corpo que será enviado será JSON
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    nome: input_nome.value,
+                    sobrenome: input_sobrenome.value,
+                    email: input_email.value,
+                    senha: input_senha.value,
+                    telefone: input_telefone.value
+                  })
                 })
-            })
-                .then(
-                    function (resultado) {
-                        resultado.json().then(
-                            function (dados) {
-                                if (dados.length == 0) {
-                                    fetch("/usuarios/cadastrar", {
-                                        method: "POST",
-                                        headers: {
-                                            // Informando que o tipo de corpo que será enviado será JSON
-                                            "Content-Type": "application/json"
-                                        },
-                                        body: JSON.stringify({
-                                            nome: input_nome.value,
-                                            sobrenome: input_sobrenome.value,
-                                            email: input_email.value,
-                                            senha: input_senha.value,
-                                            telefone: input_telefone.value
-                                        })
-                                    }).then(function (resposta) {
-                                        console.log("resposta: ", resposta);
-                                        if (resposta.ok) {
-                                            window.alert("Cadastro realizado com sucesso!");
-                                            window.location = "admin.html";
-                                        } else {
-                                            throw ("Houve um erro ao tentar realizar o cadastro!");
-                                        }
-                                    })
-                                        .catch(function (erro) {
-                                            console.log(erro);
-                                        })
-                                } else {
-                                    alert("Email já cadastrado.");
-                                }
-                            }
-                        )
-                            .catch(
-                                function (erro) {
-                                    console.log("Deu bomba no JSON")
-                                }
-                            )
+                  .then(function (resposta) {
+                    console.log('resposta: ', resposta);
+                    if (resposta.ok) {
+                      window.alert('Cadastro realizado com sucesso!');
+                      window.location = 'admin.html';
+                    } else {
+                      throw 'Houve um erro ao tentar realizar o cadastro!';
                     }
-                )
-                .catch(function (erro) {
+                  })
+                  .catch(function (erro) {
                     console.log(erro);
-                })
-
-
-
-        }
-
-
-        // Esconde o form de cadastro de novos usuários
-        criar_usuario.style.display = "none";
-
-        // Mostra o form de cadastro de novos usuários
-        function fnMostrarFormulario() {
-            criar_usuario.style.display = "block";
-        }
-
-        // Esconde o form de cadastro de novos usuários
-        function fnEsconderFormulario() {
-            criar_usuario.style.display = "none";
-        }
-    }
-    // Se o usuário não for administrador, enviar ele para a tela de perfil
-    else {
-        window.location = "perfil.html";
+                  });
+              } else {
+                alert('Email já cadastrado.');
+              }
+            })
+            .catch(function (erro) {
+              console.log('Deu bomba no JSON');
+            });
+        })
+        .catch(function (erro) {
+          console.log(erro);
+        });
     }
 
-    usuarios.style.display = "none";
-    function fnMostrarUsuarios(){
-        if(usuarios.style.display == "none"){
-            usuarios.style.display = "block";
-            btnMostrarUsuario.innerHTML = "Esconder usuários cadastrados";
-        }else if(usuarios.style.display == "block"){
-            usuarios.style.display = "none";
-            btnMostrarUsuario.innerHTML = "Mostrar usuários cadastrados";
-        }
+    // Esconde o form de cadastro de novos usuários
+    criar_usuario.style.display = 'none';
+
+    // Mostra o form de cadastro de novos usuários
+    function fnMostrarFormulario() {
+      criar_usuario.style.display = 'block';
     }
 
-    
+    // Esconde o form de cadastro de novos usuários
+    function fnEsconderFormulario() {
+      criar_usuario.style.display = 'none';
+    }
+  }
+  // Se o usuário não for administrador, enviar ele para a tela de perfil
+  else {
+    window.location = 'perfil.html';
+  }
 
+  usuarios.style.display = 'none';
+  function fnMostrarUsuarios() {
+    if (usuarios.style.display == 'none') {
+      usuarios.style.display = 'block';
+      btnMostrarUsuario.innerHTML = 'Esconder usuários cadastrados';
+    } else if (usuarios.style.display == 'block') {
+      usuarios.style.display = 'none';
+      btnMostrarUsuario.innerHTML = 'Mostrar usuários cadastrados';
+    }
+  }
 </script>

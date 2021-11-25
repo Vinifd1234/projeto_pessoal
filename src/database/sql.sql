@@ -14,7 +14,8 @@ emailUsuario varchar(45) not null,
 senhaUsuario varchar(45) not null,
 constraint chk_email check (emailUsuario like '%@%' and emailUsuario like '%.%'),
 telefoneUsuario varchar(45),
-nivelUsuario int default 1
+nivelUsuario int default 1,
+ultimoAcessoUsuario datetime default now()
 );
 
 -- Criação da tabela Categoria
