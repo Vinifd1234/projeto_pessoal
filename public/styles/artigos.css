@@ -96,6 +96,7 @@ section .post{
     box-shadow: 0px 2px 8px 0px gray;
     margin-bottom: 2rem;
     border-radius: 1rem;
+    cursor: pointer;
 
 }
 

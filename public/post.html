@@ -68,12 +68,12 @@
                 `;*/
 
             container.innerHTML += `
-                <div class="post">
+                <div class="post" onclick="window.location = 'posts/post${element.idPostagem}.html'">
                     <div style='background-image: url("img/posts/${
                       element.nomeCategoria
                     }/${element.diretorioImagem}.jpg");' class="fundo"></div>
                     <div class="texto">
-                    <h1>${element.tituloPostagem}</h1>
+                    <h1>${element.TituloPostagem}</h1>
                     <h2>${element.subTituloPostagem}</h2>
                     <p>${element.dtCriacaoPostagem.substring(
                       8,

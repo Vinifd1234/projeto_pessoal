@@ -36,6 +36,23 @@ function listar(req, res) {
         );
 }
 
+function listar_usuarios_inativos(req, res){
+    usuarioModel.listar_usuarios_inativos()
+    .then(
+        function(resultado){
+            console.log(resultado);
+            res.status(200).json(resultado);
+        }
+    )
+    .catch(
+        function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+
+}
+
 
 function listar1usuario(req, res){
     var id = req.body.id_usuario;
@@ -242,5 +259,6 @@ module.exports = {
     testar,
     registrar_acesso,
     atualizar_ultimo_acesso,
-    excluir
+    excluir,
+    listar_usuarios_inativos
 }

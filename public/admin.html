@@ -54,13 +54,22 @@
       </div>
       <section id="usuarios">
         <p>Usuários cadastrados: <span id="span_qtd_usuarios"></span></p>
-        <div id="container" class="container"></div>
+        <div id="container" class="container">
+
+        </div>
         <div class="center">
           <button onclick="fnMostrarFormulario()">
             Cadastrar novo usuário
           </button>
         </div>
       </section>
+
+      <div class="center">
+        <button id="btnMostrarUsuario_inativos" onclick="fnMostrarUsuarios_inativos()">
+          Mostrar usuários inativos
+        </button>
+      </div>
+
       <div id="graficos" class="graficos">
         <div class="grafico">
           <canvas id="chartUsuariosInativosxAtivos"></canvas>
@@ -122,24 +131,12 @@
             // A partir da resposta dessa requisição, para cada elemento (conta de usuário) que retornar, fazer uma div para ele e completa-lá com suas informações
             resultado.forEach(element => {
               console.log(element.ultimoAcessoUsuario);
-              container.innerHTML += `<div class="usuario">
+              container.innerHTML += `<div class="card">
                     <p>Nome completo do usuário: ${element.nomeUsuario} ${
                 element.sobrenomeUsuario
               }</p>
                     <p>Email do usuário: ${element.emailUsuario}</p>
-                    <p>Último acesso: ${element.ultimoAcessoUsuario.substring(
-                      8,
-                      10
-                    )}/${element.ultimoAcessoUsuario.substring(
-                5,
-                7
-              )}/${element.ultimoAcessoUsuario.substring(
-                0,
-                4
-              )} às ${element.ultimoAcessoUsuario.substring(
-                11,
-                13
-              )}:${element.ultimoAcessoUsuario.substring(14, 16)}</p>
+                    <p>Último acesso: ${element.ultimoAcessoUsuario.substring(8,10)}/${element.ultimoAcessoUsuario.substring(5,7)}/${element.ultimoAcessoUsuario.substring(0,4)} às ${element.ultimoAcessoUsuario.substring(11,13)}:${element.ultimoAcessoUsuario.substring(14, 16)}</p>
                     <p id="paragrafoAcesso"></p>
                         <button onclick="fnModificarDados(${
                           element.idUsuario
@@ -247,5 +244,32 @@
       usuarios.style.display = 'none';
       btnMostrarUsuario.innerHTML = 'Mostrar usuários cadastrados';
     }
+  }
+
+  function fnMostrarUsuarios_inativos(){
+    fetch("/usuarios/listar_usuarios_inativos",{
+      method: "GET",
+      mode: "cors"
+    })
+    .then(
+      function(resposta){
+        resposta.json()
+        .then(
+          function(dados){
+            console.log(dados);
+          }
+        )
+        .catch(
+          function(){
+            alert("Não foram encontrados usuários inativos")
+          }
+        )
+      }
+    )
+    .catch(
+      function(erro){
+        console.log(erro);
+      }
+    )
   }
 </script>

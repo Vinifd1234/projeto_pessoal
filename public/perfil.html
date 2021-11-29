@@ -35,6 +35,7 @@
             <div class="box">
                 <button onclick="mostrarFormulario()">Atualizar dados</button>
                 <div class="formulario" id="formulario">
+                    <h1>Olá, <span id="span_nome_usuario"></span>, esses são seus dados:</h1>
                     <input name="id" type="text" id="input_id">
                     <input name="nome" type="text" placeholder="Nome" id="input_nome">
                     <input name="sobrenome" type="text" placeholder="Sobrenome" id="input_sobrenome">
@@ -42,6 +43,7 @@
                     <input name="telefone" id="input_telefone" type="text" placeholder="telefone: (ddd) 96635-4166"
                         maxlength="10" onkeyup="fnTelefone()">
                     <button onclick="atualizar()">Atualizar dados</button>
+                    <button onclick="fnEsconderFormulario()">Voltar</button>
                 </div>
             </div>
         </div>
@@ -103,6 +105,7 @@
                     // Colocando os dados nas inputs caso o usuário queira mudar posteiormente (a principio as inputs são invisiveis)
                     input_id.value = dados[0].idUsuario;
                     input_nome.value = dados[0].nomeUsuario;
+                    span_nome_usuario.innerHTML = dados[0].nomeUsuario;
                     input_sobrenome.value = dados[0].sobrenomeUsuario;
                     input_email.value = dados[0].emailUsuario;
                     input_telefone.value = dados[0].telefoneUsuario;
@@ -158,7 +161,11 @@
         nav_login.href = "perfil.html";
 
         function mostrarFormulario() {
-            formulario.style.display = "block";
+            formulario.style.display = "flex";
+        }
+
+        function fnEsconderFormulario(){
+            formulario.style.display = "none";
         }
 
         // A função deslogar define a chave "logado" como falsa e deixa o id do usuário como nulo. Logo após redireciona o usuário para a tela inicial do site.

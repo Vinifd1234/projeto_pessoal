@@ -46,7 +46,7 @@
 
 .conteudo{
     width: 100%;
-    font-family: 'Poppins', sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 .conteudo .container{
@@ -74,7 +74,7 @@
 .titulo{
     color: black;
     font-weight: bolder;
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 .paragrafo{
@@ -83,6 +83,16 @@
 
 .conteudo section{
     padding: 3rem;
+}
+
+section img{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 100%;
+}
+
+section ul{
+    padding: 1rem;
 }
 
 .conteudo .comentarios{
