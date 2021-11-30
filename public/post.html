@@ -148,7 +148,7 @@
         // Com a reposta, redirecionar o botão 'login' para a tela de perfil e mudando o nome para o noem do usuário logado
         resposta.json().then(function (dados) {
           nav_login.href = 'perfil.html';
-          nav_login.innerHTML = dados[0].nomeUsuario[0].toUpperCase() + dados[0].nomeUsuario.substring(1);.nomeUsuario;
+          nav_login.innerHTML = dados[0].nomeUsuario[0].toUpperCase() + dados[0].nomeUsuario.substring(1);
         });
       })
       .catch(function (erro) {

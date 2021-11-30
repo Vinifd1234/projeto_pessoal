@@ -223,11 +223,12 @@
     function fnComentar() {
 
         if (logado) {
-            var section = document.createElement("section");
-            var p = document.createElement("p");
+            // var section = document.createElement("section");
+            //  var p = document.createElement("p");
             var text = textoarea.value;
 
 
+            if(text != ""){
             const dados = {
                 id_postador: Number(Armazenamento_local.getItem("id")),
                 corpo_comentario: text.trim(),
@@ -246,7 +247,10 @@
             })
                 .catch(function (erro) {
                     console.log(erro);
-                })
+                })}
+                else{
+                    alert("O comentário não pode ser vazio!");
+                }
         } else {
             alert("Faça seu login para comentar.");
         }
