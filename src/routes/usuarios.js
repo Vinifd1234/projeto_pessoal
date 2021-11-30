@@ -19,6 +19,9 @@ router.post("/atualizar_ultimo_acesso", function(req, res){
     usuarioController.atualizar_ultimo_acesso(req, res);
 })
 
+router.post("/reativar_conta", function(req, res){
+    usuarioController.reativar_conta(req, res);
+})
 
 
 router.get("/listar_postagens", function (req, res) {

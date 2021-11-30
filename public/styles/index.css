@@ -10,7 +10,7 @@
     background-color: #9cc1f8;
     height: 10vh;
     width: 100%;
-    font-family: 'Poppins', sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 .header .container{
@@ -63,7 +63,7 @@
     width: 100%;
     height: 100vh;
     background-color: #9cc1f8;
-    font-family: 'Poppins', sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 .articles .container{
@@ -97,36 +97,54 @@
 }
 
 .one{
-    background-image: url('../img/wallpaper_1.jpg');
+    background-image: url('../img/posts/Fisico/1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.one h1{
+    text-shadow: black;
 }
 
 .two{
-    background-image: url('../img/wallpaper_2.jpg');
+    background-image: url('../img/posts/Intelectual/1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
+.two h1{
+    text-shadow: 5px 2px 1px black;
+}
+
+
+
+
 .three{
-    background-image: url('../img/wallpaper_5.jpg');
+    background-image: url('../img/posts/Mental/4.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.three h1{
+    text-shadow: 5px 2px 1px black;
 }
 
 .four{
-    background-image: url('../img/wallpaper_.jpg');
+    background-image: url('../img/posts/Espiritual/2.jpg');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
+.four h1{
+    text-shadow: 5px 2px 1px black;
+}
 
 
 .footer{  
     height: 15vh;
     background-color: #232C38;
     color: white;
-    font-family: 'Poppins', sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 .footer .container{

@@ -10,7 +10,7 @@
     background-color: #9cc1f8;
     height: 10vh;
     width: 100%;
-    font-family: 'Poppins', sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 .header .container{
@@ -155,7 +155,7 @@ section ul{
     height: 15vh;
     background-color: #9cc1f8;
     color: white;
-    font-family: 'Poppins', sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 .footer .container{

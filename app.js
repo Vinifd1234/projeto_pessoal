@@ -10,8 +10,6 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
-var avisosRouter = require("./src/routes/avisos");
-var medidasRouter = require("./src/routes/medidas");
 var graficosRouter = require("./src/routes/graficos");
 var postagensRouter = require("./src/routes/postagens");
 
@@ -23,9 +21,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-app.use("/avisos", avisosRouter);
 app.use("/graficos", graficosRouter);
-app.use("/medidas", medidasRouter);
 app.use("/postagens", postagensRouter);
 
 app.listen(PORTA, function () {

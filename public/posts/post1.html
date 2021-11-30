@@ -14,7 +14,7 @@
         <div class="container">
             <h1>S.I.G</h1>
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="../index.html">Home</a></li>
                 <li><a href="../post.html">Artigos</a></li>
                 <li><a id="nav_login" href="login.html"></a></li>
                 <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
@@ -126,7 +126,7 @@
     <div class="footer">
         <div class="container">
             <div class="rights">
-                <p>Vaguinha - Todos os direitos reservados.</p>
+                <p>S.I.G - Todos os direitos reservados.</p>
             </div>
         </div>
     </div>
@@ -160,7 +160,7 @@
                     Armazenamento_local.setItem('email', dados[0].emailUsuario);
                     Armazenamento_local.setItem('telefone', dados[0].telefoneUsuario);
                     nav_login.href = "../perfil.html"
-                    nav_login.innerHTML = dados[0].nomeUsuario;
+                    nav_login.innerHTML = dados[0].nomeUsuario[0].toUpperCase() + dados[0].nomeUsuario.substring(1);.nomeUsuario;
                 })
             })
             .catch(function (erro) {

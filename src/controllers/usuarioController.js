@@ -19,6 +19,19 @@ function excluir(req, res){
     })
 }
 
+function reativar_conta(req, res){
+    var id = req.body.id_usuario;
+
+    usuarioModel.reativar_conta(id).then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(function(erro){
+        console.log(erro);
+    })
+
+}
+
 function listar(req, res) {
     usuarioModel.listar()
         .then(function (resultado) {
@@ -260,5 +273,6 @@ module.exports = {
     registrar_acesso,
     atualizar_ultimo_acesso,
     excluir,
-    listar_usuarios_inativos
+    listar_usuarios_inativos,
+    reativar_conta
 }

@@ -44,7 +44,7 @@ fetch("/graficos/listar_PostagensxComentarios", {
             }
         )
         .catch(function(erro){
-            alert("O gráfico não pode ser renderizado. Não há nenhuma postagem ou comentário cadastrado")
+            var myChartBar = new Chart(document.getElementById("chartPostagensxComentarios"), config_2);
         });
     }
 )
@@ -70,9 +70,12 @@ fetch("/graficos/listar_Usuarios_recorrentes", {
 
             }
         )
-        .catch(function(erro){
-            alert("O gráfico não pode ser renderizado. Não há nenhum usuário cadastrado no sistema")
-        });
+        .catch(
+            function(erro){
+                var myChartBar_Usuarios = new Chart(document.getElementById("chartUsuariosRecorrentes"), config_3);
+            }
+        )
+        
     }
 )
 .catch(function(erro){
@@ -98,9 +101,13 @@ fetch("/graficos/listar_UsuariosxComentarios",{
 
             }
         )
-        .catch(function(erro){
-            alert("O gráfico não pode ser renderizado. Não há nenhum usuário cadastrado no sistema")
-        });
+        .catch(
+            function(erro){
+                var myChartBar_UsuariosxPostagens = new Chart(document.getElementById("chartUsuariosxComentarios"), config_4);
+
+            }
+        )
+        
     }
 )
 .catch(function(erro){

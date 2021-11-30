@@ -17,7 +17,7 @@ var sqlServerConfig = {
   }
 };
 
-// CONEXÃO DO MYSQL WORKBENCH (LOCAL)
+// CONEXÃO DO MYSQL WORKBENCH (LOCAL e na máquina da faculdade)
 var mySqlConfigFaculdade = {
   host: 'localhost',
   user: 'admin',
@@ -25,12 +25,12 @@ var mySqlConfigFaculdade = {
   password: 'D1g1t@lschool'
 };
 
-// CONEXÃO DO MYSQL WORKBENCH (LOCAL)
+// CONEXÃO DO MYSQL WORKBENCH (LOCAL e na máquina de casa)
 var mySqlConfigCasa = {
   host: 'localhost',
-  user: 'root',
+  user: 'Vinicius',
   database: 'projeto_pessoal',
-  password: 'Avaememo123_'
+  password: 'Vinicius123'
 };
 
 function executar(instrucao) {

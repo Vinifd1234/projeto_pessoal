@@ -69,8 +69,8 @@
       } else {
         // Caso todos os dados estejam preenchidos, é criado um objeto que posteriormente será utilizado como corpo da requisição, contendo as credenciais fornecidas pelo usuário para o login
         const dados = {
-          email: email,
-          senha: senha
+          email: email.toLowerCase(),
+          senha: senha.toLowerCase()
         };
 
         // A requisição é feita na rota "autenticar", utilizando o método POST, o formato do corpo é JSON, logo após é enviado o objeto "dados", convertido em JSON para a requisição

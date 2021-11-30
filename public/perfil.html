@@ -96,22 +96,22 @@
             then(function (resposta) {
                 resposta.json().then(function (dados) {
                     // Exibindo os dados para o usuário
-                    dados_usuario.innerHTML = `<p>Nome do usuário: ${dados[0].nomeUsuario} ${dados[0].sobrenomeUsuario}</p>
+                    dados_usuario.innerHTML = `<p>Nome do usuário: ${dados[0].nomeUsuario[0].toUpperCase() + dados[0].nomeUsuario.substr(1) } ${dados[0].sobrenomeUsuario[0].toUpperCase() + dados[0].sobrenomeUsuario.substr(1)}</p>
                 <p>Seu email: ${dados[0].emailUsuario}</p>
                 <p>Seu telefone: ${dados[0].telefoneUsuario}</p>
                 `;
-                    nome_usuario.innerHTML = dados[0].nomeUsuario;
+                    nome_usuario.innerHTML = dados[0].nomeUsuario[0].toUpperCase() + dados[0].nomeUsuario.substring(1);
 
                     // Colocando os dados nas inputs caso o usuário queira mudar posteiormente (a principio as inputs são invisiveis)
                     input_id.value = dados[0].idUsuario;
                     input_nome.value = dados[0].nomeUsuario;
-                    span_nome_usuario.innerHTML = dados[0].nomeUsuario;
+                    span_nome_usuario.innerHTML = dados[0].nomeUsuario[0].toUpperCase() + dados[0].nomeUsuario.substring(1);
                     input_sobrenome.value = dados[0].sobrenomeUsuario;
                     input_email.value = dados[0].emailUsuario;
                     input_telefone.value = dados[0].telefoneUsuario;
 
                     // Colocando na navbar o nome do usuário
-                    nav_login.innerHTML = dados[0].nomeUsuario;
+                    nav_login.innerHTML = dados[0].nomeUsuario[0].toUpperCase() + dados[0].nomeUsuario.substring(1);
                 })
             })
             .catch(function (erro) {
@@ -122,11 +122,15 @@
         function atualizar() {
             const data_atualizar = {
                 id: Number(input_id.value),
-                nome: input_nome.value,
-                sobrenome: input_sobrenome.value,
-                email: input_email.value,
+                nome: input_nome.value.toLowerCase(),
+                sobrenome: input_sobrenome.value.toLowerCase(),
+                email: input_email.value.toLowerCase(),
                 telefone: input_telefone.value
             };
+
+            if(data_atualizar.nome == "" || data_atualizar.sobrenome == "" || data_atualizar.telefone == ""){
+                alert("Preencha todos os campos");
+            }else{
             // Fazendo a requisição de atualização dos dados
             fetch("/usuarios/atualizar", {
                 method: "POST",
@@ -139,7 +143,7 @@
                 console.log("resposta: ", resposta);
                 // Caso a resposta da requisição seja "ok", avisar o usuário e assim atualizar a página
                 if (resposta.ok) {
-                    window.alert("dados atualizados com realizado com sucesso!");
+                    window.alert("Dados atualizados com realizado com sucesso!");
                     window.location = "perfil.html";
                     // Caso não, mostrar o erro
                 } else {
@@ -148,6 +152,7 @@
             }).catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
+        }
 
         }
 

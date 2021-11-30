@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins:wght@300;500;600&display=swap');
-    font-family: 'Poppins', sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 .header{
@@ -10,7 +10,7 @@
   background-color: #9cc1f8;
   height: 10vh;
   width: 100%;
-  font-family: 'Poppins', sans-serif;
+  font-family: Helvetica, sans-serif;
 }
 
 .header .container{
@@ -45,7 +45,8 @@
 }
 
 .wallpaper{
-    background-image: url('../img/natureza.jpg');
+  background-color: #0D47A1;
+    /*background-image: url('../img/natureza.jpg');*/
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -65,7 +66,7 @@ body {
   width: 360px;
   padding: 10% 0 0;
   margin: auto;
-  font-family: 'Comfortaa', cursive;
+  font-family: Helvetica, sans-serif;
 }
 
 .form {
@@ -89,7 +90,7 @@ body {
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
-  font-family: 'Comfortaa', cursive;
+  font-family: Helvetica, sans-serif;
   margin-bottom: 2rem;
 }
 
@@ -98,7 +99,7 @@ body {
 }
 
 .form button {
-  font-family: 'Comfortaa', cursive;
+  font-family: Helvetica, sans-serif;
   text-transform: uppercase;
   outline: 0;
   background: #4b6cb7;

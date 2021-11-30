@@ -67,7 +67,7 @@
 
     function fnExcluir() {
         var confirmacao = prompt("Digite 'CONFIRMAR' para confirmar a exclusão");
-        if(confirmacao == "CONFIRMACAO"){
+        if(confirmacao == "CONFIRMAR"){
             fetch("/usuarios/excluir", {
             method: "POST",
             headers: {
@@ -101,6 +101,10 @@
             email: email_usuario.innerHTML,
             telefone: input_telefone.value
         };
+
+        if(data_atualizar.nome == "" || data_atualizar.sobrenome == "" || data_atualizar.telefone == ""){
+                alert("Preencha todos os campos");
+            }else{
         // Fazendo a requisição de atualização dos dados
         fetch("/usuarios/atualizar", {
             method: "POST",
@@ -120,6 +124,7 @@
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
+    }
     }
 
     function fnVoltar(){

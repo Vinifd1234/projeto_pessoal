@@ -14,7 +14,7 @@ body{
   background-color: #9cc1f8;
   height: 10vh;
   width: 100%;
-  font-family: 'Poppins', sans-serif;
+  font-family: Helvetica, sans-serif;
 }
 
 .header .container{
@@ -62,7 +62,7 @@ body{
     width: 10rem;
     padding: 8% 0 0;
     margin: auto;
-    font-family: 'Comfortaa', cursive;
+    font-family: Helvetica, sans-serif;
   }
   
   .form {
@@ -86,7 +86,7 @@ body{
     padding: 15px;
     box-sizing: border-box;
     font-size: 14px;
-    font-family: 'Comfortaa', cursive;
+    font-family: Helvetica, sans-serif;
   }
   
   .form input:focus {
@@ -94,7 +94,7 @@ body{
   }
   
   .form button {
-    font-family: 'Comfortaa', cursive;
+    font-family: Helvetica, sans-serif;
     text-transform: uppercase;
     outline: 0;
     background: #4b6cb7;

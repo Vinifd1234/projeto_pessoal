@@ -39,7 +39,7 @@ function entrar(email, senha) {
     senha
   );
   var instrucao = `
-        SELECT * FROM Usuario WHERE emailUsuario = '${email}' AND senhaUsuario = '${senha}';
+        SELECT * FROM Usuario WHERE emailUsuario = '${email}' AND senhaUsuario = SHA2('${senha}', 224);
     `;
   console.log('Executando a instrução SQL: \n' + instrucao);
   return database.executar(instrucao);
@@ -55,7 +55,7 @@ function cadastrar(nome, sobrenome, email, senha, telefone) {
     telefone
   );
   var instrucao = `
-        INSERT INTO Usuario (nomeUsuario, sobrenomeUsuario, emailUsuario, senhaUsuario, telefoneUsuario) VALUES ('${nome}', '${sobrenome}' ,'${email}', '${senha}', '${telefone}');
+        INSERT INTO Usuario (nomeUsuario, sobrenomeUsuario, emailUsuario, senhaUsuario, telefoneUsuario) VALUES ('${nome}', '${sobrenome}' ,'${email}', SHA2('${senha}', 224), '${telefone}');
     `;
   console.log('Executando a instrução SQL: \n' + instrucao);
   return database.executar(instrucao);
@@ -83,6 +83,14 @@ function excluir(id) {
   );
   var instrucao = `
     UPDATE Usuario set nivelUsuario = 3 WHERE idUsuario = ${id};
+    `;
+  console.log('Executando instrução SQL: \n' + instrucao);
+  return database.executar(instrucao);
+}
+
+function reativar_conta(id){
+  var instrucao = `
+    UPDATE Usuario set nivelUsuario = 1 WHERE idUsuario = ${id};
     `;
   console.log('Executando instrução SQL: \n' + instrucao);
   return database.executar(instrucao);
@@ -125,6 +133,7 @@ module.exports = {
   atualizar_ultimo_acesso,
   registrar_acesso,
   excluir,
-listar_usuarios_inativos
+listar_usuarios_inativos,
+reativar_conta
 
 };

@@ -7,10 +7,10 @@
 
 .header{
     color: white;
-    background-color: #0D0159;
+    background-color: #9cc1f8;
     height: 10vh;
     width: 100%;
-    font-family: 'Poppins', sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 .header .container{
@@ -23,14 +23,15 @@
 }
 
 .header h1:hover{
-    border-bottom: 2px solid #0D47A1;
+   
 }
 
 .header ul{
     display: flex;
     justify-content: space-evenly;
-    width: 30%;
+    width: 45%;
     list-style: none;
+    font-weight: bold;
 }
 
 .header a{
@@ -40,12 +41,12 @@
 }
 
 .header a:hover{
-    border-bottom: 2px solid #0D47A1;
+    color: #0D47A1;
 }
 
 .info{
     width: 100%;
-    font-family: 'Poppins', sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 .info .container{
