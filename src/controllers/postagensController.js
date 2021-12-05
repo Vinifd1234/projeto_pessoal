@@ -8,8 +8,8 @@ function testar(req, res) {
 }
 
 
-function listar_postagens(req, res){
-    postagensModel.listar_postagens()
+function fnListar_postagens(req, res){
+    postagensModel.fnListar_postagens()
     .then(function(resultado){
         if(resultado.length > 0){
             res.status(200).json(resultado);
@@ -27,7 +27,7 @@ function listar_postagens(req, res){
 
 
 
-function listar_comentarios(req, res){
+function fnListar_comentarios(req, res){
     var id_post = req.body.id_post;
 
     if(id_post == undefined){
@@ -35,7 +35,7 @@ function listar_comentarios(req, res){
     }else{
         console.log("Estou aqui!!");
         
-        postagensModel.listar_comentarios(id_post)
+        postagensModel.fnListar_comentarios(id_post)
         .then(
             function(resultado){
                 res.json(resultado);
@@ -56,7 +56,7 @@ function listar_comentarios(req, res){
 }
 
 
-function postar_comentario(req, res){
+function fnPostar_comentario(req, res){
     var id_postador = req.body.id_postador;
     var corpo_comentario = req.body.corpo_comentario;
     var id_post = req.body.id_post;
@@ -68,7 +68,7 @@ function postar_comentario(req, res){
     }else if(id_post == undefined){
         res.status(400).send("o ID do post está undefined!");
     }else{
-        postagensModel.postar_comentario(id_postador, corpo_comentario, id_post)
+        postagensModel.fnPostar_comentario(id_postador, corpo_comentario, id_post)
         .then(function(resposta){
             resposta.json(resultado);
             console.log(resultado);
@@ -89,7 +89,7 @@ function postar_comentario(req, res){
 }
 
 module.exports = {
-    listar_postagens,
-    listar_comentarios,
-    postar_comentario
+    fnListar_postagens,
+    fnListar_comentarios,
+    fnPostar_comentario
 }

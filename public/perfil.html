@@ -52,7 +52,7 @@
 
 </html>
 <script>
-    /* Código revisado e comentado em 22/11/21 por: Vinicius Oliveira*/
+    /* Código revisado e comentado em 05/12/21 por: Vinicius Oliveira*/
 
 
     // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
@@ -80,10 +80,31 @@
     // Caso o usuário não esteja logado (logado = false), redirecionar ele até a home
     if (!logado) {
         window.location = "index.html";
-        // Se não, continuar o fluxo normal da página
+        /* Se não, "perguntar" se o usuário à ser logado tem níveis administrativos,
+         caso tenha, redirecioná-lo à tela de administrador*/
     } else if (admin) {
         window.location = "admin.html";
     } else {
+        /* Utilizando os dados que estão no armazenamento 
+        local para preencher as inputs de modificação de dados*/
+        dados_usuario.innerHTML = `<p>Nome do usuário: ${Armazenamento_local.getItem("nome_usuario")[0].toUpperCase() + Armazenamento_local.getItem("nome_usuario").substring(1)} ${Armazenamento_local.getItem("sobrenome_usuario")[0].toUpperCase() + Armazenamento_local.getItem("sobrenome_usuario").substring(1)}</p>
+        <p>Seu email: ${Armazenamento_local.getItem("email_usuario")}</p>
+        <p>Seu telefone: ${Armazenamento_local.getItem("telefone_usuario")}</p>`;
+
+        // Colocando os dados nas inputs caso o usuário queira mudar posteiormente (a principio as inputs são invisiveis)
+        input_id.value = Number(Armazenamento_local.getItem("id"));
+        input_nome.value = Armazenamento_local.getItem("nome_usuario");
+        span_nome_usuario.innerHTML = Armazenamento_local.getItem("nome_usuario")[0].toUpperCase() + Armazenamento_local.getItem("nome_usuario").substring(1);
+        input_sobrenome.value = Armazenamento_local.getItem("sobrenome_usuario");
+        input_email.value = Armazenamento_local.getItem("email_usuario");
+        input_telefone.value = Armazenamento_local.getItem("telefone_usuario");
+
+        // Colocando na navbar o nome do usuário
+        nav_login.innerHTML = Armazenamento_local.getItem("nome_usuario")[0].toUpperCase() + Armazenamento_local.getItem("nome_usuario").substring(1);
+
+
+
+        /*
         // Requisitando as informações do usuário e colocando nas inputs
         const dados = { id_usuario: id_usuario };
         fetch("/usuarios/listar1usuario", {
@@ -116,7 +137,7 @@
             })
             .catch(function (erro) {
                 console.log(erro);
-            })
+            })*/
 
         // A função de atualizar os dados é simples. Em resumo, é feito um post no banco, dando o update com os valores que o usuário modificou.
         function atualizar() {
@@ -128,31 +149,31 @@
                 telefone: input_telefone.value
             };
 
-            if(data_atualizar.nome == "" || data_atualizar.sobrenome == "" || data_atualizar.telefone == ""){
+            if (data_atualizar.nome == "" || data_atualizar.sobrenome == "" || data_atualizar.telefone == "") {
                 alert("Preencha todos os campos");
-            }else{
-            // Fazendo a requisição de atualização dos dados
-            fetch("/usuarios/atualizar", {
-                method: "POST",
-                headers: {
-                    // Informando que o tipo de corpo que será enviado será JSON
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data_atualizar)
-            }).then(function (resposta) {
-                console.log("resposta: ", resposta);
-                // Caso a resposta da requisição seja "ok", avisar o usuário e assim atualizar a página
-                if (resposta.ok) {
-                    window.alert("Dados atualizados com realizado com sucesso!");
-                    window.location = "perfil.html";
-                    // Caso não, mostrar o erro
-                } else {
-                    throw ("Houve um erro ao tentar atualizar os dados!");
-                }
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-        }
+            } else {
+                // Fazendo a requisição de atualização dos dados
+                fetch("/usuarios/atualizar", {
+                    method: "POST",
+                    headers: {
+                        // Informando que o tipo de corpo que será enviado será JSON
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data_atualizar)
+                }).then(function (resposta) {
+                    console.log("resposta: ", resposta);
+                    // Caso a resposta da requisição seja "ok", avisar o usuário e assim atualizar a página
+                    if (resposta.ok) {
+                        window.alert("Dados atualizados com realizado com sucesso!");
+                        window.location = "perfil.html";
+                        // Caso não, mostrar o erro
+                    } else {
+                        throw ("Houve um erro ao tentar atualizar os dados!");
+                    }
+                }).catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+            }
 
         }
 
@@ -169,16 +190,20 @@
             formulario.style.display = "flex";
         }
 
-        function fnEsconderFormulario(){
+        function fnEsconderFormulario() {
             formulario.style.display = "none";
         }
 
         // A função deslogar define a chave "logado" como falsa e deixa o id do usuário como nulo. Logo após redireciona o usuário para a tela inicial do site.
         function fnDeslogar() {
-            Armazenamento_local.setItem('logado', false);
-            Armazenamento_local.setItem('id', null);
-            Armazenamento_local.setItem("admin", false);
-            window.location = "index.html";
+            Armazenamento_local.setItem("id", null);
+        Armazenamento_local.setItem("id_modificacao", null);
+        Armazenamento_local.setItem("nome_usuario", null);
+        Armazenamento_local.setItem("email", null);
+        Armazenamento_local.setItem("telefone", null);
+        Armazenamento_local.setItem("logado", false);
+        Armazenamento_local.setItem("admin", false);
+        window.location = "index.html";
         }
     }
 

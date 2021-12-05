@@ -36,6 +36,8 @@
 
 </html>
 <script>
+  // Código revisado e comentado em 05/12/21 por: Vinicius Oliveira
+
   fetch('/postagens/listar_postagens', {
     method: 'GET',
     mode: 'cors'
@@ -132,37 +134,27 @@
   var logado = Armazenamento_local.getItem('logado');
 
   // Caso o usuário esteja logado, ou seja, variavel logado = true, fazer uma requisição para pegar o nome do usuário
-  if (logado == 'true') {
+  if(logado == 'true') {
     //Habilita a função de deslogar, caso o usuário esteja logado.
     li_sair.style.display = 'block';
     var id_usuario = Number(Armazenamento_local.getItem('id'));
     const data = { id_usuario: id_usuario };
-    fetch('/usuarios/listar1usuario', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then(function (resposta) {
-        // Com a reposta, redirecionar o botão 'login' para a tela de perfil e mudando o nome para o noem do usuário logado
-        resposta.json().then(function (dados) {
-          nav_login.href = 'perfil.html';
-          nav_login.innerHTML = dados[0].nomeUsuario[0].toUpperCase() + dados[0].nomeUsuario.substring(1);
-        });
-      })
-      .catch(function (erro) {
-        console.log(erro);
-      });
-  } else {
+    nav_login.href = 'perfil.html';
+    nav_login.innerHTML = Armazenamento_local.getItem("nome_usuario")[0].toUpperCase() + Armazenamento_local.getItem("nome_usuario").substring(1);
+  }else {
     nav_login.innerHTML = 'Login';
     nav_login.href = 'login.html';
     li_sair.style.display = 'none';
   }
 
   function fnDeslogar() {
-    Armazenamento_local.setItem('logado', false);
-    Armazenamento_local.setItem('id', null);
-    window.location = 'index.html';
+        Armazenamento_local.setItem("id", null);
+        Armazenamento_local.setItem("id_modificacao", null);
+        Armazenamento_local.setItem("nome_usuario", null);
+        Armazenamento_local.setItem("email", null);
+        Armazenamento_local.setItem("telefone", null);
+        Armazenamento_local.setItem("logado", false);
+        Armazenamento_local.setItem("admin", false);
+        window.location = "index.html";
   }
 </script>

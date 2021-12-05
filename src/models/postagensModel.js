@@ -1,7 +1,7 @@
 var database = require("../database/config")
 
 
-function listar_postagens() {
+function fnListar_postagens() {
     var instrucao = `
     SELECT * FROM Postagem 
     join Usuario on fkUsuario = idUsuario
@@ -10,7 +10,7 @@ function listar_postagens() {
     return database.executar(instrucao);
 }
 
-function postar_comentario(id_postador, corpo_comentario, id_post) {
+function fnPostar_comentario(id_postador, corpo_comentario, id_post) {
     var instrucao = `
     insert into Comentario (corpoComentario, fkUsuario, fkPostagem) values ('${corpo_comentario}', '${id_postador}', '${id_post}');
     `;
@@ -18,7 +18,7 @@ function postar_comentario(id_postador, corpo_comentario, id_post) {
     return database.executar(instrucao);
 }
 
-function listar_comentarios(id_post) {
+function fnListar_comentarios(id_post) {
     var instrucao = `
     select Usuario.nomeUsuario, Postagem.tituloPostagem, Comentario.corpoComentario from Comentario
 join Usuario on fkUsuario = idUsuario 
@@ -30,7 +30,7 @@ where idPostagem = ${id_post};
 }
 
 module.exports = {
-    listar_postagens,
-    postar_comentario,
-    listar_comentarios
+    fnListar_postagens,
+    fnPostar_comentario,
+    fnListar_comentarios
 }

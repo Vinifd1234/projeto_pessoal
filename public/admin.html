@@ -63,11 +63,6 @@
        <section id="usuariosInativos"></section>
      </div>
 
-     
-     
-
-       
-
       <div id="graficos" class="graficos">
         <div class="grafico">
           <canvas id="chartUsuariosInativosxAtivos"></canvas>
@@ -152,10 +147,14 @@
 
     // A função deslogar define a chave "logado" como falsa e deixa o id do usuário como nulo. Logo após redireciona o usuário para a tela inicial do site.
     function fnDeslogar() {
-      Armazenamento_local.setItem('logado', false);
-      Armazenamento_local.setItem('id', null);
-      Armazenamento_local.setItem('admin', false);
-      window.location = 'index.html';
+      Armazenamento_local.setItem("id", null);
+        Armazenamento_local.setItem("id_modificacao", null);
+        Armazenamento_local.setItem("nome_usuario", null);
+        Armazenamento_local.setItem("email", null);
+        Armazenamento_local.setItem("telefone", null);
+        Armazenamento_local.setItem("logado", false);
+        Armazenamento_local.setItem("admin", false);
+        window.location = "index.html";
     }
 
     // A função de criar novo usuário, basicamente é a mesma da página "cadastro.html"

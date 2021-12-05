@@ -74,7 +74,7 @@
 
 </html>
 <script>
-    /* Código revisado e comentado em 22/11/21 por: Vinicius Oliveira*/
+    /* Código revisado e comentado em 5/12/21 por: Vinicius Oliveira*/
 
 
 
@@ -89,7 +89,6 @@
     } else {
         logado = false;
     }
-
 
     // Caso o usuário esteja logado, ou seja, variavel logado = true, fazer uma requisição para pegar o nome do usuário
     if (logado) {
@@ -120,17 +119,20 @@
             })
         /* Esse else faz parte do if(logado), isso significa que se logado = false, o usuário não está logado
         então, mostrar o <a> de login para ele e não exibir o de deslogar*/
-    } else {
+    }else {
         a_login.innerHTML = "Login";
         a_login.href = "login.html"
         li_sair.style.display = "none";
-
     }
 
     // A função deslogar define a chave "logado" como falsa e deixa o id do usuário como nulo. Logo após redireciona o usuário para a tela inicial do site.
     function fnDeslogar() {
-        Armazenamento_local.setItem("logado", false);
         Armazenamento_local.setItem("id", null);
+        Armazenamento_local.setItem("id_modificacao", null);
+        Armazenamento_local.setItem("nome_usuario", null);
+        Armazenamento_local.setItem("email", null);
+        Armazenamento_local.setItem("telefone", null);
+        Armazenamento_local.setItem("logado", false);
         Armazenamento_local.setItem("admin", false);
         window.location = "index.html";
     }

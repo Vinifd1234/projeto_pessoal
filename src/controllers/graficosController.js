@@ -1,12 +1,7 @@
 var graficosModel = require("../models/graficosModel");
 
-function testar(req, res) {
-    console.log("ENTRAMOS NA graficosController");
-    res.json("ESTAMOS FUNCIONANDO!");
-}
-
-function listar_usuarios_inativos_e_ativos(req, res){
-    graficosModel.listar_usuarios_inativos_e_ativos()
+function fnListar_usuarios_inativos_e_ativos(req, res){
+    graficosModel.fnListar_usuarios_inativos_e_ativos()
     .then(function(resultado){
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -21,8 +16,8 @@ function listar_usuarios_inativos_e_ativos(req, res){
     })
 }
 
-function listar_PostagensxComentarios(req, res){
-    graficosModel.listar_PostagensxComentarios()
+function fnListar_PostagensxComentarios(req, res){
+    graficosModel.fnListar_PostagensxComentarios()
     .then(
         function(resultado){
             if (resultado.length > 0) {
@@ -42,8 +37,8 @@ function listar_PostagensxComentarios(req, res){
 
 }
 
-function listar_Usuarios_recorrentes(req, res){
-    graficosModel.listar_Usuarios_recorrentes()
+function fnListar_Usuarios_recorrentes(req, res){
+    graficosModel.fnListar_Usuarios_recorrentes()
     .then(
         function(resultado){
             if (resultado.length > 0) {
@@ -62,8 +57,8 @@ function listar_Usuarios_recorrentes(req, res){
     )
 }
 
-function listar_UsuariosxComentarios(req, res){
-    graficosModel.listar_UsuariosxComentarios()
+function fnListar_UsuariosxComentarios(req, res){
+    graficosModel.fnListar_UsuariosxComentarios()
     .then(function(resultado){
         res.status(200).json(resultado)
     })
@@ -77,9 +72,8 @@ function listar_UsuariosxComentarios(req, res){
 }
 
 module.exports = {
-   testar,
-   listar_usuarios_inativos_e_ativos,
-   listar_Usuarios_recorrentes,
-   listar_PostagensxComentarios,
-   listar_UsuariosxComentarios
+   fnListar_usuarios_inativos_e_ativos,
+   fnListar_Usuarios_recorrentes,
+   fnListar_PostagensxComentarios,
+   fnListar_UsuariosxComentarios
 }

@@ -1,6 +1,6 @@
 var database = require("../database/config")
 
-function listar_usuarios_inativos_e_ativos() {
+function fnListar_usuarios_inativos_e_ativos() {
     var instrucao = `
     select count(idUsuario) as 'Inativos' from Usuario where nivelUsuario = 3
     union all
@@ -10,7 +10,7 @@ function listar_usuarios_inativos_e_ativos() {
     return database.executar(instrucao);
 }
 
-function listar_PostagensxComentarios() {
+function fnListar_PostagensxComentarios() {
     var instrucao = `
     select tituloPostagem as 'postagem', count(idComentario) as 'comentario' from Comentario join Postagem on fkPostagem = idPostagem group by tituloPostagem;
     `;
@@ -18,7 +18,7 @@ function listar_PostagensxComentarios() {
     return database.executar(instrucao);
 }
 
-function listar_Usuarios_recorrentes(){
+function fnListar_Usuarios_recorrentes(){
     var instrucao = `
     select nomeUsuario, fkUsuario as 'idUsuario', count(idAcesso) as 'Acessos' from Acesso
     join Usuario on fkUsuario = idUsuario group by fkUsuario LIMIT 3;
@@ -27,7 +27,7 @@ function listar_Usuarios_recorrentes(){
     return database.executar(instrucao);
 }
 
-function listar_UsuariosxComentarios(){
+function fnListar_UsuariosxComentarios(){
     var instrucao = `
     select nomeUsuario as 'nomeUsuario', count(idComentario) as 'qtdComentario' from Comentario 
 join Usuario on fkUsuario = idUsuario 
@@ -40,8 +40,8 @@ LIMIT 3;
 }
 
 module.exports = {
-    listar_usuarios_inativos_e_ativos,
-    listar_PostagensxComentarios,
-    listar_Usuarios_recorrentes,
-    listar_UsuariosxComentarios
+    fnListar_usuarios_inativos_e_ativos,
+    fnListar_PostagensxComentarios,
+    fnListar_Usuarios_recorrentes,
+    fnListar_UsuariosxComentarios
 }

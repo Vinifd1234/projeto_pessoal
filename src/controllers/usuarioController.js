@@ -2,15 +2,15 @@ var usuarioModel = require("../models/usuarioModel");
 
 var sessoes = [];
 
-function testar(req, res) {
+function fnTestar(req, res) {
     console.log("ENTRAMOS NA usuarioController");
-    res.json("ESTAMOS FUNCIONANDO!");
+    res.json("ESTAMOS FUNCIONANDO, VAGA!");
 }
 
-function excluir(req, res){
+function fnExcluir(req, res){
     var id = req.body.id_usuario;
     console.log("Entramos na controller de exclusão :D");
-    usuarioModel.excluir(id).then(
+    usuarioModel.fnExcluir(id).then(
         function (resultado) {
             res.json(resultado);
         }
@@ -19,10 +19,10 @@ function excluir(req, res){
     })
 }
 
-function reativar_conta(req, res){
+function fnReativar_conta(req, res){
     var id = req.body.id_usuario;
 
-    usuarioModel.reativar_conta(id).then(
+    usuarioModel.fnReativar_conta(id).then(
         function (resultado) {
             res.json(resultado);
         }
@@ -32,8 +32,8 @@ function reativar_conta(req, res){
 
 }
 
-function listar(req, res) {
-    usuarioModel.listar()
+function fnListar(req, res) {
+    usuarioModel.fnListar()
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -49,8 +49,8 @@ function listar(req, res) {
         );
 }
 
-function listar_usuarios_inativos(req, res){
-    usuarioModel.listar_usuarios_inativos()
+function fnListar_usuarios_inativos(req, res){
+    usuarioModel.fnListar_usuarios_inativos()
     .then(
         function(resultado){
             console.log(resultado);
@@ -67,9 +67,9 @@ function listar_usuarios_inativos(req, res){
 }
 
 
-function listar1usuario(req, res){
+function fnListar1usuario(req, res){
     var id = req.body.id_usuario;
-    usuarioModel.listar1usuario(id).
+    usuarioModel.fnListar1usuario(id).
     then(function (resultado){
             res.status(200).json(resultado);
     })
@@ -81,14 +81,14 @@ function listar1usuario(req, res){
 
 }
 
-function verificar_email(req, res){
+function fnVerificar_email(req, res){
     console.log("Estou na controller!")
     var email = req.body.email;
 
     if(email == undefined){
         res.status(400).send("Seu email está undefined!");
     }else{
-        usuarioModel.verificar_email(email)
+        usuarioModel.fnVerificar_email(email)
         .then(
             function (resultado){
                 if(resultado.length == 1){
@@ -109,7 +109,7 @@ function verificar_email(req, res){
     }
 }
 
-function entrar(req, res) {
+function fnEntrar(req, res) {
     var email = req.body.email;
     var senha = req.body.senha;
 
@@ -118,7 +118,7 @@ function entrar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
-        usuarioModel.entrar(email, senha)
+        usuarioModel.fnEntrar(email, senha)
             .then(
                 function (resultado) {
                     console.log(`\nResultados encontrados: ${resultado.length}`);
@@ -144,7 +144,7 @@ function entrar(req, res) {
 
 }
 
-function cadastrar(req, res) {
+function fnCadastrar(req, res) {
     var nome = req.body.nome;
     var sobrenome = req.body.sobrenome;
     var email = req.body.email;
@@ -162,7 +162,7 @@ function cadastrar(req, res) {
     }else if (telefone == undefined) {
         res.status(400).send("Seu telefone está undefined!");
     }else {
-        usuarioModel.cadastrar(nome, sobrenome, email, senha, telefone)
+        usuarioModel.fnCadastrar(nome, sobrenome, email, senha, telefone)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -180,7 +180,7 @@ function cadastrar(req, res) {
     }
 }
 
-function atualizar(req, res){
+function fnAtualizar(req, res){
     var id = req.body.id;
     var nome = req.body.nome;
     var sobrenome = req.body.sobrenome;
@@ -198,7 +198,7 @@ function atualizar(req, res){
     }else if (id == undefined) {
         res.status(400).send("Seu id está undefined!");
     }else {
-        usuarioModel.atualizar(id, nome, sobrenome, email, telefone)
+        usuarioModel.fnAtualizar(id, nome, sobrenome, email, telefone)
         .then(
             function(resultado){
                 res.json(resultado);
@@ -217,13 +217,13 @@ function atualizar(req, res){
      }
 }
 
-function registrar_acesso(req, res){
+function fnRegistrar_acesso(req, res){
     var id = req.body.id;
 
     if(id == undefined){
         res.status(400).send("Seu ID está undefined");
     }else{
-        usuarioModel.registrar_acesso(id)
+        usuarioModel.fnRegistrar_acesso(id)
         .then(
             function(resultado){
                 res.json(resultado);
@@ -239,13 +239,13 @@ function registrar_acesso(req, res){
     }
 }
 
-function atualizar_ultimo_acesso(req, res){
+function fnAtualizar_ultimo_acesso(req, res){
     var id = req.body.id;
 
     if(id == undefined){
         res.status(400).send("Seu ID está undefined");
     }else{
-        usuarioModel.atualizar_ultimo_acesso(id)
+        usuarioModel.fnAtualizar_ultimo_acesso(id)
         .then(
             function(resultado){
                 resultado.json();
@@ -263,16 +263,16 @@ function atualizar_ultimo_acesso(req, res){
 }
 
 module.exports = {
-    entrar,
-    cadastrar,
-    verificar_email,
-    atualizar,
-    listar,
-    listar1usuario,
-    testar,
-    registrar_acesso,
-    atualizar_ultimo_acesso,
-    excluir,
-    listar_usuarios_inativos,
-    reativar_conta
+    fnEntrar,
+    fnCadastrar,
+    fnVerificar_email,
+    fnAtualizar,
+    fnListar,
+    fnListar1usuario,
+    fnTestar,
+    fnRegistrar_acesso,
+    fnAtualizar_ultimo_acesso,
+    fnExcluir,
+    fnListar_usuarios_inativos,
+    fnReativar_conta
 }

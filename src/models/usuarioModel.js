@@ -1,6 +1,6 @@
 var database = require('../database/config');
 
-function listar() {
+function fnListar() {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
@@ -12,7 +12,7 @@ function listar() {
   return database.executar(instrucao);
 }
 
-function listar_usuarios_inativos(){
+function fnListar_usuarios_inativos(){
   var instrucao = `
         SELECT * FROM Usuario where nivelUsuario = 3;
         `;
@@ -21,7 +21,7 @@ function listar_usuarios_inativos(){
   return database.executar(instrucao);
 }
 
-function listar1usuario(id) {
+function fnListar1usuario(id) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar1usuario()"
   );
@@ -32,12 +32,7 @@ function listar1usuario(id) {
   return database.executar(instrucao);
 }
 
-function entrar(email, senha) {
-  console.log(
-    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
-    email,
-    senha
-  );
+function fnEntrar(email, senha) {
   var instrucao = `
         SELECT * FROM Usuario WHERE emailUsuario = '${email}' AND senhaUsuario = SHA2('${senha}', 224);
     `;
@@ -45,15 +40,7 @@ function entrar(email, senha) {
   return database.executar(instrucao);
 }
 
-function cadastrar(nome, sobrenome, email, senha, telefone) {
-  console.log(
-    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
-    nome,
-    sobrenome,
-    email,
-    senha,
-    telefone
-  );
+function fnCadastrar(nome, sobrenome, email, senha, telefone) {
   var instrucao = `
         INSERT INTO Usuario (nomeUsuario, sobrenomeUsuario, emailUsuario, senhaUsuario, telefoneUsuario) VALUES ('${nome}', '${sobrenome}' ,'${email}', SHA2('${senha}', 224), '${telefone}');
     `;
@@ -61,15 +48,7 @@ function cadastrar(nome, sobrenome, email, senha, telefone) {
   return database.executar(instrucao);
 }
 
-function atualizar(id, nome, sobrenome, email, telefone) {
-  console.log(
-    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizar():",
-    id,
-    nome,
-    sobrenome,
-    email,
-    telefone
-  );
+function fnAtualizar(id, nome, sobrenome, email, telefone) {
   var instrucao = `
         UPDATE Usuario SET nomeUsuario = '${nome}', sobrenomeUsuario = '${sobrenome}', emailUsuario = '${email}', telefoneUsuario = '${telefone}' where idUsuario = ${id};
     `;
@@ -77,10 +56,7 @@ function atualizar(id, nome, sobrenome, email, telefone) {
   return database.executar(instrucao);
 }
 
-function excluir(id) {
-  console.log(
-    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n"
-  );
+function fnExcluir(id) {
   var instrucao = `
     UPDATE Usuario set nivelUsuario = 3 WHERE idUsuario = ${id};
     `;
@@ -88,7 +64,7 @@ function excluir(id) {
   return database.executar(instrucao);
 }
 
-function reativar_conta(id){
+function fnReativar_conta(id){
   var instrucao = `
     UPDATE Usuario set nivelUsuario = 1 WHERE idUsuario = ${id};
     `;
@@ -96,10 +72,7 @@ function reativar_conta(id){
   return database.executar(instrucao);
 }
 
-function verificar_email(email) {
-  console.log(
-    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n"
-  );
+function fnVerificar_email(email) {
   var instrucao = `
     SELECT * FROM Usuario WHERE emailUsuario = '${email}';
     `;
@@ -107,7 +80,7 @@ function verificar_email(email) {
   return database.executar(instrucao);
 }
 
-function registrar_acesso(id) {
+function fnRegistrar_acesso(id) {
   var instrucao = `
     insert into Acesso (fkUsuario) values (${id});
     `;
@@ -115,7 +88,7 @@ function registrar_acesso(id) {
   return database.executar(instrucao);
 }
 
-function atualizar_ultimo_acesso(id) {
+function fnAtualizar_ultimo_acesso(id) {
   var instrucao = `
     update Usuario set ultimoAcessoUsuario = now() where idUsuario = ${id};
     `;
@@ -124,16 +97,15 @@ function atualizar_ultimo_acesso(id) {
 }
 
 module.exports = {
-  entrar,
-  cadastrar,
-  verificar_email,
-  atualizar,
-  listar,
-  listar1usuario,
-  atualizar_ultimo_acesso,
-  registrar_acesso,
-  excluir,
-listar_usuarios_inativos,
-reativar_conta
-
+  fnEntrar,
+  fnCadastrar,
+  fnVerificar_email,
+  fnAtualizar,
+  fnListar,
+  fnListar1usuario,
+  fnAtualizar_ultimo_acesso,
+  fnRegistrar_acesso,
+  fnExcluir,
+  fnListar_usuarios_inativos,
+  fnReativar_conta
 };

@@ -36,7 +36,7 @@
   </body>
 </html>
 <script>
-  /* Código revisado e comentado em 22/11/21 por: Vinicius Oliveira*/
+  /* Código revisado e comentado em 05/12/21 por: Vinicius Oliveira*/
 
   // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
   var Armazenamento_local = localStorage;
@@ -100,16 +100,20 @@
                 //Verifica se o usuário que está logando tem poder administrativo, que segundo a regra de negócio, tem nivel 2 de usuário.
                 else if (json.nivelUsuario == 2) {
                   // Caso seja um administrador logando, é informado ao armazenamento local que logado = true e direciona o administrador até a tela de administração.
-                  Armazenamento_local.setItem('logado', true);
-                  Armazenamento_local.setItem('id', json.idUsuario);
-                  Armazenamento_local.setItem('admin', true);
+                  Armazenamento_local.setItem("logado", true);
+                  Armazenamento_local.setItem("id", json.idUsuario);
+                  Armazenamento_local.setItem("admin", true);
                   window.location = 'admin.html';
-                } else {
+                } else{
                   // Caso o usuário tenha realizado o login com sucesso, redireciona ele para a tela de perfil
                   // Armazenando no armazenamento local que o usuário está logado e atribuindo o ID dele e por fim redirecionando ele à sua tela de perfil
-                  Armazenamento_local.setItem('logado', true);
-                  Armazenamento_local.setItem('id', json.idUsuario);
-                  Armazenamento_local.setItem('admin', false);
+                  Armazenamento_local.setItem("logado", true);
+                  Armazenamento_local.setItem("id", json.idUsuario);
+                  Armazenamento_local.setItem("admin", false);
+                  Armazenamento_local.setItem("nome_usuario", json.nomeUsuario);
+                  Armazenamento_local.setItem("sobrenome_usuario", json.sobrenomeUsuario);
+                  Armazenamento_local.setItem("email_usuario", json.emailUsuario);
+                  Armazenamento_local.setItem("telefone_usuario", json.telefoneUsuario);
                   // Envia um POST para registrar que esse usuário está acessando o sistema
                   fnRegistrar_Acesso(json.idUsuario);
                   // Envia um POST na tabela do usuário para registrar o último acesso desse usuário
