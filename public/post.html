@@ -36,42 +36,27 @@
 
 </html>
 <script>
+<<<<<<< HEAD
   // Código revisado e comentado em 05/12/21 por: Vinicius Oliveira
 
+=======
+
+  // A primeira requisição é um GET que puxará as postagens cadastradas no banco de dados
+>>>>>>> 769361b79e8fba1e2d032cbbb95ba953c1cd43a4
   fetch('/postagens/listar_postagens', {
     method: 'GET',
     mode: 'cors'
   })
+  // Caso a requisição dê certo, é executada uma função com a resposta da requisição
     .then(function (resposta) {
-      resposta
-        .json()
+      // Com a resposta do servidor, é executada uma função para tentar a conversão da resposta retornada em JSON
+      resposta.json()
+      // Caso essa resposta consiga ser convertida em JSON, é executada uma função com o resultado dessa conversão
         .then(function (resultado) {
           console.log(resultado);
-
+          // O método forEach executa uma função para cada elemento dentro de um determinado vetor.
           resultado.forEach(element => {
-            console.log(`
-                ano: ${element.dtCriacaoPostagem.substring(0, 4)}<br>
-                mes: ${element.dtCriacaoPostagem.substring(5, 7)}<br>
-                dia: ${element.dtCriacaoPostagem.substring(8, 10)}<br>
-                hora: ${element.dtCriacaoPostagem.substring(11, 13)}<br>
-                minuto: ${element.dtCriacaoPostagem.substring(14, 16)}<br>
-                segundo: ${element.dtCriacaoPostagem.substring(17, 19)}<br> 
-                `);
-
-            /*container.innerHTML += `
-                <div class="post" onclick="window.location = 'posts/post${element.idPostagem}.html'">
-                    <div class="imagem">
-                    <img src="img/posts/${element.nomeCategoria}/${element.diretorioImagem}.jpg">
-                    </div>
-                    <div class="texto">
-                    <p><span id="genero">${element.nomeCategoria}</span> <span id="data">${element.dtCriacaoPostagem.substring(8, 10)}/${element.dtCriacaoPostagem.substring(5, 7)}/${element.dtCriacaoPostagem.substring(0, 4)} às ${element.dtCriacaoPostagem.substring(11, 13)}:${element.dtCriacaoPostagem.substring(14, 16)}</span></p>
-                    <p id="titulo">${element.tituloPostagem}</p>
-                    <p id="subtitulo">${element.corpoPostagem}</p>
-                    <a href="posts/post${element.idPostagem}.html">Ler artigo</a>
-                    </div>
-                    </div>
-                `;*/
-
+            // Cada elemento do vetor, apelidado de element, é executada uma função. Sendo assim... (continuar)
             container.innerHTML += `
                 <div class="post" onclick="window.location = 'posts/post${element.idPostagem}.html'">
                     <div style='background-image: url("img/posts/${element.nomeCategoria
@@ -121,12 +106,12 @@
                 `;*/
         });
     })
+
+    // Caso a requisição dê errado, é exibido o erro no console
     .catch(function (erro) {
       console.log(`Erro: ${erro}`);
     })
-    .catch(function (erro) {
-      console.log(`Erro: ${erro}`);
-    });
+    
 
   // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
   var Armazenamento_local = localStorage;

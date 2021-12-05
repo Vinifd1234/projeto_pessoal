@@ -28,8 +28,8 @@ nomeCategoria varchar(45)
 -- Criação da tabela postagem
 create table Postagem(
 idPostagem int primary key auto_increment,
-tituloPostagem varchar(45) not null,
-subTituloPostagem varchar(45) not null,
+tituloPostagem varchar(150) not null,
+subTituloPostagem varchar(150) not null,
 fkUsuario int,
 constraint fk_usuario_postagem foreign key (fkUsuario) references Usuario (idUsuario),
 fkCategoria int,
