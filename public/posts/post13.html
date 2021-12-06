@@ -105,41 +105,34 @@
 
 </html>
 <script>
+    // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
 
     // Atualizando a imagem de fundo da postagem
     img_post.style.backgroundImage = "url('../img/posts/Espiritual/2.jpg')";
 
     textoarea.innerHTML = "";
-    // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
+
+    /* Código revisado e comentado em 5/12/21 por: Vinicius Oliveira*/
+
     var Armazenamento_local = localStorage;
     // Obtendo o valor da chave "logado" no armazenamento local. Que é atribuído como verdadeiro caso o usuário tenha feito login
-    var logado = Armazenamento_local.getItem('logado');
-
+    var logado = Armazenamento_local.getItem("logado");
+    var admin = Armazenamento_local.getItem("admin");
+    // Por mais que seja definido como "true", a variavel armazenada no armazenamento local é convertida pra string, sendo assim, é necessário fazer a conversão para valor booleano
     if (logado == "true") {
+        logado = true;
+    } else {
+        logado = false;
+    }
+
+    if (logado) {
         //Habilita a função de deslogar, caso o usuário esteja logado.
         li_sair.style.display = "block";
         var id_usuario = Number(Armazenamento_local.getItem('id'));
-        const data = { id_usuario: id_usuario };
-        fetch("/usuarios/listar1usuario", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        }).
-            then(function (resposta) {
-                // Com a reposta, redirecionar o botão 'login' para a tela de perfil e mudando o nome para o noem do usuário logado
-                resposta.json().then(function (dados) {
-                    Armazenamento_local.setItem('nome_usuario', dados[0].nomeUsuario + " " + dados[0].sobrenomeUsuario);
-                    Armazenamento_local.setItem('email', dados[0].emailUsuario);
-                    Armazenamento_local.setItem('telefone', dados[0].telefoneUsuario);
-                    nav_login.href = "../perfil.html"
-                    nav_login.innerHTML = dados[0].nomeUsuario[0].toUpperCase() + dados[0].nomeUsuario.substring(1);
-                })
-            })
-            .catch(function (erro) {
-                console.log(erro);
-            })
+       
+        nav_login.innerHTML = `${Armazenamento_local.getItem("nome_usuario")}`;
+        nav_login.href = "../admin.html";
+
     } else {
         li_sair.style.display = "none";
         nav_login.style.display = "block";
@@ -152,9 +145,15 @@
     }
 
     function fnDeslogar() {
-        Armazenamento_local.setItem("logado", false);
         Armazenamento_local.setItem("id", null);
-        window.location = "../index.html";
+        Armazenamento_local.setItem("id_modificacao", null);
+        Armazenamento_local.setItem("nome_usuario", null);
+        Armazenamento_local.setItem("sobrenome_usuario", null);
+        Armazenamento_local.setItem("email_usuario", null);
+        Armazenamento_local.setItem("telefone_usuario", null);
+        Armazenamento_local.setItem("logado", false);
+        Armazenamento_local.setItem("admin", false);
+        window.location = "index.html";
     }
 
     function fnComentar() {

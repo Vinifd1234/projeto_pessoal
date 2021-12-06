@@ -66,7 +66,7 @@ insert into Categoria (nomeCategoria) values
 
 -- Insert na tabela Usuario (adicionando a conta de admin)
 Insert into Usuario (nomeUsuario, emailUsuario, senhaUsuario, nivelUsuario) values
-('Administrador', 'admin@email.com', 'admin', 2);
+('Administrador', 'admin@email.com', SHA2('admin', 224), 2);
 
 -- Insert de usuários diversos 
 Insert into Usuario (nomeUsuario, sobrenomeUsuario, emailUsuario, senhaUsuario) values 

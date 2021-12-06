@@ -103,6 +103,8 @@
                   Armazenamento_local.setItem("logado", true);
                   Armazenamento_local.setItem("id", json.idUsuario);
                   Armazenamento_local.setItem("admin", true);
+                  Armazenamento_local.setItem("nome_usuario", json.nomeUsuario);
+
                   window.location = 'admin.html';
                 } else{
                   // Caso o usuário tenha realizado o login com sucesso, redireciona ele para a tela de perfil

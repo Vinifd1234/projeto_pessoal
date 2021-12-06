@@ -50,11 +50,11 @@ body{
 
 .wallpaper{
     background-color: #0D47A1;
-    /*background-image: url('../img/natureza.jpg');*/
+    background-image: url('../img/fundo3.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    height: 100vh;
+    height: 130vh;
     overflow: hidden;
 }
 

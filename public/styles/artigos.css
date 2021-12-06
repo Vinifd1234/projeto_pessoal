@@ -56,7 +56,8 @@ article{
 
 article .textos{
     font-family: Helvetica, sans-serif;
-    font-size: 4rem;
+    font-size: 2rem;
+    padding: 1rem;
 
 }
 

@@ -40,7 +40,7 @@
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="post.html">Artigos</a></li>
-          <li><a href="admin.html">Admin</a></li>
+          <li><a id="a_login" href="admin.html"></a></li>
           <li id="li_sair"><a onclick="fnDeslogar()">Sair</a></li>
         </ul>
       </div>
@@ -73,12 +73,13 @@
         <div class="grafico">
           <canvas id="chartUsuariosRecorrentes"></canvas>
         </div>
-      </div>
-
-      <div class="graficos">
         <div class="grafico">
           <canvas id="chartUsuariosxComentarios"></canvas>
         </div>
+      </div>
+
+      <div class="graficos">
+        
         <div class="grafico">
           <canvas id=""></canvas>
         </div>
@@ -91,7 +92,7 @@
 </html>
 <script src="js/chart.js"></script>
 <script>
-  /* Código revisado e comentado em 22/11/21 por: Vinicius Oliveira*/
+  /* Código revisado e comentado em 06/12/21 por: Vinicius Oliveira*/
 
   // Criação de uma variavel de armazenamento local, essencial para o sistema de sessão
   var Armazenamento_local = localStorage;
@@ -111,6 +112,9 @@
       Armazenamento_local.setItem('id_modificacao', id);
       window.location = 'modificar.html';
     }
+
+    // Modificando a navbar com o nome do administrador
+    a_login.innerHTML = `${Armazenamento_local.getItem("nome_usuario")}`;
 
     // A primeira requisição dessa página é listar todos os usuários que não são administradores e que não estão com a conta desativada.
     fetch('/usuarios/listar', {
@@ -150,8 +154,9 @@
       Armazenamento_local.setItem("id", null);
         Armazenamento_local.setItem("id_modificacao", null);
         Armazenamento_local.setItem("nome_usuario", null);
-        Armazenamento_local.setItem("email", null);
-        Armazenamento_local.setItem("telefone", null);
+        Armazenamento_local.setItem("sobrenome_usuario", null);
+        Armazenamento_local.setItem("email_usuario", null);
+        Armazenamento_local.setItem("telefone_usuario", null);
         Armazenamento_local.setItem("logado", false);
         Armazenamento_local.setItem("admin", false);
         window.location = "index.html";
@@ -335,5 +340,7 @@
             alert("Confirmação malsucedida. Não foi possível realizar a reativação.")
         }   
       }
+
+
 
 </script>
