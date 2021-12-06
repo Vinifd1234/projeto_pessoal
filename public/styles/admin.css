@@ -125,11 +125,13 @@
 
 .graficos{
     display: flex;
+    flex-wrap: wrap;
     width: 80%;
     margin: auto;
     justify-content: space-evenly;
 }
 
 .grafico{
-    width: 300px;
+    width: 24rem;
+    margin-bottom: 5rem;
 }
