@@ -31,21 +31,6 @@
             <div class="box">
                 <div id="dados_usuario"></div>
             </div>
-
-            <div class="box">
-                <button onclick="mostrarFormulario()">Atualizar dados</button>
-                <div class="formulario" id="formulario">
-                    <h1>Olá, <span id="span_nome_usuario"></span>, esses são seus dados:</h1>
-                    <input name="id" type="text" id="input_id">
-                    <input name="nome" type="text" placeholder="Nome" id="input_nome">
-                    <input name="sobrenome" type="text" placeholder="Sobrenome" id="input_sobrenome">
-                    <input name="email" type="text" style="display: none;" placeholder="email" id="input_email">
-                    <input name="telefone" id="input_telefone" type="text" placeholder="telefone: (ddd) 96635-4166"
-                        maxlength="10" onkeyup="fnTelefone()">
-                    <button onclick="atualizar()">Atualizar dados</button>
-                    <button onclick="fnEsconderFormulario()">Voltar</button>
-                </div>
-            </div>
         </div>
     </div>
 </body>
@@ -87,24 +72,16 @@
     } else {
         /* Utilizando os dados que estão no armazenamento 
         local para preencher as inputs de modificação de dados*/
-        dados_usuario.innerHTML = `<p>Nome do usuário: ${Armazenamento_local.getItem("nome_usuario")[0].toUpperCase() + Armazenamento_local.getItem("nome_usuario").substring(1)} ${Armazenamento_local.getItem("sobrenome_usuario")[0].toUpperCase() + Armazenamento_local.getItem("sobrenome_usuario").substring(1)}</p>
+        /*dados_usuario.innerHTML = `<p>Nome do usuário: ${Armazenamento_local.getItem("nome_usuario")[0].toUpperCase() + Armazenamento_local.getItem("nome_usuario").substring(1)} ${Armazenamento_local.getItem("sobrenome_usuario")[0].toUpperCase() + Armazenamento_local.getItem("sobrenome_usuario").substring(1)}</p>
         <p>Seu email: ${Armazenamento_local.getItem("email_usuario")}</p>
         <p>Seu telefone: ${Armazenamento_local.getItem("telefone_usuario")}</p>`;
 
-        // Colocando os dados nas inputs caso o usuário queira mudar posteiormente (a principio as inputs são invisiveis)
-        input_id.value = Number(Armazenamento_local.getItem("id"));
-        input_nome.value = Armazenamento_local.getItem("nome_usuario");
-        span_nome_usuario.innerHTML = Armazenamento_local.getItem("nome_usuario")[0].toUpperCase() + Armazenamento_local.getItem("nome_usuario").substring(1);
-        input_sobrenome.value = Armazenamento_local.getItem("sobrenome_usuario");
-        input_email.value = Armazenamento_local.getItem("email_usuario");
-        input_telefone.value = Armazenamento_local.getItem("telefone_usuario");
-
         // Colocando na navbar o nome do usuário
         nav_login.innerHTML = Armazenamento_local.getItem("nome_usuario")[0].toUpperCase() + Armazenamento_local.getItem("nome_usuario").substring(1);
+*/
 
 
-
-        /*
+        
         // Requisitando as informações do usuário e colocando nas inputs
         const dados = { id_usuario: id_usuario };
         fetch("/usuarios/listar1usuario", {
@@ -123,65 +100,14 @@
                 `;
                     nome_usuario.innerHTML = dados[0].nomeUsuario[0].toUpperCase() + dados[0].nomeUsuario.substring(1);
 
-                    // Colocando os dados nas inputs caso o usuário queira mudar posteiormente (a principio as inputs são invisiveis)
-                    input_id.value = dados[0].idUsuario;
-                    input_nome.value = dados[0].nomeUsuario;
-                    span_nome_usuario.innerHTML = dados[0].nomeUsuario[0].toUpperCase() + dados[0].nomeUsuario.substring(1);
-                    input_sobrenome.value = dados[0].sobrenomeUsuario;
-                    input_email.value = dados[0].emailUsuario;
-                    input_telefone.value = dados[0].telefoneUsuario;
-
                     // Colocando na navbar o nome do usuário
                     nav_login.innerHTML = dados[0].nomeUsuario[0].toUpperCase() + dados[0].nomeUsuario.substring(1);
                 })
             })
             .catch(function (erro) {
                 console.log(erro);
-            })*/
+            })
 
-        // A função de atualizar os dados é simples. Em resumo, é feito um post no banco, dando o update com os valores que o usuário modificou.
-        function atualizar() {
-            const data_atualizar = {
-                id: Number(input_id.value),
-                nome: input_nome.value.toLowerCase(),
-                sobrenome: input_sobrenome.value.toLowerCase(),
-                email: input_email.value.toLowerCase(),
-                telefone: input_telefone.value
-            };
-
-            if (data_atualizar.nome == "" || data_atualizar.sobrenome == "" || data_atualizar.telefone == "") {
-                alert("Preencha todos os campos");
-            } else {
-                // Fazendo a requisição de atualização dos dados
-                fetch("/usuarios/atualizar", {
-                    method: "POST",
-                    headers: {
-                        // Informando que o tipo de corpo que será enviado será JSON
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data_atualizar)
-                }).then(function (resposta) {
-                    console.log("resposta: ", resposta);
-                    // Caso a resposta da requisição seja "ok", avisar o usuário e assim atualizar a página
-                    if (resposta.ok) {
-                        window.alert("Dados atualizados com realizado com sucesso!");
-                        window.location = "perfil.html";
-                        // Caso não, mostrar o erro
-                    } else {
-                        throw ("Houve um erro ao tentar atualizar os dados!");
-                    }
-                }).catch(function (resposta) {
-                    console.log(`#ERRO: ${resposta}`);
-                });
-            }
-
-        }
-
-
-        // Esconde o formulário de atualização dos dados
-        formulario.style.display = "none";
-        // Esconde o campo ID do usuário, para que assim o usuário não possa manipular
-        input_id.style.display = "none";
 
         // Definindo que o nome do usuário na navbar encaminhe o usuário para a tela de perfil
         nav_login.href = "perfil.html";
