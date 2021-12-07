@@ -87,23 +87,17 @@
             console.log('ESTOU NO THEN DO entrar()!');
             // Caso seja encontrado um usuário com as mesmas credenciais, a resposta está programada para retornar 200, equivalente à mensagem "ok". Ou seja, caso seja encontrado um usuário com as mesmas credenciais que o usuário digitou, entrar na condicional abaixo
             if (resposta.ok) {
-              console.log(resposta);
-              resposta.json().then(json => {
-                console.log(json);
-                console.log(JSON.stringify(json));
+              resposta.json().then(dados => {
                 // A primeira verificação é se o nível do usuário logado é 3. Segundo a regra estabelecida, o nível 3 em alguma conta, significa que essa conta foi excluída e/ou desativada pelo administrador do site, sendo assim, não é possível efetuar o login utilizando essa conta
-                if (json.nivelUsuario == 3) {
+                if (dados.nivelUsuario == 3) {
                   alert(
                     'Sua conta foi desabilitada ou excluída. Se cadastre novamente ou utilize outra conta.'
                   );
                 }
                 //Verifica se o usuário que está logando tem poder administrativo, que segundo a regra de negócio, tem nivel 2 de usuário.
-                else if (json.nivelUsuario == 2) {
+                else if (dados.nivelUsuario == 2) {
                   // Caso seja um administrador logando, é informado ao armazenamento local que logado = true e direciona o administrador até a tela de administração.
-                  Armazenamento_local.setItem("logado", true);
-                  Armazenamento_local.setItem("id", json.idUsuario);
-                  Armazenamento_local.setItem("admin", true);
-                  Armazenamento_local.setItem("nome_usuario", json.nomeUsuario);
+                  Armazenamento_local.setItem("id", dados.idUsuario);
 
                   window.location = 'admin.html';
                 } else{

@@ -3,16 +3,14 @@ var usuarioModel = require("../models/usuarioModel");
 var sessoes = [];
 
 function fnTestar(req, res) {
-    console.log("ENTRAMOS NA usuarioController");
     res.json("ESTAMOS FUNCIONANDO, VAGA!");
 }
 
 function fnExcluir(req, res){
     var id = req.body.id_usuario;
-    console.log("Entramos na controller de exclusão :D");
     usuarioModel.fnExcluir(id).then(
         function (resultado) {
-            res.json(resultado);
+            res.status(200).json(resultado);
         }
     ).catch(function(erro){
         console.log(erro);
@@ -21,10 +19,9 @@ function fnExcluir(req, res){
 
 function fnReativar_conta(req, res){
     var id = req.body.id_usuario;
-
     usuarioModel.fnReativar_conta(id).then(
         function (resultado) {
-            res.json(resultado);
+            res.status(200).json(resultado);
         }
     ).catch(function(erro){
         console.log(erro);
@@ -82,7 +79,6 @@ function fnListar1usuario(req, res){
 }
 
 function fnVerificar_email(req, res){
-    console.log("Estou na controller!")
     var email = req.body.email;
 
     if(email == undefined){
@@ -121,12 +117,10 @@ function fnEntrar(req, res) {
         usuarioModel.fnEntrar(email, senha)
             .then(
                 function (resultado) {
-                    console.log(`\nResultados encontrados: ${resultado.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
 
                     if (resultado.length == 1) {
                         console.log(resultado);
-                        res.json(resultado[0]);
+                        res.status(200).json(resultado[0]);
                     } else if (resultado.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
@@ -165,7 +159,7 @@ function fnCadastrar(req, res) {
         usuarioModel.fnCadastrar(nome, sobrenome, email, senha, telefone)
             .then(
                 function (resultado) {
-                    res.json(resultado);
+                    res.status(200).json(resultado);
                 }
             ).catch(
                 function (erro) {
@@ -201,7 +195,7 @@ function fnAtualizar(req, res){
         usuarioModel.fnAtualizar(id, nome, sobrenome, email, telefone)
         .then(
             function(resultado){
-                res.json(resultado);
+                res.status(200).json(resultado);
                 console.log(resultado);
             }
         )
@@ -219,14 +213,13 @@ function fnAtualizar(req, res){
 
 function fnRegistrar_acesso(req, res){
     var id = req.body.id;
-
     if(id == undefined){
         res.status(400).send("Seu ID está undefined");
     }else{
         usuarioModel.fnRegistrar_acesso(id)
         .then(
             function(resultado){
-                res.json(resultado);
+                res.status(200).json(resultado);
             }
         )
         .catch(function(erro){
@@ -241,14 +234,13 @@ function fnRegistrar_acesso(req, res){
 
 function fnAtualizar_ultimo_acesso(req, res){
     var id = req.body.id;
-
     if(id == undefined){
         res.status(400).send("Seu ID está undefined");
     }else{
         usuarioModel.fnAtualizar_ultimo_acesso(id)
         .then(
             function(resultado){
-                resultado.json();
+                resultado.status(200).json();
             }
         )
         .catch(function(erro){

@@ -3,7 +3,6 @@ var postagensModel = require("../models/postagensModel");
 var sessoes = [];
 
 function testar(req, res) {
-    console.log("ENTRAMOS NA  postagensController");
     res.json("ESTAMOS FUNCIONANDO!");
 }
 
@@ -29,7 +28,6 @@ function fnListar_postagens(req, res){
 
 function fnListar_comentarios(req, res){
     var id_post = req.body.id_post;
-
     if(id_post == undefined){
         res.status(400).send("o ID do post está undefined!!");
     }else{
@@ -38,7 +36,7 @@ function fnListar_comentarios(req, res){
         postagensModel.fnListar_comentarios(id_post)
         .then(
             function(resultado){
-                res.json(resultado);
+                res.status(200).json(resultado);
             }
 
         )
@@ -70,7 +68,7 @@ function fnPostar_comentario(req, res){
     }else{
         postagensModel.fnPostar_comentario(id_postador, corpo_comentario, id_post)
         .then(function(resposta){
-            resposta.json(resultado);
+            resposta.status(200).json(resultado);
             console.log(resultado);
         })
         .catch(
